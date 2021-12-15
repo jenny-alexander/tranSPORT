@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -25,42 +30,86 @@ function LoginForm() {
   }; // end login
 
   return (
-    <form className="formPanel" onSubmit={login}>
-      <h2>Login</h2>
-      {errors.loginMessage && (
+    <div>
+        {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}
         </h3>
       )}
-      <div>
-        <label htmlFor="username">
-          Username:
-          <input
-            type="text"
-            name="username"
-            required
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="password">
-          Password:
-          <input
-            type="password"
-            name="password"
-            required
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <input className="btn" type="submit" name="submit" value="Log In" />
-      </div>
-    </form>
+      <Container>
+        <Box component="form" onSubmit={login}>
+          <Grid
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={3}>
+              <Grid item sx={12}>
+                <TextField 
+                  id="outlined-basic" 
+                  label="Username" 
+                  variant="outlined" 
+                  required
+                  value={username}
+                  onChange={(event) => setUsername(event.target.value)}
+                />
+              </Grid>
+              <Grid item sx={12}>
+                <TextField 
+                  id="outlined-basic" 
+                  label="Password" 
+                  variant="outlined" 
+                  required
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                />
+              </Grid>
+              <Grid item sx={12}>
+                <Button variant="contained" type="submit" name="submit">Login</Button>
+              </Grid>
+          </Grid>
+        </Box>
+
+      </Container>
+    </div>
   );
+  // return (
+  //   <form className="formPanel" onSubmit={login}>
+  //     <h2>Login</h2>
+  //     {errors.loginMessage && (
+  //       <h3 className="alert" role="alert">
+  //         {errors.loginMessage}
+  //       </h3>
+  //     )}
+  //     <div>
+  //       <label htmlFor="username">
+  //         Username:
+  //         <input
+  //           type="text"
+  //           name="username"
+  //           required
+  //           value={username}
+  //           onChange={(event) => setUsername(event.target.value)}
+  //         />
+  //       </label>
+  //     </div>
+  //     <div>
+  //       <label htmlFor="password">
+  //         Password:
+  //         <input
+  //           type="password"
+  //           name="password"
+  //           required
+  //           value={password}
+  //           onChange={(event) => setPassword(event.target.value)}
+  //         />
+  //       </label>
+  //     </div>
+  //     <div>
+  //       <input className="btn" type="submit" name="submit" value="Log In" />
+  //     </div>
+  //   </form>
+  // );
 }
 
 export default LoginForm;
