@@ -7,6 +7,8 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { useHistory } from 'react-router-dom';
+import FaceIcon from '@mui/icons-material/Face';
+import Player from '../Player/Player';
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -16,7 +18,7 @@ function CreateRide(props) {
   // a default value of 'Functional Component'
   const store = useSelector((store) => store);
   const [newRide, setNewRide] = useState( {
-      playerName: 'Michel',
+      playerName: 'Michael',
       pickupDate: new Date().toLocaleDateString(),
       pickupTime: new Date().toLocaleTimeString(),
       pickupLocation: '55 Marvin Road, Town, MN, 55555',
@@ -33,9 +35,9 @@ function CreateRide(props) {
   return (
     <div>
       <h2>Create a New Ride</h2>
-      <Container>
-        <Box component="form" onSubmit={createRide}>
 
+      <Container>        
+        <Box component="form" onSubmit={createRide}>
            <Grid
             container
             direction="column"
@@ -43,17 +45,10 @@ function CreateRide(props) {
             alignItems="center"
             spacing={3}
           > 
-
-              <Grid item sx={12}>
-                <TextField 
-                  disabled
-                  id="outlined-basic" 
-                  label="Player Name" 
-                  variant="outlined" 
-                  required
-                  value={newRide.playerName}
-                />
-              </Grid>  
+               <Grid item sx={12}>
+                <Player name={newRide.playerName}/>
+              </Grid>   
+                  
 
               <Grid item sx={12}>
                 <TextField 
@@ -99,7 +94,6 @@ function CreateRide(props) {
                 />                
               </Grid> 
 
-              {/* <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}> */}
               <Grid item sx={12}>
                 <TextField aria-label='empty textarea'
                            defaultValue={newComments}
@@ -108,7 +102,6 @@ function CreateRide(props) {
                            align="center"
                            onChange={ ( event ) => setNewComments(event.target.value)}
                            inputProps={{ maxLength: 250 }}/>
-              {/* </Box> */}
               </Grid>
 
               <Grid item sx={12}>
