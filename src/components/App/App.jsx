@@ -20,6 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import HomePage from '../HomePage/HomePage';
+import CreateRide from '../CreateRide/CreateRide';
 
 function App() {
   const dispatch = useDispatch();
@@ -108,6 +109,11 @@ function App() {
               // Otherwise, show the Landing page
               <LandingPage />
             }
+          </Route>
+
+
+          <Route exact path="/create">
+            {user.id ? <CreateRide /> : <LoginPage />}
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}

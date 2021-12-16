@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import { useHistory } from 'react-router-dom';
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -21,6 +22,9 @@ function CreateRide(props) {
       pickupLocation: '55 Marvin Road, Town, MN, 55555',
       dropoffLocation: '22 Arrival Ave, Other Town, 33333'
   } );
+  const [newComments, setNewComments] = useState ('');
+
+  const history = useHistory();
 
   const createRide=()=>{
     console.log(`in createRide with ride object:`, newRide);
@@ -30,13 +34,16 @@ function CreateRide(props) {
     <div>
       <h2>Create a New Ride</h2>
       <Container>
-        <Box component="form" onSubmit={addNewRide}>
-          <Grid
+        <Box component="form" onSubmit={createRide}>
+
+           <Grid
             container
             direction="column"
             justifyContent="center"
             alignItems="center"
-            spacing={3}>
+            spacing={3}
+          > 
+
               <Grid item sx={12}>
                 <TextField 
                   disabled
@@ -46,7 +53,8 @@ function CreateRide(props) {
                   required
                   value={newRide.playerName}
                 />
-              </Grid>              
+              </Grid>  
+
               <Grid item sx={12}>
                 <TextField 
                   id="outlined-basic" 
@@ -57,6 +65,7 @@ function CreateRide(props) {
                   onChange={(event) => setNewRide({...newRide, pickupDate: event.target.value }) }
                 />
               </Grid>
+
               <Grid item sx={12}>
                 <TextField 
                   id="outlined-basic" 
@@ -67,6 +76,7 @@ function CreateRide(props) {
                   onChange={(event) => setNewRide({...newRide, pickupTime: event.target.value }) }
                 />
               </Grid>
+ 
               <Grid item sx={12}>
                 <TextField 
                   id="outlined-basic" 
@@ -76,6 +86,8 @@ function CreateRide(props) {
                   value={newRide.pickupLocation}
                   onChange={(event) => setNewRide({...newRide, pickupLocation: event.target.value }) }
                 />
+              </Grid>
+
               <Grid item sx={12}>
                 <TextField 
                   id="outlined-basic" 
@@ -85,11 +97,26 @@ function CreateRide(props) {
                   value={newRide.dropoffLocation}
                   onChange={(event) => setNewRide({...newRide, dropoffLocation: event.target.value }) }
                 />                
-              </Grid>                                               
+              </Grid> 
+
+              {/* <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}> */}
               <Grid item sx={12}>
-                <Button variant="contained" type="submit" name="submit">Next</Button>
+                <TextField aria-label='empty textarea'
+                           defaultValue={newComments}
+                           placeholder='Add comments here...'
+                           style={{ width: 300, fontSize: 17}}
+                           align="center"
+                           onChange={ ( event ) => setNewComments(event.target.value)}
+                           inputProps={{ maxLength: 250 }}/>
+              {/* </Box> */}
               </Grid>
-          </Grid>
+
+              <Grid item sx={12}>
+                <Button variant="contained" onClick={()=>{history.push('/home')}}>Back</Button>
+                <Button variant="contained" type="submit" name="submit" onClick={()=>{history.push('/confirm-ride')}}>Next</Button>
+              </Grid>
+
+          </Grid> 
         </Box>
 
       </Container>

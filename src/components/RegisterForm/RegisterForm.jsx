@@ -9,6 +9,7 @@ import Grid from '@mui/material/Grid';
 function RegisterForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordCheck, setPasswordCheck] = useState('');
   const [parentName, setParentName] = useState('');
   const [childName, setChildName] = useState('');
   const errors = useSelector((store) => store.errors);
@@ -61,16 +62,17 @@ function RegisterForm() {
                   onChange={(event) => setPassword(event.target.value)}
                 />
               </Grid>
-              {/* <Grid item sx={12}>
+              <Grid item sx={12}>
                 <TextField 
                   id="outlined-basic" 
                   label="Re-enter Password" 
+                  type="password"
                   variant="outlined" 
                   required
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
+                  value={passwordCheck}
+                  onChange={(event) => setPasswordCheck(event.target.value)}
                 />
-              </Grid> */}
+              </Grid>
               <Grid item sx={12}>
                 <TextField 
                   id="outlined-basic" 

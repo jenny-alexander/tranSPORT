@@ -16,6 +16,7 @@ function HomePage(props) {
   const store = useSelector((store) => store);
   const [heading, setHeading] = useState('Functional Component');
   const history = useHistory();
+  
   const theme = createTheme({
     palette: {
       neutral: {

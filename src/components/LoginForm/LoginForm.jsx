@@ -58,6 +58,7 @@ function LoginForm() {
                 <TextField 
                   id="outlined-basic" 
                   label="Password" 
+                  type="password"
                   variant="outlined" 
                   required
                   value={password}
