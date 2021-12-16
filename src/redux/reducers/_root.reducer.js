@@ -13,8 +13,8 @@ import comment from './comment.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-  ride,
-  comment,
+  // ride,
+  // comment,
 });
 
 export default rootReducer;

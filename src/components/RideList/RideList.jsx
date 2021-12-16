@@ -12,7 +12,7 @@ function RideList(props) {
 
   return (
     <div>
-      <h2>Ride Details</h2>
+      <h2>Ride List</h2>
     </div>
   );
 }
