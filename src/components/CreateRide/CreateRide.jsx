@@ -34,8 +34,6 @@ function CreateRide(props) {
 
   return (
     <div>
-      <h2>Create a New Ride</h2>
-
       <Container>        
         <Box component="form" onSubmit={createRide}>
            <Grid
@@ -44,7 +42,10 @@ function CreateRide(props) {
             justifyContent="center"
             alignItems="center"
             spacing={3}
-          > 
+          >   
+        <Typography sx={{ p:2, textAlign: 'center', fontSize: '30px' }}>
+            Create a New Ride Request
+        </Typography>
                <Grid item sx={12}>
                 <Player name={newRide.playerName}/>
               </Grid>   

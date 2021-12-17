@@ -21,6 +21,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import HomePage from '../HomePage/HomePage';
 import CreateRide from '../CreateRide/CreateRide';
+import RideList from '../RideList/RideList';
 
 function App() {
   const dispatch = useDispatch();
@@ -40,11 +41,7 @@ function App() {
           <Redirect exact from="/" to="/home" />
 
           {/* Visiting localhost:3000/about will show the about page. */}
-          <Route
-            // shows AboutPage at all times (logged in or not)
-            exact
-            path="/about"
-          >
+          <Route exact path="/about">
             <AboutPage />
           </Route>
 
@@ -52,23 +49,14 @@ function App() {
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-          <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
-            exact
-            path="/user"
-          >
-            {/* <UserPage /> */}
+          <ProtectedRoute exact path="/user">
             <HomePage />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path="/info"
-          >
+          <ProtectedRoute exact path="/info">
             <InfoPage />
           </ProtectedRoute>
-
+{/* 
           <Route
             exact
             path="/login"
@@ -76,45 +64,35 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/home" />
               :
               // Otherwise, show the login page
               <LoginPage />
             }
+          </Route> */}
+          <Route exact path="/login" >
+            {user.id ? <HomePage /> : <LoginPage /> }
           </Route>
 
-          <Route
-            exact
-            path="/registration"
-          >
-            {user.id ?
-              // If the user is already logged in, 
-              // redirect them to the /user page
-              <Redirect to="/user" />
-              :
-              // Otherwise, show the registration page
-              <RegisterPage />
-            }
+          <Route exact path="/registration" >
+            {user.id ? <HomePage /> : <RegisterPage /> }
           </Route>
 
-          <Route
-            exact
-            path="/home"
-          >
-            {user.id ?
-              // If the user is already logged in, 
-              // redirect them to the /user page
-              <Redirect to="/user" />
-              :
-              // Otherwise, show the Landing page
-              <HomePage />
-            }
+          <Route exact path="/home">
+            {user.id ? <HomePage /> : <LoginPage />}            
           </Route>
-
 
           <Route exact path="/create">
             {user.id ? <CreateRide /> : <LoginPage />}
           </Route>
+
+          <Route exact path="/view/myrides">
+            {user.id ? <RideList filterByUser={true} /> : <LoginPage />}
+          </Route>          
+
+          <Route exact path="/view/allrides">
+            {user.id ? <RideList filterByUser={false} /> : <LoginPage />}
+          </Route>              
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>

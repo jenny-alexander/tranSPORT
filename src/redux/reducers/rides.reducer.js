@@ -1,5 +1,5 @@
 //rideReducer is the name of the store
-const rideReducer = (state = {}, action) => {
+const ridesReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_RIDES':
       return action.payload;
@@ -10,4 +10,4 @@ const rideReducer = (state = {}, action) => {
 
 // user will be on the redux state at:
 // state.user
-export default rideReducer;
+export default ridesReducer;

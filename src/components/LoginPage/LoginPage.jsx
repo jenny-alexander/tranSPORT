@@ -4,12 +4,16 @@ import { useHistory } from 'react-router-dom';
 import Header from '../Header/Header';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import './LoginPage.css';
 
 function LoginPage() {
   const history = useHistory();
 
   return (
     <div>
+      {/* <center>
+        <img src="/images/logo.png" alt="transport logo"/>
+      </center> */}
       <Header />
       <LoginForm />
       <Container 

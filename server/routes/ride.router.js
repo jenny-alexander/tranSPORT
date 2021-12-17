@@ -11,6 +11,7 @@ router.get('/view/my-rides/:id', (req, res) => {
                    JOIN "user" AS c ON r.creator_id = c.id
                    JOIN "user" AS d ON r.driver_id = d.id
                    WHERE driver_id = ${req.params.id};`;
+  console.log(`in get rides. query is:`, getQuery)
 
   pool.query(getQuery)
     .then((results) => {
@@ -22,16 +23,20 @@ router.get('/view/my-rides/:id', (req, res) => {
 });
 
 // GET all rides in system
-router.get('/view/all-rides', (req, res) => {
-  const getAllQuery = `SELECT r.*,
-                   c.parent_name AS creator_name,
-                   d.parent_name AS driver_name
-                   FROM ride AS r
-                   JOIN "user" AS c ON r.creator_id = c.id
-                   JOIN "user" AS d ON r.driver_id = d.id;`;
+router.get('/', (req, res) => {
+  console.log(`woof`)
+  // const getAllQuery = `SELECT r.*,
+  //                  c.parent_name AS creator_name,
+  //                  d.parent_name AS driver_name
+  //                  FROM ride AS r
+  //                  JOIN "user" AS c ON r.creator_id = c.id
+  //                  JOIN "user" AS d ON r.driver_id = d.id;`;
+  const getAllQuery = `SELECT * FROM ride;`;
+  console.log(`get all query is`, getAllQuery);
 
   pool.query(getAllQuery)
     .then((results) => {
+      console.log(`results are:`, results.rows);
       res.send(results.rows)
     }).catch((error) => {
       console.log(`GET all error is: `, error);
