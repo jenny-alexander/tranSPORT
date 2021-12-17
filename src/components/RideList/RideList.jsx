@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { Container, Grid, Card, CardContent, Rating, Typography, Button, Box } from '@mui/material';
 import CardHeader from '@mui/material/CardHeader';
+import CardAction from '@mui/material/CardAction';
+import Divider from '@mui/material/Divider'
 
 function RideList(props) {
   const [heading, setHeading] = useState('Functional Component');
@@ -44,18 +46,36 @@ function RideList(props) {
                {rides.map(ride=>{
                 return (
                         <Grid item xs={12}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
-                        <Card elevation={3} sx={{width: '75%', p: 1, my: 0.5 }}>
-                            
-                            <CardContent>
-                              <CardHeader title={ride.pickup_date}></CardHeader>
-                              {/* { new Date(ride.pickup_date).toLocaleDateString() + ' ' +
-                                new Date(ride.pickup_time).toLocaleTimeString( `en-US`, options )} */}
-                                { new Date(ride.pickup_date).toLocaleString() }
-                              
-                            </CardContent>
-                        </Card>
-                        </Box>  
+                          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+                            <Card elevation={3} sx={{width: '75%', p: 1, my: 0.5 }}>
+                              <Grid container direction="row" sx={{border:1}}>
+                                {/* <Grid item sx={6} sx={{border:1}}> */}
+                                  <CardHeader sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', border:1 }} 
+                                          title={new Date(ride.pickup_timestamp).toLocaleDateString()}
+                                          subheader={new Date(ride.pickup_timestamp).toLocaleTimeString( `en-US`, options )}
+                                          titleTypographyProps={{
+                                            variant: "h4",
+                                            align: "left"
+                                            }}
+                                            subheaderTypographyProps={{
+                                              variant: "h6",
+                                              align: "left",
+                                              color: "secondary",
+                                              gutterBottom: true
+                                            }}>
+                                  </CardHeader>
+                                {/* </Grid> */}
+                                  {/* <Grid item sx={2} sx={{border:1}}> */}
+                                    <CardContent sx={{border:1}}>
+                                        This is something
+                                    </CardContent>
+                                    <CardAction>
+                                      This is the action
+                                    </CardAction>
+                                {/* </Grid> */}
+                              </Grid>
+                            </Card>
+                          </Box>  
                         </Grid>                    
                 )
               })} 
