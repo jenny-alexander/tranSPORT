@@ -20,7 +20,8 @@ function Player(props) {
     spacing={2}
   > 
       <Grid item sx={2}>
-        <FaceIcon fontSize='large' />
+        {/* <FaceIcon fontSize='large' /> */}
+        <FaceIcon fontSize='small' />
       </Grid>
       <Grid item sx={9}>
         <TextField 

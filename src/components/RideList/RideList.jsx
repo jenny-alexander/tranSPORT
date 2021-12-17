@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { Container, Grid, Card, CardContent, Rating, Typography, Button, Box } from '@mui/material';
+import { Grid, Typography, Box } from '@mui/material';
 import Paper from '@mui/material/Paper';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
+import FaceIcon from '@mui/icons-material/Face';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 
-
 function RideList(props) {
-  const [heading, setHeading] = useState('Functional Component');
-
   const rides = useSelector((store) => store.rides);
   const user = useSelector(store => store.user);
   const dispatch = useDispatch();
   
   const options = {hour: "2-digit", minute: "2-digit"};
-  // const rideDate = new Date(task.dateCompleted ).toLocaleDateString() + ' ' +
-  //                     new Date(task.dateCompleted ).toLocaleTimeString( `en-US`, options );
 
   useEffect(()=>{
     console.log(`in useEffect of RideList`)
@@ -35,56 +33,93 @@ function RideList(props) {
         props.filterByUser ? <h2>My Rides</h2> : <h2>All Rides</h2>
       }
       </div>
-      {/* <h3>{JSON.stringify(rides)}</h3> */}
-      
-      <Box>
-        <Container>        
+      <h3>{JSON.stringify(rides)}</h3>
             <Grid
               container
               direction="row"
               justifyContent="center"
               alignItems="center"
-              spacing={3}>  
+              spacing={3}
+            >  
 
-               {rides.map(ride=>{
+                { rides.map(ride=>{
                 return (
                         <Grid item xs={12}>
                           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
-                            <Paper elevation={3} sx={{width: '75%', p: 1, my: 0.5, borderRadius: 5}}>
-                              <Grid
-                                container
-                                direction="row"
-                                justifyContent="center"
-                                alignItems="center"
-                                spacing={3}> 
-                                <Grid item xs={6} sx={{padding:1}}>
-                                  <Typography sx={{fontSize: '20px'}} >                                    
-                                    {new Date(ride.pickup_timestamp).toLocaleDateString()}
-                                  </Typography>
-                                  <Typography sx={{fontSize: '14px'}} >
-                                  {new Date(ride.pickup_timestamp).toLocaleTimeString( `en-US`, options )}
-                                  </Typography>                                
-                                </Grid>
-                                <Grid item xs={6} sx={{border:1}}">
-                                  <List>
-                                    <ListItem>
-                                      <ListItemText
-                                        primary="Dropoff Location"
-                                        secondary="Driver"
-                                        />
-                                    </ListItem>
-                                  </List>                     
-                                </Grid>
-                              </Grid>
-                            </Paper>
-                          </Box>  
-                        </Grid>                    
-                )
-              })} 
-            </Grid>            
-        </Container>  
-      </Box>
+                            <Card sx={{ minWidth: 325 }}>
+                              <CardContent>
+                                <Grid
+                                  container
+                                  direction="row"
+                                  justifyContent="left"
+                                  alignItems="center"
+                                  spacing={1}> 
 
+                                  <Grid item xs={3} sx={{padding:1}}>
+                                    <Typography sx={{fontSize: '16px'}} >                                    
+                                      {new Date(ride.pickup_timestamp).toLocaleDateString()}
+                                    </Typography>
+                                    <Typography sx={{fontSize: '13px'}} >
+                                    {new Date(ride.pickup_timestamp).toLocaleTimeString( `en-US`, options )}
+                                    </Typography>                                
+                                  </Grid>
+                                  <Grid item xs={9}>
+                                    <Grid
+                                      container
+                                      direction="column"
+                                      justifyContent="left"
+                                      alignItems="left"
+                                    > 
+                                    <Grid item xs={12} sx={{mt:1}}>
+                                      <Grid
+                                        container
+                                        direction="row"
+                                        justifyContent="left"
+                                        alignItems="left"                                    
+                                      >                   
+                                        <Grid item xs={2} 
+                                              sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                          <FaceIcon fontSize='small'/>
+                                        </Grid>
+                                        <Grid item xs={10}
+                                              sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left' }}
+                                        >
+                                          <Typography sx={{fontSize: '12px'}} >{ride.child_name}</Typography>
+                                        </Grid>
+                                      </Grid>
+                                    </Grid>
+                                  
+                                    <Grid item xs={12} >
+                                      <Grid
+                                        container
+                                        direction="row"
+                                        justifyContent="left"
+                                        alignItems="left"                                    
+                                      >                   
+                                      <Grid item xs={2}
+                                            sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                        <LocationOnIcon fontSize='small' />
+                                      </Grid>
+                                      <Grid item xs={10}
+                                            sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left', pt:1 }}
+                                      >
+                                        <Typography sx={{fontSize: '12px'}} >{ride.pickup_location}</Typography>
+                                      </Grid>
+                                    </Grid>
+                                  </Grid>                                  
+                                </Grid>                  
+                              </Grid>
+                            </Grid>
+                            </CardContent>
+                          <CardActions>
+                            <Button size="small">Learn More</Button>
+                          </CardActions>
+                        </Card>
+                      </Box>  
+                    </Grid>                    
+                )
+              })}  
+            </Grid>            
     </div>
   );
 }
