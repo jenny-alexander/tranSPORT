@@ -1,39 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Grid, Typography, Box } from '@mui/material';
-import Paper from '@mui/material/Paper';
 import FaceIcon from '@mui/icons-material/Face';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import HomeIcon from '@mui/icons-material/Home';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import CardActionArea from '@mui/material/CardActionArea';
 import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
+import { ThemeProvider, createTheme } from '@mui/system';
 
-function RideList(props) {
-  const rides = useSelector((store) => store.rides);
-  const user = useSelector(store => store.user);
-  const dispatch = useDispatch();
+function NewRideList(props) {
   
+  const rides = useSelector((store) => store.rides);
+  const dispatch = useDispatch();
   const options = {hour: "2-digit", minute: "2-digit"};
 
   useEffect(()=>{
-    console.log(`in useEffect of RideList`)
-    console.log( `userid is:`, user.id)
-    console.log( `props for filtering is:`, props.filterByUser );
-    props.filterByUser ? 
-      dispatch({type:'FETCH_USER_RIDES', payload: user.id}) : dispatch({type: 'FETCH_ALL_RIDES' })
+      //dispatch({type:'FETCH_USER_RIDES', payload: user.id}) : dispatch({type: 'FETCH_ALL_RIDES' })
+      dispatch({type: 'FETCH_ALL_RIDES' });
     }, []);
-
-  return (
     
+    const handleOnClick=()=>{
+      console.log('in handleOnClick');
+    }
+    
+  return (
     <div>
       <div className='title'>
       {
         props.filterByUser ? <h2>My Rides</h2> : <h2>All Rides</h2>
       }
       </div>
-      <h3>{JSON.stringify(rides)}</h3>
+      {/* <h3>{JSON.stringify(rides)}</h3> */}
+      
             <Grid
               container
               direction="row"
@@ -41,12 +42,12 @@ function RideList(props) {
               alignItems="center"
               spacing={3}
             >  
-
                 { rides.map(ride=>{
                 return (
                         <Grid item xs={12}>
                           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
-                            <Card sx={{ minWidth: 325 }}>
+                            <Card sx={{ width:325 }} elevation={5}>
+                            <CardActionArea onClick={handleOnClick}>
                               <CardContent>
                                 <Grid
                                   container
@@ -55,20 +56,24 @@ function RideList(props) {
                                   alignItems="center"
                                   spacing={1}> 
 
-                                  <Grid item xs={3} sx={{padding:1}}>
-                                    <Typography sx={{fontSize: '16px'}} >                                    
+                                  <Grid item xs={5} sx={{padding:1}}>
+                                    <Typography sx={{fontSize: '22px', fontWeight:600}} >                                    
                                       {new Date(ride.pickup_timestamp).toLocaleDateString()}
                                     </Typography>
-                                    <Typography sx={{fontSize: '13px'}} >
+                                    <Typography sx={{fontSize: '15px', fontWeight:500}} >
                                     {new Date(ride.pickup_timestamp).toLocaleTimeString( `en-US`, options )}
-                                    </Typography>                                
+                                    </Typography>    
+                                    <Typography sx={{fontSize: '15px', fontWeight:500, color: 'success.main'}} >
+                                      {ride.ride_status}
+                                    </Typography>                                                                  
                                   </Grid>
-                                  <Grid item xs={9}>
+                                  <Grid item xs={7}>
                                     <Grid
                                       container
                                       direction="column"
                                       justifyContent="left"
                                       alignItems="left"
+                                      sx={{pt:1}}
                                     > 
                                     <Grid item xs={12} sx={{mt:1}}>
                                       <Grid
@@ -79,7 +84,7 @@ function RideList(props) {
                                       >                   
                                         <Grid item xs={2} 
                                               sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                          <FaceIcon fontSize='small'/>
+                                          <FaceIcon fontSize='medium'/>
                                         </Grid>
                                         <Grid item xs={10}
                                               sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left' }}
@@ -98,11 +103,10 @@ function RideList(props) {
                                       >                   
                                       <Grid item xs={2}
                                             sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                                        <LocationOnIcon fontSize='small' />
+                                        <HomeIcon fontSize='medium' />
                                       </Grid>
                                       <Grid item xs={10}
-                                            sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left', pt:1 }}
-                                      >
+                                            sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left', pt:1 }}>
                                         <Typography sx={{fontSize: '12px'}} >{ride.pickup_location}</Typography>
                                       </Grid>
                                     </Grid>
@@ -111,17 +115,23 @@ function RideList(props) {
                               </Grid>
                             </Grid>
                             </CardContent>
-                          <CardActions>
-                            <Button size="small">Learn More</Button>
-                          </CardActions>
+                            </CardActionArea>
+                            {/* <CardActions>
+                              <Button variant="contained" 
+                                                    size="large"
+                                                    sx={{ height: 60, width: 90, m:3}}
+                                                    onClick={handleOnClick}>Submit</Button>  
+                            </CardActions> */}
                         </Card>
                       </Box>  
-                    </Grid>                    
+                    </Grid>                  
                 )
               })}  
-            </Grid>            
+            </Grid>    
+      
     </div>
   );
+  
 }
 
-export default RideList;
+export default NewRideList;

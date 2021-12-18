@@ -1,5 +1,5 @@
 //rideReducer is the name of the store
-const ridesReducer = (state = {}, action) => {
+const ridesReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_RIDES':
       return action.payload;

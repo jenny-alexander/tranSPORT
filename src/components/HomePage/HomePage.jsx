@@ -14,18 +14,7 @@ function HomePage(props) {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
   const store = useSelector((store) => store);
-  const [heading, setHeading] = useState('Functional Component');
   const history = useHistory();
-  
-  const theme = createTheme({
-    palette: {
-      neutral: {
-        main: '#64748B',
-        contrastText: '#fff',
-      },
-    },
-  });
-
 
   return (
     <div>
