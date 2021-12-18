@@ -78,6 +78,7 @@ function RegisterForm() {
               </Grid>
               <Grid item sx={12}>
                 <TextField
+                type="password"
                   label="Password"
                   id="password"
                   sx={{ m: 1, width: '30ch' }}
