@@ -9,6 +9,10 @@ import Typography from '@mui/material/Typography';
 import { useHistory } from 'react-router-dom';
 import FaceIcon from '@mui/icons-material/Face';
 import Player from '../Player/Player';
+import InputAdornment from '@mui/material/InputAdornment';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -34,6 +38,18 @@ function CreateRide(props) {
 
   return (
     <div>
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        sx={{mb:7, mt:2}}>
+        <Grid item xs={12} >
+          <Typography variant="h5" gutterBottom component="div">
+            Create New Ride Request
+          </Typography>
+        </Grid>            
+      </Grid>
       <Container>        
         <Box component="form" onSubmit={createRide}>
            <Grid
@@ -42,73 +58,99 @@ function CreateRide(props) {
             justifyContent="center"
             alignItems="center"
             spacing={3}
-          >   
-        <Typography sx={{ p:2, textAlign: 'center', fontSize: '30px' }}>
-            Create a New Ride Request
-        </Typography>
-               <Grid item sx={12}>
-                <Player name={newRide.playerName}/>
-              </Grid>   
-                  
-
-              <Grid item sx={12}>
-                <TextField 
-                  id="outlined-basic" 
-                  label="Pickup Date" 
-                  variant="outlined" 
+          >                     
+              <Grid item xs={12}>
+                <TextField
+                  label="Pickup Date"
+                  id="pickupDate"
+                  sx={{ m: 1, width: '40ch' }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start"><CalendarTodayIcon /></InputAdornment>,
+                  }}
+                  variant="standard"
                   required
                   value={newRide.pickupDate}
                   onChange={(event) => setNewRide({...newRide, pickupDate: event.target.value }) }
                 />
               </Grid>
-
-              <Grid item sx={12}>
-                <TextField 
-                  id="outlined-basic" 
-                  label="Pickup Time" 
-                  variant="outlined" 
+              <Grid item xs={12}>
+                <TextField
+                  label="Pickup Time"
+                  id="pickupTime"
+                  sx={{ m: 1, width: '40ch' }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start"><AccessTimeIcon /></InputAdornment>,
+                  }}
+                  variant="standard"
                   required
                   value={newRide.pickupTime}
                   onChange={(event) => setNewRide({...newRide, pickupTime: event.target.value }) }
                 />
-              </Grid>
- 
-              <Grid item sx={12}>
-                <TextField 
-                  id="outlined-basic" 
-                  label="Pickup Location" 
-                  variant="outlined" 
+              </Grid> 
+              <Grid item xs={12}>
+                <TextField
+                  label="Pickup Location"
+                  id="pickupLocation"
+                  sx={{ m: 1, width: '40ch' }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start"><LocationOnIcon /></InputAdornment>,
+                  }}
+                  variant="standard"
                   required
                   value={newRide.pickupLocation}
                   onChange={(event) => setNewRide({...newRide, pickupLocation: event.target.value }) }
                 />
-              </Grid>
-
-              <Grid item sx={12}>
-                <TextField 
-                  id="outlined-basic" 
-                  label="Dropoff Location" 
-                  variant="outlined" 
+              </Grid>              
+              <Grid item xs={12}>
+                <TextField
+                  label="Dropoff Location"
+                  id="dropoffLocation"
+                  sx={{ m: 1, width: '40ch' }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start"><LocationOnIcon /></InputAdornment>,
+                  }}
+                  variant="standard"
                   required
                   value={newRide.dropoffLocation}
                   onChange={(event) => setNewRide({...newRide, dropoffLocation: event.target.value }) }
-                />                
-              </Grid> 
-
-              <Grid item sx={12}>
+                />
+              </Grid>   
+              <Grid item xs={12}>
                 <TextField aria-label='empty textarea'
                            defaultValue={newComments}
                            placeholder='Add comments here...'
-                           style={{ width: 300, fontSize: 17}}
+                           style={{ width: 320, fontSize: 17}}
                            align="center"
                            onChange={ ( event ) => setNewComments(event.target.value)}
                            inputProps={{ maxLength: 250 }}/>
               </Grid>
 
-              <Grid item sx={12}>
-                <Button variant="contained" onClick={()=>{history.push('/home')}}>Back</Button>
-                <Button variant="contained" type="submit" name="submit" onClick={()=>{history.push('/confirm-ride')}}>Next</Button>
-              </Grid>
+              {/* TODO: Might be a better way using a grid item and then putting one button as flex-start and the other
+                  as flex-end?*/}
+                <Box sx={{
+                    display: "flex", 
+                    justifyContent:"center", 
+                    position: "absolute", 
+                    bottom: "0", 
+                    left: "0%"}}>
+                  <Button variant="outlined" sx={{width:'20ch', m:1}}
+                          onClick={()=>{history.push('/home')}}>
+                      Back
+                  </Button>
+                </Box>
+                <Box sx={{
+                    display: "flex", 
+                    justifyContent:"center", 
+                    position: "absolute", 
+                    bottom: "0", 
+                    right: "0%"}}>           
+                    {/* TODO: This should show a popup with details and confirming add'. No 
+                    need to go to another screen.      */}
+                  <Button variant="contained" sx={{width:'20ch', m:1}}
+                          onClick={()=>{history.push('/confirm-ride')}}>
+                      Next
+                  </Button> 
+                </Box>
 
           </Grid> 
         </Box>
