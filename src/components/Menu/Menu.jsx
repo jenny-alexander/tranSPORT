@@ -50,7 +50,12 @@ export default function MainNavigation() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" 
+              position="sticky" 
+              style={{
+                  color: "black", 
+                  backgroundColor: "#FFFFFF",
+                  boxShadow: "0px 0px 0px 0px"}}>
         <Toolbar>
           <IconButton
             size="large"
