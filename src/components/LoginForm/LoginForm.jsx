@@ -78,7 +78,7 @@ function LoginForm() {
               </Grid>
               <Grid item sx={12}>
               <Button variant="contained" type="submit" name="submit" fullWidth
-                sx={{width: '30ch'}}>Login</Button>
+                sx={{width: '30ch', mb:1} }>Login</Button>
               </Grid>
           </Grid>
         </Box>

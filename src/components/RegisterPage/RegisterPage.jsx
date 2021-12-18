@@ -20,7 +20,7 @@ function RegisterPage() {
       <RegisterForm />
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
         <Grid item>
-          <Button variant="text" sx={{mt:2}}
+          <Button variant="outlined" sx={{width: '30ch', mt:2}}
                   onClick={()=>{history.push('/login')}}>Back to Login</Button>
         </Grid>
       </Box>
