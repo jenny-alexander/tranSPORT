@@ -1,42 +1,29 @@
 import React from 'react';
-
 import { useHistory } from 'react-router-dom';
 import RegisterForm from '../RegisterForm/RegisterForm';
 import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import { Box, Grid } from '@mui/material';
 
 function RegisterPage() {
   const history = useHistory();
 
   return (
     <div>
-      <header className='App-header'>
-        <h1 className='App-title'>Register Yourself</h1>
-      </header>
+      <Box sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left'}} >
+        <Grid item xs={4} sx={{mb:5, ml:2, mt:1}}>
+          <Typography variant="h4" gutterBottom component="div">
+            Create Account
+          </Typography>
+        </Grid>          
+      </Box>
       <RegisterForm />
-
-      <Container 
-        justifyContent="center"
-        alignItems="flex-end"
-      >
-        <Button variant="contained" fullWidth
-                onClick={()=>{
-                  history.push('/login');
-                }}>Back to Login
-        </Button>
-      </Container>   
-
-      {/* <center>
-        <button
-          type="button"
-          className="btn btn_asLink"
-          onClick={() => {
-            history.push('/login');
-          }}
-        >
-          Back to Login
-        </button>
-      </center> */}
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+        <Grid item>
+          <Button variant="text" type="submit" name="submit" sx={{mt:2}}
+                  onClick={()=>{history.push('/login')}}>Back to Login</Button>
+        </Grid>
+      </Box>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { styled, alpha } from '@mui/material/styles';
+import MuiListItemButton from '@mui/material/ListItemButton';
 import { AppBar,Toolbar, Typography, Button, Container } from '@mui/material';
 import { Box, Drawer, Divider, InputBase } from '@mui/material';
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
@@ -33,6 +34,13 @@ export default function MainNavigation() {
   const dispatch = useDispatch();
   //react useState hook to save the current open/close state of the drawer, normally variables dissapear afte the function was executed
   const [open, setState] = useState(false);
+
+  const ListItemButton = styled(MuiListItemButton)({
+    '&.active .MuiTypography-root': {
+      fontWeight: 'bold',
+      color: 'black'
+    },
+  });
 
   //function that is being called every time the drawer should open or close, the keys tab and shift are excluded so the user can focus between the elements with the keys
   const toggleDrawer = (open) => (event) => {
@@ -85,7 +93,7 @@ export default function MainNavigation() {
 
                    <Divider sx={{mb: 2}} />
 
-                   <Box sx={{mb: 2}}>
+                   <Box sx={{mb: 2}} sx={{color: "black"}} >
                     <Link className="menuLink" to="/home"
                       onClick={toggleDrawer(false)}>
                       <ListItemButton>
