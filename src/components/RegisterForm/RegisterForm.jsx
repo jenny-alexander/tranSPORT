@@ -4,6 +4,8 @@ import TextField from '@mui/material/TextField';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
+import PersonIcon from '@mui/icons-material/Person';
+import FaceIcon from '@mui/icons-material/Face';
 import InputAdornment from '@mui/material/InputAdornment';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -88,7 +90,34 @@ function RegisterForm() {
                   onChange={(event) => setPassword(event.target.value)}
                 />
               </Grid>
-                   
+              <Grid item sx={12}>
+                <TextField
+                  label="Parent Name"
+                  id="parentName"
+                  sx={{ m: 1, width: '30ch' }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start"><PersonIcon /></InputAdornment>,
+                  }}
+                  variant="standard"
+                  required
+                  value={parentName}
+                  onChange={(event) => setParentName(event.target.value)}
+                />
+              </Grid>              
+              <Grid item sx={12}>
+                <TextField
+                  label="Child Name"
+                  id="childName"
+                  sx={{ m: 1, width: '30ch' }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start"><FaceIcon /></InputAdornment>,
+                  }}
+                  variant="standard"
+                  required
+                  value={childName}
+                  onChange={(event) => setChildName(event.target.value)}
+                />
+              </Grid>                                   
               <Grid item sx={12}>
                 <Button variant="contained" type="submit" name="submit" fullWidth
                 sx={{width: '30ch'}}>Register</Button>
