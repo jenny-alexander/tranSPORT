@@ -13,6 +13,11 @@ function LoginPage() {
     <div>
       {/* TODO: Add Logo?????*/}
       <Header />
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}} >
+        <Typography variant="h4" sx={{mb:5}}>
+        Log-in
+        </Typography>   
+      </Box>
       <LoginForm />
       {/* <Divider><Typography>or</Typography></Divider> */}
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}} >

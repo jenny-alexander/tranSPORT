@@ -28,11 +28,12 @@ function NewRideList(props) {
     
   return (
     <div>
-      <div className='title'>
-      {
-        props.filterByUser ? <h2>My Rides</h2> : <h2>All Rides</h2>
-      }
-      </div>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}} >
+        <Typography variant="h4" sx={{mb:5}}>
+        {props.filterByUser ? 'My Rides' : 'All Rides'     
+          }
+      </Typography>   
+      </Box>
       {/* <h3>{JSON.stringify(rides)}</h3> */}
       
             <Grid

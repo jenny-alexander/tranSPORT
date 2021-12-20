@@ -102,10 +102,10 @@ const ResponsiveAppBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           > */}
-          <Box component='div' 
+          {/* <Box component='div' 
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <img src='/images/logo.png' alt='logo'></img>
-          </Box>
+          </Box> */}
           {/* </Typography> */}
         </Toolbar>
       </Container>

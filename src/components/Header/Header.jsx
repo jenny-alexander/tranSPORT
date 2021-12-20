@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {useSelector} from 'react-redux';
-import './Header.css';
+import Box from '@mui/material/Box';
 
 function Header(props) {
   // Using hooks we're creating local state for a "heading" variable with
@@ -9,11 +9,9 @@ function Header(props) {
   const [name, setName] = useState('');
 
   return (
-      <div>
-          <header className='App-header'>
-              <h1 className='App-title'>Welcome to tranSPORT!</h1>
-          </header>
-      </div>
+    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}} >
+        <img src='images/logo.png' alt='logo'></img>
+    </Box>
   )
 }
 

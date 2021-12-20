@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import {useSelector} from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { useHistory } from 'react-router-dom';
-import FaceIcon from '@mui/icons-material/Face';
-import Player from '../Player/Player';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -22,11 +26,18 @@ function CreateRide(props) {
   // a default value of 'Functional Component'
   const store = useSelector((store) => store);
   const [newRide, setNewRide] = useState( {
-      playerName: 'Michael',
-      pickupDate: new Date().toLocaleDateString(),
-      pickupTime: new Date().toLocaleTimeString(),
-      pickupLocation: '55 Marvin Road, Town, MN, 55555',
-      dropoffLocation: '22 Arrival Ave, Other Town, 33333'
+      // playerName: 'Michael',
+      // pickupDate: new Date().toLocaleDateString(),
+      // pickupTime: new Date().toLocaleTimeString(),
+      // pickupLocation: '55 Marvin Road, Town, MN, 55555',
+      // dropoffLocation: '22 Arrival Ave, Other Town, 33333'
+      playerName: '',
+      pickupDate: '',
+      pickupTime: '',
+      pickupLocation: '',
+      dropoffLocation: '',
+      eventType: '',
+      returnTrip: ''
   } );
   const [newComments, setNewComments] = useState ('');
 
@@ -43,7 +54,7 @@ function CreateRide(props) {
         direction="column"
         justifyContent="center"
         alignItems="center"
-        sx={{mb:7, mt:3}}>
+        sx={{mb:3, mt:3}}>
         <Grid item xs={12} >
           <Typography variant="h5" gutterBottom component="div">
             Create New Ride Request
@@ -115,23 +126,40 @@ function CreateRide(props) {
                   onChange={(event) => setNewRide({...newRide, dropoffLocation: event.target.value }) }
                 />
               </Grid>   
+              <Grid item sx={12}>
+                <FormControl component="fieldset"
+                  sx={{ width: '40ch' }}>
+                  <FormLabel component="event">Event type</FormLabel>
+                  <RadioGroup row aria-label="event" name="row-radio-buttons-group">
+                    <FormControlLabel value="practice" control={<Radio />} label="Practice" />
+                    <FormControlLabel value="game" control={<Radio />} label="Game" />
+                    <FormControlLabel value="other" control={<Radio />} label="Other" />
+                  </RadioGroup>
+                </FormControl>
+              </Grid>
+              {/* <Grid item xs={12}> */}
+              <Grid item xs={12}>
+                <Box sx={{display:'flex', width:'40ch'}}>
+                  <FormControlLabel control={<Checkbox />} label="Return Trip" />
+                </Box>
+              </Grid>
+              {/* </Grid> */}
               <Grid item xs={12}>
                 <TextField aria-label='empty textarea'
                            defaultValue={newComments}
                            placeholder='Add comments here...'
-                           style={{ width: 320, fontSize: 17}}
+                          //  style={{ width: 320, fontSize: 17}}
+                          sx={{ m: 1, width: '40ch', fontSize: 17 }}
                            align="center"
                            onChange={ ( event ) => setNewComments(event.target.value)}
                            inputProps={{ maxLength: 250 }}/>
               </Grid>
-
-              {/* TODO: Might be a better way using a grid item and then putting one button as flex-start and the other
-                  as flex-end?*/}
+              <Grid item xs={12}>
                 <Box sx={{
                     display: "flex", 
                     justifyContent:"center", 
                     position: "absolute", 
-                    bottom: "0", 
+                    // bottom: "0", 
                     left: "0%"}}>
                   <Button variant="outlined" sx={{width:'20ch', m:1}}
                           onClick={()=>{history.push('/home')}}>
@@ -142,16 +170,14 @@ function CreateRide(props) {
                     display: "flex", 
                     justifyContent:"center", 
                     position: "absolute", 
-                    bottom: "0", 
+                    // bottom: "0", 
                     right: "0%"}}>           
-                    {/* TODO: This should show a popup with details and confirming add'. No 
-                    need to go to another screen.      */}
                   <Button variant="contained" sx={{width:'20ch', m:1}}
                           onClick={()=>{history.push('/confirm-ride')}}>
                       Next
                   </Button> 
                 </Box>
-
+                </Grid>
           </Grid> 
         </Box>
 
