@@ -88,7 +88,7 @@ function App() {
           </Route>
 
           <Route exact path="/create">
-            {user.id ? <CreateRide /> : <LoginPage />}
+            {user.id ? <CreateRide action='create'/> : <LoginPage />}
           </Route>
 
           <Route exact path="/view/myrides">
@@ -97,7 +97,11 @@ function App() {
 
           <Route exact path="/view/allrides">
             {user.id ? <RideList filterByUser={false} /> : <LoginPage />}
-          </Route>              
+          </Route> 
+
+          <Route exact path='/confirm-ride'>
+            {user.id ? <CreateRide action='confirm'/> : <LoginPage />}
+          </Route>                      
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>

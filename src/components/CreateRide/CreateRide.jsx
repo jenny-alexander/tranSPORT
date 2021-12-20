@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -18,12 +18,7 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
-// Basic functional component structure for React with default state
-// value setup. When making a new component be sure to replace the
-// component name CreateRide with the name for the new component.
 function CreateRide(props) {
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
   const store = useSelector((store) => store);
   const [newRide, setNewRide] = useState( {
       // playerName: 'Michael',
@@ -41,10 +36,18 @@ function CreateRide(props) {
   } );
   const [newComments, setNewComments] = useState ('');
 
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const createRide=()=>{
     console.log(`in createRide with ride object:`, newRide);
+    history.push('/confirm-ride')
+    dispatch( {type: 'SEND_RIDE_DETAILS', payload: newRide });
+    //on click of next button, we want to send these details
+    //to the store. When the user clicks on the 'next' button,
+    //we will load these details on the 'confirm new ride' 
+    //page. The page will be identical to the create ride 
+    //except that the fields will be disabled.
   }
 
   return (
@@ -130,7 +133,7 @@ function CreateRide(props) {
                 <FormControl component="fieldset"
                   sx={{ width: '40ch' }}>
                   <FormLabel component="event">Event type</FormLabel>
-                  <RadioGroup row aria-label="event" name="row-radio-buttons-group">
+                  <RadioGroup row aria-label="event" name="row-radio-buttons-group" defaultValue="practice">
                     <FormControlLabel value="practice" control={<Radio />} label="Practice" />
                     <FormControlLabel value="game" control={<Radio />} label="Game" />
                     <FormControlLabel value="other" control={<Radio />} label="Other" />
@@ -173,7 +176,7 @@ function CreateRide(props) {
                     // bottom: "0", 
                     right: "0%"}}>           
                   <Button variant="contained" sx={{width:'20ch', m:1}}
-                          onClick={()=>{history.push('/confirm-ride')}}>
+                          onClick={createRide}>
                       Next
                   </Button> 
                 </Box>
