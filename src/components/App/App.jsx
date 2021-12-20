@@ -15,7 +15,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
+// import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
@@ -23,6 +23,7 @@ import HomePage from '../HomePage/HomePage';
 import CreateRide from '../CreateRide/CreateRide';
 import RideList from '../RideList/RideList';
 import Menu from '../Menu/Menu';
+import ResponsiveAppBar from '../ResponsiveAppBar/ResponsiveAppBar';
 
 function App() {
   const dispatch = useDispatch();
@@ -37,7 +38,8 @@ function App() {
     <Router>
       <div>
         {/* <Nav /> */}
-        <Menu />
+        {/* <Menu /> */}
+        <ResponsiveAppBar />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/home" />
@@ -55,9 +57,9 @@ function App() {
             <HomePage />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path="/info">
+          {/* <ProtectedRoute exact path="/info">
             <InfoPage />
-          </ProtectedRoute>
+          </ProtectedRoute> */}
 {/* 
           <Route
             exact

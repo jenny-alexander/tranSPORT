@@ -43,7 +43,7 @@ function CreateRide(props) {
         direction="column"
         justifyContent="center"
         alignItems="center"
-        sx={{mb:7, mt:2}}>
+        sx={{mb:7, mt:3}}>
         <Grid item xs={12} >
           <Typography variant="h5" gutterBottom component="div">
             Create New Ride Request

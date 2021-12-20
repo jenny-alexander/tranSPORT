@@ -58,8 +58,7 @@ export default function MainNavigation() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" 
-              position="sticky" 
+      <AppBar position="sticky" 
               style={{
                   color: "black", 
                   backgroundColor: "#FFFFFF",
