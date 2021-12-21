@@ -4,13 +4,17 @@ const router = express.Router();
 
 // GET rides for user logged into app
 router.get('/view/my-rides/:id', (req, res) => {
-  const getQuery = `SELECT r.*,
-                   c.parent_name AS creator_name,
-                   d.parent_name AS driver_name
-                   FROM ride AS r
-                   JOIN "user" AS c ON r.creator_id = c.id
-                   JOIN "user" AS d ON r.driver_id = d.id
-                   WHERE driver_id = ${req.params.id};`;
+  // const getQuery = `SELECT r.*,
+  //                  c.parent_name AS creator_name,
+  //                  d.parent_name AS driver_name
+  //                  FROM ride AS r
+  //                  JOIN "user" AS c ON r.creator_id = c.id
+  //                  JOIN "user" AS d ON r.driver_id = d.id
+  const getQuery = `SELECT *
+                   FROM ride
+                   WHERE creator_id = ${req.params.id} OR
+                   driver_id = ${req.params.id};`
+
   console.log(`in get rides. query is:`, getQuery)
 
   pool.query(getQuery)
