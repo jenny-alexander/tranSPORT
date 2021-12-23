@@ -44,6 +44,93 @@ function CreateRidePage(props) {
 
   return (
     <div>
+      {/* Define modal reqs here - to be opened when user clicks on the 
+      create button. */}
+      <Dialog open={open}>
+        <DialogTitle>
+          {/* {props.title} */}
+          Confirm new ride details
+        </DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="pickupDate"
+            label="Pickup Date"
+            variant="filled"
+            type="text"
+            fullWidth
+            defaultValue={newRide.pickupDate}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="pickupTime"
+            label="Pickup Time"
+            variant="filled"
+            type="text"
+            fullWidth
+            defaultValue={newRide.pickupTime}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="pickupLocation"
+            label="Pickup Location"
+            variant="filled"
+            type="text"
+            fullWidth
+            defaultValue={newRide.pickupLocation}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="dropoffLocation"
+            label="Dropoff Location"
+            variant="filled"
+            type="text"
+            fullWidth
+            defaultValue={newRide.dropoffLocation}
+          /><TextField
+            autoFocus
+            margin="dense"
+            id="eventType"
+            label="Event Type"
+            variant="filled"
+            type="text"
+            fullWidth
+            defaultValue={newRide.eventType}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="returnTrip"
+            label="Return Trip"
+            variant="filled"
+            type="text"
+            fullWidth
+            defaultValue={newRide.returnTrip}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="comments"
+            label="Comments"
+            variant="filled"
+            type="text"
+            fullWidth
+            defaultValue={newComments}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleClose} color="primary" autoFocus>
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Container>
         <Box component="form" onSubmit={createRide}>
           <Grid

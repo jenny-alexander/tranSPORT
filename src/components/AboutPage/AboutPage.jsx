@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, ThemeProvider, createTheme } from '@mui/system';
-import Menu from '../Menu/Menu';
 
 const theme = createTheme({
   palette: {
@@ -31,7 +30,7 @@ function AboutPage() {
       <h3>This is the about page</h3>
     </div>
 
-    
+
   );
 }
 

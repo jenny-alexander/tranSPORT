@@ -22,7 +22,6 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import HomePage from '../HomePage/HomePage';
 import CreateRidePage from '../CreateRidePage/CreateRidePage';
 import RideList from '../RideList/RideList';
-import Menu from '../Menu/Menu';
 import ResponsiveAppBar from '../ResponsiveAppBar/ResponsiveAppBar';
 
 function App() {
