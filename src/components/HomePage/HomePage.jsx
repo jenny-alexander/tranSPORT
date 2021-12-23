@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Stack from '@mui/material/Stack';
 import { Button, Container, Grid, Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import ModalDialogue from '../ModalDialogue/ModalDialogue';
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -52,9 +49,7 @@ function HomePage(props) {
             </Button>
           </Grid>
         </Grid>
-
       </Container>
-      <ModalDialogue show='true' />
     </div>
   );
 }

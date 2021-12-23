@@ -20,7 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import HomePage from '../HomePage/HomePage';
-import CreateRide from '../CreateRide/CreateRide';
+import CreateRidePage from '../CreateRidePage/CreateRidePage';
 import RideList from '../RideList/RideList';
 import Menu from '../Menu/Menu';
 import ResponsiveAppBar from '../ResponsiveAppBar/ResponsiveAppBar';
@@ -39,7 +39,7 @@ function App() {
       <div>
         {/* <Nav /> */}
         {/* <Menu /> */}
-        {user.id ? <ResponsiveAppBar /> : '' }
+        {user.id ? <ResponsiveAppBar /> : ''}
         {/* <ResponsiveAppBar /> */}
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
@@ -61,7 +61,7 @@ function App() {
           {/* <ProtectedRoute exact path="/info">
             <InfoPage />
           </ProtectedRoute> */}
-{/* 
+          {/* 
           <Route
             exact
             path="/login"
@@ -76,32 +76,28 @@ function App() {
             }
           </Route> */}
           <Route exact path="/login" >
-            {user.id ? <HomePage /> : <LoginPage /> }
+            {user.id ? <HomePage /> : <LoginPage />}
           </Route>
 
           <Route exact path="/registration" >
-            {user.id ? <HomePage /> : <RegisterPage /> }
+            {user.id ? <HomePage /> : <RegisterPage />}
           </Route>
 
           <Route exact path="/home">
-            {user.id ? <HomePage /> : <LoginPage />}            
+            {user.id ? <HomePage /> : <LoginPage />}
           </Route>
 
           <Route exact path="/create">
-            {user.id ? <CreateRide action='create'/> : <LoginPage />}
+            {user.id ? <CreateRidePage action='create' /> : <LoginPage />}
           </Route>
 
           <Route exact path="/view/myrides">
             {user.id ? <RideList filterByUser={true} /> : <LoginPage />}
-          </Route>          
+          </Route>
 
           <Route exact path="/view/allrides">
             {user.id ? <RideList filterByUser={false} /> : <LoginPage />}
-          </Route> 
-
-          <Route exact path='/confirm-ride'>
-            {user.id ? <CreateRide action='confirm'/> : <LoginPage />}
-          </Route>                      
+          </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
