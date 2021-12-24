@@ -5,6 +5,7 @@ import { Button, Box, TextField, Typography } from '@mui/material';
 import { Container, Grid } from '@mui/material';
 import { RadioGroup, Radio, Checkbox } from '@mui/material';
 import { FormControlLabel, FormControl, FormLabel } from '@mui/material';
+import FormGroup from '@mui/material/FormGroup';
 import InputAdornment from '@mui/material/InputAdornment';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -16,18 +17,13 @@ function CreateRidePage(props) {
   const store = useSelector((store) => store);
   const [open, setOpen] = useState(false);
   const [newRide, setNewRide] = useState({
-    // playerName: 'Michael',
-    // pickupDate: new Date().toLocaleDateString(),
-    // pickupTime: new Date().toLocaleTimeString(),
-    // pickupLocation: '55 Marvin Road, Town, MN, 55555',
-    // dropoffLocation: '22 Arrival Ave, Other Town, 33333'
     playerName: 'Ben Cook', //TODO put user's player in here
     pickupDate: '',
     pickupTime: '',
     pickupLocation: '',
     dropoffLocation: '',
     eventType: 'Practice',
-    tripType: 'Return Trip'
+    returnTrip: false
   });
   const [newComments, setNewComments] = useState('');
 
@@ -40,19 +36,22 @@ function CreateRidePage(props) {
   const history = useHistory();
 
   const createRide = () => {
-    console.log(`in createRide with ride object:`, newRide);
+    //This displays the confirmation modal to the user
     setOpen(true);
   }
-  const handleClose = () => {
+  const handleCancel = () => {
     setOpen(false);
+  }
+  const handleConfirmCreate = () => {
+    console.log(`in handleConfirmCreate`);
   }
   const handleEventChange = (event) => {
     console.log(`in handleEventChange`);
     setNewRide({ ...newRide, eventType: event.target.value })
   }
-  const handleTripTypeChange = (event) => {
-    console.log(`in handleTripTypeChange`);
-    setNewRide({ ...newRide, tripType: event.target.value });
+  const handleReturnTripChange = (event) => {
+    console.log(`in handleReturnTripChange`);
+    setNewRide({ ...newRide, returnTrip: event.target.checked });
   }
 
   return (
@@ -61,7 +60,6 @@ function CreateRidePage(props) {
       create button. */}
       <Dialog open={open}>
         <DialogTitle>
-          {/* {props.title} */}
           Confirm new ride details
         </DialogTitle>
         <DialogContent>
@@ -127,12 +125,12 @@ function CreateRidePage(props) {
           <TextField
             autoFocus
             margin="dense"
-            id="tripType"
-            label="Trip Type"
+            id="returnTrip"
+            label="Return Trip"
             variant="filled"
             type="text"
             fullWidth
-            defaultValue={newRide.tripType}
+            defaultValue={newRide.returnTrip}
           />
           <TextField
             autoFocus
@@ -146,10 +144,10 @@ function CreateRidePage(props) {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleCancel} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
+          <Button onClick={handleConfirmCreate} color="primary" autoFocus>
             OK
           </Button>
         </DialogActions>
@@ -252,23 +250,22 @@ function CreateRidePage(props) {
                 </RadioGroup>
               </FormControl>
             </Grid>
-            {/* <Grid item xs={12}> */}
-            <Grid item xs={12}>
-              <FormControl component="fieldset"
-                sx={{ width: '40ch' }}>
-                <FormLabel component="event">Trip type</FormLabel>
-                <RadioGroup
-                  row
-                  aria-label="trip-type"
-                  name="row-radio-buttons-group"
-                  defaultValue="Return Trip"
-                  onChange={handleTripTypeChange}>
-                  <FormControlLabel value="Return Trip" control={<Radio />} label="Return Trip" />
-                  <FormControlLabel value="One Way" control={<Radio />} label="One Way" />
-                </RadioGroup>
-              </FormControl>
+            <Grid xs={12}>
+              <Box sx={{
+                display: 'flex', alignItems: 'left', justifyContent: 'left',
+                mt: 1, width: '40ch'
+              }} >
+                <FormGroup>
+                  <FormControlLabel control={
+                    <Checkbox
+                      checked={newRide.returnTrip}
+                      onChange={handleReturnTripChange}
+                    />}
+                    label="Return Trip?"
+                    labelPlacement='start' />
+                </FormGroup>
+              </Box>
             </Grid>
-            {/* </Grid> */}
             <Grid item xs={12}>
               <TextField
                 id="comments"

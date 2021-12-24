@@ -14,12 +14,23 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 
 function RegisterForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [parentName, setParentName] = useState('');
-  const [email, setEmail] = useState('');
-  const [contactNumber, setContactNumber] = useState('');
-  const [playerName, setPlayerName] = useState('');
+  // const [username, setUsername] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [parentName, setParentName] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [contactNumber, setContactNumber] = useState('');
+  // const [playerName, setPlayerName] = useState('');
+
+  const [newUser, setNewUser] = useState({
+    username: '',
+    password: '',
+    parentName: '',
+    email: '',
+    contactNumber: '',
+    playerName: ''
+  })
+
+
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
@@ -29,9 +40,9 @@ function RegisterForm() {
     dispatch({
       type: 'REGISTER',
       payload: {
-        username: username,
-        password: password,
-
+        // username: username,
+        // password: password,
+        newUser
       },
     });
   }; // end registerUser
