@@ -9,6 +9,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import FaceIcon from '@mui/icons-material/Face';
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 
 function CreateRidePage(props) {
@@ -20,15 +21,20 @@ function CreateRidePage(props) {
     // pickupTime: new Date().toLocaleTimeString(),
     // pickupLocation: '55 Marvin Road, Town, MN, 55555',
     // dropoffLocation: '22 Arrival Ave, Other Town, 33333'
-    playerName: '',
+    playerName: 'Ben Cook', //TODO put user's player in here
     pickupDate: '',
     pickupTime: '',
     pickupLocation: '',
     dropoffLocation: '',
-    eventType: '',
-    returnTrip: ''
+    eventType: 'Practice',
+    tripType: 'Return Trip'
   });
   const [newComments, setNewComments] = useState('');
+
+  //TODO: get player name from user
+  const user = useSelector(store => store.user);
+  const date = new Date();
+  let today = date.toISOString().substring(0, 10);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -37,9 +43,16 @@ function CreateRidePage(props) {
     console.log(`in createRide with ride object:`, newRide);
     setOpen(true);
   }
-
   const handleClose = () => {
     setOpen(false);
+  }
+  const handleEventChange = (event) => {
+    console.log(`in handleEventChange`);
+    setNewRide({ ...newRide, eventType: event.target.value })
+  }
+  const handleTripTypeChange = (event) => {
+    console.log(`in handleTripTypeChange`);
+    setNewRide({ ...newRide, tripType: event.target.value });
   }
 
   return (
@@ -55,8 +68,18 @@ function CreateRidePage(props) {
           <TextField
             autoFocus
             margin="dense"
+            id="playerName"
+            label="Player Name"
+            variant="filled"
+            type="text"
+            fullWidth
+            defaultValue={newRide.playerName}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
             id="pickupDate"
-            label="Pickup Date"
+            label="Event Date"
             variant="filled"
             type="text"
             fullWidth
@@ -66,7 +89,7 @@ function CreateRidePage(props) {
             autoFocus
             margin="dense"
             id="pickupTime"
-            label="Pickup Time"
+            label="Event Time"
             variant="filled"
             type="text"
             fullWidth
@@ -104,12 +127,12 @@ function CreateRidePage(props) {
           <TextField
             autoFocus
             margin="dense"
-            id="returnTrip"
-            label="Return Trip"
+            id="tripType"
+            label="Trip Type"
             variant="filled"
             type="text"
             fullWidth
-            defaultValue={newRide.returnTrip}
+            defaultValue={newRide.tripType}
           />
           <TextField
             autoFocus
@@ -143,13 +166,28 @@ function CreateRidePage(props) {
             {/* Textfields containing user input */}
             <Grid item xs={12}>
               <TextField
-                label="Pickup Date"
+                label="Player Name"
+                id="playerName"
+                sx={{ m: 1, width: '40ch' }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                required
+                value={newRide.playerName}
+                onChange={(event) => setNewRide({ ...newRide, playerName: event.target.value })}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Event Date"
+                type="date"
                 id="pickupDate"
                 sx={{ m: 1, width: '40ch' }}
-                InputProps={{
-                  startAdornment: <InputAdornment position="start"><CalendarTodayIcon /></InputAdornment>,
+                InputLabelProps={{
+                  shrink: true,
                 }}
-                variant="standard"
+                variant="outlined"
                 required
                 value={newRide.pickupDate}
                 onChange={(event) => setNewRide({ ...newRide, pickupDate: event.target.value })}
@@ -157,13 +195,14 @@ function CreateRidePage(props) {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="Pickup Time"
+                label="Event Time"
+                type="time"
                 id="pickupTime"
                 sx={{ m: 1, width: '40ch' }}
-                InputProps={{
-                  startAdornment: <InputAdornment position="start"><AccessTimeIcon /></InputAdornment>,
+                InputLabelProps={{
+                  shrink: true,
                 }}
-                variant="standard"
+                variant="outlined"
                 required
                 value={newRide.pickupTime}
                 onChange={(event) => setNewRide({ ...newRide, pickupTime: event.target.value })}
@@ -174,10 +213,10 @@ function CreateRidePage(props) {
                 label="Pickup Location"
                 id="pickupLocation"
                 sx={{ m: 1, width: '40ch' }}
-                InputProps={{
-                  startAdornment: <InputAdornment position="start"><LocationOnIcon /></InputAdornment>,
+                InputLabelProps={{
+                  shrink: true,
                 }}
-                variant="standard"
+                variant="outlined"
                 required
                 value={newRide.pickupLocation}
                 onChange={(event) => setNewRide({ ...newRide, pickupLocation: event.target.value })}
@@ -188,10 +227,10 @@ function CreateRidePage(props) {
                 label="Dropoff Location"
                 id="dropoffLocation"
                 sx={{ m: 1, width: '40ch' }}
-                InputProps={{
-                  startAdornment: <InputAdornment position="start"><LocationOnIcon /></InputAdornment>,
+                InputLabelProps={{
+                  shrink: true,
                 }}
-                variant="standard"
+                variant="outlined"
                 required
                 value={newRide.dropoffLocation}
                 onChange={(event) => setNewRide({ ...newRide, dropoffLocation: event.target.value })}
@@ -201,29 +240,47 @@ function CreateRidePage(props) {
               <FormControl component="fieldset"
                 sx={{ width: '40ch' }}>
                 <FormLabel component="event">Event type</FormLabel>
-                <RadioGroup row aria-label="event" name="row-radio-buttons-group" defaultValue="practice">
-                  <FormControlLabel value="practice" control={<Radio />} label="Practice" />
-                  <FormControlLabel value="game" control={<Radio />} label="Game" />
-                  <FormControlLabel value="other" control={<Radio />} label="Other" />
+                <RadioGroup
+                  row
+                  aria-label="event"
+                  name="row-radio-buttons-group"
+                  defaultValue="Practice"
+                  onChange={handleEventChange}>
+                  <FormControlLabel value="Practice" control={<Radio />} label="Practice" />
+                  <FormControlLabel value="Game" control={<Radio />} label="Game" />
+                  <FormControlLabel value="Other" control={<Radio />} label="Other" />
                 </RadioGroup>
               </FormControl>
             </Grid>
             {/* <Grid item xs={12}> */}
             <Grid item xs={12}>
-              <Box sx={{ display: 'flex', width: '40ch' }}>
-                <FormControlLabel control={<Checkbox />} label="Return Trip" />
-              </Box>
+              <FormControl component="fieldset"
+                sx={{ width: '40ch' }}>
+                <FormLabel component="event">Trip type</FormLabel>
+                <RadioGroup
+                  row
+                  aria-label="trip-type"
+                  name="row-radio-buttons-group"
+                  defaultValue="Return Trip"
+                  onChange={handleTripTypeChange}>
+                  <FormControlLabel value="Return Trip" control={<Radio />} label="Return Trip" />
+                  <FormControlLabel value="One Way" control={<Radio />} label="One Way" />
+                </RadioGroup>
+              </FormControl>
             </Grid>
             {/* </Grid> */}
             <Grid item xs={12}>
-              <TextField aria-label='empty textarea'
-                defaultValue={newComments}
-                placeholder='Add comments here...'
-                //  style={{ width: 320, fontSize: 17}}
+              <TextField
+                id="comments"
+                label="Comments"
+                multiline
+                rows={4}
                 sx={{ m: 1, width: '40ch', fontSize: 17 }}
-                align="center"
+                InputLabelProps={{
+                  shrink: true,
+                }}
                 onChange={(event) => setNewComments(event.target.value)}
-                inputProps={{ maxLength: 250 }} />
+              />
             </Grid>
             <Grid item xs={12}>
               <Box sx={{
@@ -233,8 +290,9 @@ function CreateRidePage(props) {
                 // bottom: "0", 
                 right: "0%"
               }}>
-                <Button variant="contained" sx={{ width: '20ch', m: 1 }}
-                  onClick={createRide}>
+                <Button variant="contained" type="submit" name="submit"
+                  sx={{ width: '20ch', m: 1 }}
+                >
                   Next
                 </Button>
               </Box>
