@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 
 function Header(props) {
@@ -9,8 +9,8 @@ function Header(props) {
   const [name, setName] = useState('');
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}} >
-        <img src='images/logo.png' alt='logo'></img>
+    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+      <img src='images/logo.png' alt='logo'></img>
     </Box>
   )
 }
