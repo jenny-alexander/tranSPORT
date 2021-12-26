@@ -4,6 +4,7 @@ const router = express.Router();
 
 // GET rides for user logged into app
 router.get('/view/my-rides/:id', (req, res) => {
+  console.log('meow');
   // const getQuery = `SELECT r.*,
   //                  c.parent_name AS creator_name,
   //                  d.parent_name AS driver_name

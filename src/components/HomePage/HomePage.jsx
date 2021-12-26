@@ -1,20 +1,28 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button, Container, Grid, Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
 
-// Basic functional component structure for React with default state
-// value setup. When making a new component be sure to replace the
-// component name HomePage with the name for the new component.
 function HomePage(props) {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
   const store = useSelector((store) => store);
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log(`help`)
+    //dispatch({ type: 'FETCH_PROFILE', payload: user.id });
+    console.log(`done dispatch...?`)
+  }, []);
+
+  const user = useSelector((store) => store.user);
+  const profile = useSelector((store) => store.profile);
 
   return (
     <div>
+      <h3>{JSON.stringify(profile)}</h3>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
         <img src='images/logo.png' alt='logo'></img>
       </Box>

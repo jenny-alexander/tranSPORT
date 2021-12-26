@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -34,7 +34,7 @@ function LoginForm() {
 
   return (
     <div>
-        {errors.loginMessage && (
+      {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}
         </h3>
@@ -47,39 +47,39 @@ function LoginForm() {
             justifyContent="center"
             alignItems="center"
             spacing={3}>
-              <Grid item sx={12}>
-                <TextField
-                  label="Username"
-                  id="username"
-                  sx={{ m: 1, width: '30ch' }}
-                  InputProps={{
-                    startAdornment: <InputAdornment position="start"><AccountCircle /></InputAdornment>,
-                  }}
-                  variant="standard"
-                  required
-                  value={username}
-                  onChange={(event) => setUsername(event.target.value)}
-                />
-              </Grid>
-              <Grid item sx={12}>
-                <TextField
+            <Grid item sx={12}>
+              <TextField
+                label="Username"
+                id="username"
+                sx={{ m: 1, width: '30ch' }}
+                InputProps={{
+                  startAdornment: <InputAdornment position="start"><AccountCircle /></InputAdornment>,
+                }}
+                variant="standard"
+                required
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+              />
+            </Grid>
+            <Grid item sx={12}>
+              <TextField
                 type="password"
-                  label="Password"
-                  id="password"
-                  sx={{ m: 1, width: '30ch' }}
-                  InputProps={{
-                    startAdornment: <InputAdornment position="start"><LockIcon /></InputAdornment>,
-                  }}
-                  variant="standard"
-                  required
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                />
-              </Grid>
-              <Grid item sx={12}>
+                label="Password"
+                id="password"
+                sx={{ m: 1, width: '30ch' }}
+                InputProps={{
+                  startAdornment: <InputAdornment position="start"><LockIcon /></InputAdornment>,
+                }}
+                variant="standard"
+                required
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+            </Grid>
+            <Grid item sx={12}>
               <Button variant="contained" type="submit" name="submit" fullWidth
-                sx={{width: '30ch', mb:1} }>Login</Button>
-              </Grid>
+                sx={{ width: '30ch', mb: 1 }}>Login</Button>
+            </Grid>
           </Grid>
         </Box>
 

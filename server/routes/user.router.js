@@ -14,6 +14,23 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
+//Check that the user's email exists in the team table. This means they are ok
+//to use the app as a parent of a player on the team.
+router.get('/api/user/check-email/:email', (req, res) => {
+  console.log('/api/user/check-email');
+  const getEmailQuery = `SELECT * FROM team where email=${req.params.email};`;
+
+  console.log(`getEmail query is:`, getEmailQuery);
+
+  pool.query(getEmailQuery)
+    .then((results) => {
+      res.send(results.rows)
+    }).catch((error) => {
+      console.log(`Error with email validation!`, error);
+      res.sendStatus(500);
+    })
+})
+
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
@@ -24,11 +41,10 @@ router.post('/register', (req, res, next) => {
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
 
-  const queryText = `INSERT INTO "user" (username, password, parent_name, email, contact_number, player_name)
-    VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`;
+  const queryText = `INSERT INTO "user" (username, password)
+  VALUES ($1, $2) RETURNING id`;
   pool
-    .query(queryText, [username, password, req.body.parentName, req.body.email,
-      req.body.contactNumber, req.body.playerName])
+    .query(queryText, [username, password])
     .then(() => res.sendStatus(201))
     .catch((err) => {
       console.log('User registration failed: ', err);
