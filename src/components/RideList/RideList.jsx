@@ -2,14 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Grid, Typography, Box } from '@mui/material';
-import FaceIcon from '@mui/icons-material/Face';
-import HomeIcon from '@mui/icons-material/Home';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
 import CardActionArea from '@mui/material/CardActionArea';
-import Button from '@mui/material/Button';
-import { ThemeProvider, createTheme } from '@mui/system';
 
 function NewRideList(props) {
 

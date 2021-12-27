@@ -3,18 +3,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button, Container, Grid, Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 function HomePage(props) {
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
-  const store = useSelector((store) => store);
+  const [profileButtonText, setProfileButtonText] = useState('');
   const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(`help`)
-    //dispatch({ type: 'FETCH_PROFILE', payload: user.id });
-    console.log(`done dispatch...?`)
+    console.log(`in useEffect`)
+
+    profile.parentName != '' ?
+      setProfileButtonText('View Profile') : setProfileButtonText('Create Profile');
   }, []);
 
   const user = useSelector((store) => store.user);
@@ -22,7 +22,7 @@ function HomePage(props) {
 
   return (
     <div>
-      <h3>{JSON.stringify(profile)}</h3>
+      {/* <h3>{JSON.stringify(profile)}</h3> */}
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
         <img src='images/logo.png' alt='logo'></img>
       </Box>
@@ -37,23 +37,30 @@ function HomePage(props) {
           direction="column"
           justifyContent="center"
           alignItems="center"
-          spacing={3}>
+          spacing={2}>
           <Grid item sx={12}>
             <Button variant="contained"
-              sx={{ width: '40ch' }}
+              sx={{ width: '30ch', height: '7ch', borderRadius: 7 }}
               onClick={() => { history.push('/create') }}>Create Ride Request</Button>
           </Grid>
           <Grid item sx={12}>
             <Button
               variant="contained"
-              sx={{ width: '40ch' }}
+              sx={{ width: '30ch', height: '7ch', borderRadius: 7 }}
               onClick={() => { history.push('/view/myrides') }}>View My Rides
             </Button>
           </Grid>
           <Grid item sx={12}>
             <Button variant="outlined"
-              sx={{ width: '40ch' }}
+              sx={{ width: '30ch', height: '7ch', borderRadius: 7 }}
               onClick={() => { history.push('/view/allrides') }}>View All Rides
+            </Button>
+          </Grid>
+          <Grid item sx={12}>
+            <Button variant="outlined"
+              sx={{ width: '30ch', height: '7ch', borderRadius: 7 }} startIcon={<AccountCircleIcon />} >
+              {profileButtonText}
+              {/* View Profile */}
             </Button>
           </Grid>
         </Grid>
