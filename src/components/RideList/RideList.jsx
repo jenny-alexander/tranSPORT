@@ -54,13 +54,13 @@ function NewRideList(props) {
                         spacing={1}>
 
                         <Grid item xs={7} sx={{ padding: 1 }}>
-                          <Typography sx={{ fontSize: '26px', fontWeight: 600 }} >
-                            {new Date(ride.pickup_timestamp).toLocaleDateString()}
-                          </Typography>
-                          <Typography sx={{ fontSize: '22px', fontWeight: 500 }} >
-                            {new Date(ride.pickup_timestamp).toLocaleTimeString(`en-US`, options)}
+                          <Typography sx={{ fontSize: '22px', fontWeight: 600 }} >
+                            {new Date(ride.event_timestamp).toLocaleDateString()}
                           </Typography>
                           <Typography sx={{ fontSize: '20px', fontWeight: 500 }} >
+                            {new Date(ride.event_timestamp).toLocaleTimeString(`en-US`, options)}
+                          </Typography>
+                          <Typography sx={{ fontSize: '18px', fontWeight: 500 }} >
                             {/* {ride.ride_status} */}
                             {ride.event_type}
                           </Typography>

@@ -12,8 +12,9 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 
 function UserProfileForm() {
+  const [profileExists, setProfileExists] = useState(false);
 
-  const [newUser, setNewUser] = useState({
+  const [userProfile, setUserProfile] = useState({
     parentName: '',
     email: '',
     contactNumber: '',
@@ -21,7 +22,14 @@ function UserProfileForm() {
   })
 
   const errors = useSelector((store) => store.errors);
+  const profile = useSelector((store) => store.profile);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (profile.length != 0) {
+      setProfileExists(true);
+    }
+  }, []);
 
   const createProfile = (event) => {
     event.preventDefault();
@@ -32,7 +40,25 @@ function UserProfileForm() {
     dispatch({
       type: 'CREATE_PROFILE',
       payload: {
-        newUser
+        profile
+      },
+    });
+  };
+
+  const handleProfileChange = (event) => {
+
+  }
+
+  const updateProfile = (event) => {
+    event.preventDefault();
+
+    //This will start the process of adding the user profile
+    //to the user_profile table.
+    //Eventually, we will need a way to update the user profile via menu
+    dispatch({
+      type: 'UPDATE_PROFILE',
+      payload: {
+        profile
       },
     });
   };
@@ -45,7 +71,7 @@ function UserProfileForm() {
         </h3>
       )}
       <Container>
-        <Box component="form" onSubmit={createProfile}>
+        <Box component="form" onSubmit={handleProfileChange}>
           <Grid
             container
             direction="column"
@@ -76,9 +102,9 @@ function UserProfileForm() {
                 }}
                 variant="standard"
                 required
-                value={newUser.parentName}
+                value={userProfile.parentName}
                 // onChange={(event) => setParentName(event.target.value)}
-                onChange={(event) => setNewUser({ ...newUser, parentName: event.target.value })}
+                onChange={(event) => setUserProfile({ ...userProfile, parentName: event.target.value })}
               />
             </Grid>
             <Grid item sx={12}>
@@ -91,9 +117,9 @@ function UserProfileForm() {
                 }}
                 variant="standard"
                 required
-                value={newUser.email}
+                value={userProfile.email}
                 // onChange={(event) => setEmail(event.target.value)}
-                onChange={(event) => setNewUser({ ...newUser, email: event.target.value })}
+                onChange={(event) => setUserProfile({ ...userProfile, email: event.target.value })}
               />
             </Grid>
             <Grid item sx={12}>
@@ -106,9 +132,9 @@ function UserProfileForm() {
                 }}
                 variant="standard"
                 required
-                value={newUser.contactNumber}
+                value={userProfile.contactNumber}
                 // onChange={(event) => setContactNumber(event.target.value)}
-                onChange={(event) => setNewUser({ ...newUser, contactNumber: event.target.value })}
+                onChange={(event) => setUserProfile({ ...userProfile, contactNumber: event.target.value })}
               />
             </Grid>
             <Grid item sx={12}>
@@ -121,9 +147,9 @@ function UserProfileForm() {
                 }}
                 variant="standard"
                 required
-                value={newUser.playerName}
+                value={userProfile.playerName}
                 // onChange={(event) => setPlayerName(event.target.value)}
-                onChange={(event) => setNewUser({ ...newUser, playerName: event.target.value })}
+                onChange={(event) => setUserProfile({ ...userProfile, playerName: event.target.value })}
               />
             </Grid>
             <Grid item sx={12}>

@@ -10,11 +10,13 @@ function HomePage(props) {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  //TODO: Check when parent doesn't have an ID in user_profile table
   useEffect(() => {
-    console.log(`in useEffect`)
-
-    profile.parentName != '' ?
-      setProfileButtonText('View Profile') : setProfileButtonText('Create Profile');
+    if (profile.id != '') {
+      setProfileButtonText('View Profile');
+    } else {
+      setProfileButtonText('Create Profile')
+    }
   }, []);
 
   const user = useSelector((store) => store.user);
@@ -22,7 +24,7 @@ function HomePage(props) {
 
   return (
     <div>
-      {/* <h3>{JSON.stringify(profile)}</h3> */}
+      <h3>{JSON.stringify(profile)}</h3>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
         <img src='images/logo.png' alt='logo'></img>
       </Box>
@@ -58,9 +60,10 @@ function HomePage(props) {
           </Grid>
           <Grid item sx={12}>
             <Button variant="outlined"
-              sx={{ width: '30ch', height: '7ch', borderRadius: 7 }} startIcon={<AccountCircleIcon />} >
+              sx={{ width: '30ch', height: '7ch', borderRadius: 7 }}
+              startIcon={<AccountCircleIcon />}
+              onClick={() => { history.push('/create-profile') }}>
               {profileButtonText}
-              {/* View Profile */}
             </Button>
           </Grid>
         </Grid>

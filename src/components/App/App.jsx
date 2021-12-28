@@ -23,6 +23,7 @@ import HomePage from '../HomePage/HomePage';
 import CreateRidePage from '../CreateRidePage/CreateRidePage';
 import RideList from '../RideList/RideList';
 import ResponsiveAppBar from '../ResponsiveAppBar/ResponsiveAppBar';
+import UserProfilePage from '../UserProfilePage/UserProfilePage';
 
 function App() {
   const dispatch = useDispatch();
@@ -84,6 +85,10 @@ function App() {
 
           <Route exact path="/home">
             {user.id ? <HomePage /> : <LoginPage />}
+          </Route>
+
+          <Route exact path="/create-profile">
+            {user.id ? <UserProfilePage /> : <HomePage />}
           </Route>
 
           <Route exact path="/create">
