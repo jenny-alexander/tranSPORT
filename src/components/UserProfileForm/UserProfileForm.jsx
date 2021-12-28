@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TextField from '@mui/material/TextField';
 import EmailIcon from '@mui/icons-material/Email';
@@ -26,7 +26,7 @@ function UserProfileForm() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (profile.length != 0) {
+    if (profile.id != null) {
       setProfileExists(true);
     }
   }, []);
@@ -154,7 +154,10 @@ function UserProfileForm() {
             </Grid>
             <Grid item sx={12}>
               <Button variant="contained" type="submit" name="submit" fullWidth
-                sx={{ width: '30ch' }}>Create Profile</Button>
+                sx={{ width: '30ch' }}>
+                {profileExists ? 'Update Profile' : 'Create New Profile'}
+                {/* Create Profile */}
+              </Button>
             </Grid>
           </Grid>
         </Box>

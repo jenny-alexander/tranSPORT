@@ -87,8 +87,8 @@ function App() {
             {user.id ? <HomePage /> : <LoginPage />}
           </Route>
 
-          <Route exact path="/create-profile">
-            {user.id ? <UserProfilePage /> : <HomePage />}
+          <Route exact path="/profile">
+            {user.id ? <UserProfilePage /> : <LoginPage />}
           </Route>
 
           <Route exact path="/create">

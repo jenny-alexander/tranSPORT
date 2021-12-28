@@ -13,7 +13,7 @@ function UserProfilePage() {
       <Box sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left' }} >
         <Grid item xs={4} sx={{ mb: 5, ml: 2, mt: 1 }}>
           <Typography variant="h4" gutterBottom component="div">
-            Create a Profile to Continue
+            User Profile
           </Typography>
         </Grid>
       </Box>

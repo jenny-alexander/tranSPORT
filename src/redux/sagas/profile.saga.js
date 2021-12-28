@@ -9,6 +9,8 @@ function* fetchProfile(action) {
     const response = yield axios.get(`/api/profile/${action.payload}`);
     console.log(`response from get profile is:`, response.data)
     yield put({ type: 'SET_PROFILE', payload: response.data });
+    console.log(`just did a call to SET_PROFILE'`)
+    //TODO: PROBLEM if nothing in user_profile, login doesn't work!!!
   } catch (error) {
     console.log('Profile get request failed.');
   }

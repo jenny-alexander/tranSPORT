@@ -24,6 +24,7 @@ function* fetchUser() {
 
     //NEW
     yield put({ type: 'FETCH_PROFILE', payload: response.data.id })
+    console.log(`in user.saga.js and profile id is:`, response.data.id);
   } catch (error) {
     console.log('User get request failed', error);
   }

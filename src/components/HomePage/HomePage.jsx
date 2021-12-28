@@ -11,20 +11,20 @@ function HomePage(props) {
   const dispatch = useDispatch();
 
   //TODO: Check when parent doesn't have an ID in user_profile table
-  useEffect(() => {
-    if (profile.id != '') {
-      setProfileButtonText('View Profile');
-    } else {
-      setProfileButtonText('Create Profile')
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (profile.id != '') {
+  //     setProfileButtonText('View Profile');
+  //   } else {
+  //     setProfileButtonText('Create Profile')
+  //   }
+  // }, []);
 
   const user = useSelector((store) => store.user);
   const profile = useSelector((store) => store.profile);
 
   return (
     <div>
-      <h3>{JSON.stringify(profile)}</h3>
+      {/* <h3>{JSON.stringify(profile)}</h3> */}
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
         <img src='images/logo.png' alt='logo'></img>
       </Box>
@@ -62,8 +62,9 @@ function HomePage(props) {
             <Button variant="outlined"
               sx={{ width: '30ch', height: '7ch', borderRadius: 7 }}
               startIcon={<AccountCircleIcon />}
-              onClick={() => { history.push('/create-profile') }}>
-              {profileButtonText}
+              onClick={() => { history.push('/profile') }}>
+              {profile.id != null ? 'Update Profile' : 'Create Profile'}
+              {/* {profileButtonText} */}
             </Button>
           </Grid>
         </Grid>
