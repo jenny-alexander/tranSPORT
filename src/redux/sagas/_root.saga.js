@@ -2,7 +2,7 @@ import { all } from 'redux-saga/effects';
 import loginSaga from './login.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
-import ridesSaga from './rides.saga';
+import rideSaga from './ride.saga';
 import commentSaga from './comment.saga';
 import profileSaga from './profile.saga';
 
@@ -18,7 +18,7 @@ export default function* rootSaga() {
     loginSaga(), // login saga is now registered
     registrationSaga(),
     userSaga(),
-    ridesSaga(),
+    rideSaga(),
     profileSaga(),
     // commentSaga()
   ]);

@@ -1,6 +1,15 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+function* createRide(action) {
+  //create a new ride in the DB
+  // try {
+  //   console.log(`in createRide of ride.saga.js with action.payload:`, action.payload);
+  //   yield axios.post('/api/ride/create', action.payload);
+  // } catch (error) {
+  //   console.log('Error creating ride.', error);
+  // }
+}
 // worker Saga: will be fired on "FETCH_ALL_RIDES" actions
 function* fetchAllRides() {
   try {
@@ -35,10 +44,11 @@ function* sendRideDetails(action) {
   }
 }
 
-function* ridesSaga() {
+function* rideSaga() {
   yield takeLatest('FETCH_ALL_RIDES', fetchAllRides);
   yield takeLatest('FETCH_USER_RIDES', fetchUserRides);
+  //yield takeLatest('CREATE_RIDE', createRide)
   yield takeLatest('SEND_RIDE_DETAILS', sendRideDetails);
 }
 
-export default ridesSaga;
+export default rideSaga;
