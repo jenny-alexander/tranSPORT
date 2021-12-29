@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button, Box, TextField, Typography } from '@mui/material';
@@ -14,10 +14,10 @@ import FaceIcon from '@mui/icons-material/Face';
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 
 function CreateRidePage(props) {
-  const store = useSelector((store) => store);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false); //this is for the modal confirmation 
+  const [player, setPlayer] = useState('')
   const [newRide, setNewRide] = useState({
-    playerName: 'Ben Cook', //TODO put user's player in here
+    playerName: '',
     pickupDate: '',
     pickupTime: '',
     pickupLocation: '',
@@ -27,13 +27,14 @@ function CreateRidePage(props) {
   });
   const [newComments, setNewComments] = useState('');
 
-  //TODO: get player name from user
   const user = useSelector(store => store.user);
   const date = new Date();
-  let today = date.toISOString().substring(0, 10);
-
   const dispatch = useDispatch();
   const history = useHistory();
+
+  useEffect(() => {
+    setPlayer(user.player_name); //set player name as-is from the DB
+  }, []);
 
   const createRide = () => {
     //This displays the confirmation modal to the user
@@ -71,7 +72,7 @@ function CreateRidePage(props) {
             variant="filled"
             type="text"
             fullWidth
-            defaultValue={newRide.playerName}
+            defaultValue={player}
           />
           <TextField
             autoFocus
@@ -130,7 +131,9 @@ function CreateRidePage(props) {
             variant="filled"
             type="text"
             fullWidth
-            defaultValue={newRide.returnTrip}
+            defaultValue={
+              newRide.returnTrip ? 'True' : 'False'
+            }
           />
           <TextField
             autoFocus
@@ -172,8 +175,9 @@ function CreateRidePage(props) {
                 }}
                 variant="outlined"
                 required
-                value={newRide.playerName}
-                onChange={(event) => setNewRide({ ...newRide, playerName: event.target.value })}
+                value={player}
+                //onChange={(event) => setNewRide({ ...newRide, playerName: event.target.value })}
+                onChange={(event) => { setPlayer(event.target.value) }}
               />
             </Grid>
             <Grid item xs={12}>

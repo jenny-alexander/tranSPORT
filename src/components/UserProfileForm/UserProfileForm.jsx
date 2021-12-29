@@ -17,7 +17,6 @@ function UserProfileForm() {
   const [updatedUser, setUpdatedUser] = useState({})
 
   const errors = useSelector((store) => store.errors);
-
   const user = useSelector(store => store.user);
   const dispatch = useDispatch();
 
@@ -44,7 +43,6 @@ function UserProfileForm() {
           {errors.loginMessage}
         </h3>
       )}
-      <h3>{JSON.stringify(user)}</h3>
       <Container>
         <Box component="form" onSubmit={updateProfile}>
           <Grid
