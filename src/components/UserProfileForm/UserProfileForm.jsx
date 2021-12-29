@@ -12,28 +12,53 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 
 function UserProfileForm() {
+  const [profileExists, setProfileExists] = useState(false);
+
   const [userProfile, setUserProfile] = useState({
-    // parentName: user.parent_name,
-    // email: user.email,
-    // phoneNumber: user.phone_number,
-    // playerName: user.player_name
-    // parentName: '',
-    // email: '',
-    // phoneNumber: '',
-    // playerName: '',
+    parentName: '',
+    email: '',
+    contactNumber: '',
+    playerName: ''
   })
 
   const errors = useSelector((store) => store.errors);
-  const user = useSelector((store) => store.user);
+  const profile = useSelector((store) => store.profile);
   const dispatch = useDispatch();
 
-  const updateProfile = (event) => {
-    setUserProfile({ ...userProfile, id: user.id })
-    //event.preventDefault(); <-----TODO: Do we need this everytime we do a dispatch???
+  useEffect(() => {
+    if (profile.id != null) {
+      setProfileExists(true);
+    }
+  }, []);
+
+  const createProfile = (event) => {
+    event.preventDefault();
+
+    //This will start the process of adding the user profile
+    //to the user_profile table.
+    //Eventually, we will need a way to update the user profile via menu
     dispatch({
-      type: 'UPDATE_USER_PROFILE',
+      type: 'CREATE_PROFILE',
       payload: {
-        userProfile
+        profile
+      },
+    });
+  };
+
+  const handleProfileChange = (event) => {
+
+  }
+
+  const updateProfile = (event) => {
+    event.preventDefault();
+
+    //This will start the process of adding the user profile
+    //to the user_profile table.
+    //Eventually, we will need a way to update the user profile via menu
+    dispatch({
+      type: 'UPDATE_PROFILE',
+      payload: {
+        profile
       },
     });
   };
@@ -46,13 +71,27 @@ function UserProfileForm() {
         </h3>
       )}
       <Container>
-        <Box component="form" onSubmit={updateProfile}>
+        <Box component="form" onSubmit={handleProfileChange}>
           <Grid
             container
             direction="column"
             justifyContent="center"
             alignItems="center"
             spacing={3}>
+            {/* <Grid item sx={12}>
+              <TextField
+                label="Username"
+                id="username"
+                sx={{ m: 1, width: '30ch' }}
+                InputProps={{
+                  startAdornment: <InputAdornment position="start"><AccountCircle /></InputAdornment>,
+                }}
+                variant="standard"
+                required
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+              />
+            </Grid> */}
             <Grid item sx={12}>
               <TextField
                 label="Parent Name"
@@ -63,7 +102,8 @@ function UserProfileForm() {
                 }}
                 variant="standard"
                 required
-                value={user.parent_name}
+                value={userProfile.parentName}
+                // onChange={(event) => setParentName(event.target.value)}
                 onChange={(event) => setUserProfile({ ...userProfile, parentName: event.target.value })}
               />
             </Grid>
@@ -77,22 +117,24 @@ function UserProfileForm() {
                 }}
                 variant="standard"
                 required
-                value={user.email}
+                value={userProfile.email}
+                // onChange={(event) => setEmail(event.target.value)}
                 onChange={(event) => setUserProfile({ ...userProfile, email: event.target.value })}
               />
             </Grid>
             <Grid item sx={12}>
               <TextField
-                label="Phone Number"
-                id="phoneNumber"
+                label="Contact Number"
+                id="contactNumber"
                 sx={{ m: 1, width: '30ch' }}
                 InputProps={{
                   startAdornment: <InputAdornment position="start"><ContactPhoneIcon /></InputAdornment>,
                 }}
                 variant="standard"
                 required
-                value={user.phone_number}
-                onChange={(event) => setUserProfile({ ...userProfile, phoneNumber: event.target.value })}
+                value={userProfile.contactNumber}
+                // onChange={(event) => setContactNumber(event.target.value)}
+                onChange={(event) => setUserProfile({ ...userProfile, contactNumber: event.target.value })}
               />
             </Grid>
             <Grid item sx={12}>
@@ -105,7 +147,7 @@ function UserProfileForm() {
                 }}
                 variant="standard"
                 required
-                value={user.player_name}
+                value={userProfile.playerName}
                 // onChange={(event) => setPlayerName(event.target.value)}
                 onChange={(event) => setUserProfile({ ...userProfile, playerName: event.target.value })}
               />
@@ -113,7 +155,8 @@ function UserProfileForm() {
             <Grid item sx={12}>
               <Button variant="contained" type="submit" name="submit" fullWidth
                 sx={{ width: '30ch' }}>
-                Update Profile
+                {profileExists ? 'Update Profile' : 'Create New Profile'}
+                {/* Create Profile */}
               </Button>
             </Grid>
           </Grid>

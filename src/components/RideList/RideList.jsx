@@ -14,7 +14,6 @@ function NewRideList(props) {
   const history = useHistory();
 
   useEffect(() => {
-    console.log(`about to fetch all rides`)
     //dispatch({type:'FETCH_USER_RIDES', payload: user.id}) : dispatch({type: 'FETCH_ALL_RIDES' })
     dispatch({ type: 'FETCH_ALL_RIDES' });
   }, []);

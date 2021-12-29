@@ -6,13 +6,18 @@ import { Container, Grid } from '@mui/material';
 import { RadioGroup, Radio, Checkbox } from '@mui/material';
 import { FormControlLabel, FormControl, FormLabel } from '@mui/material';
 import FormGroup from '@mui/material/FormGroup';
+import InputAdornment from '@mui/material/InputAdornment';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import FaceIcon from '@mui/icons-material/Face';
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 
 function CreateRidePage(props) {
-  const user = useSelector((store) => store.user);
+  const store = useSelector((store) => store);
   const [open, setOpen] = useState(false);
   const [newRide, setNewRide] = useState({
-    playerName: user.player_name,
+    playerName: 'Ben Cook', //TODO put user's player in here
     pickupDate: '',
     pickupTime: '',
     pickupLocation: '',
@@ -20,8 +25,13 @@ function CreateRidePage(props) {
     eventType: 'Practice',
     returnTrip: false
   });
-
   const [newComments, setNewComments] = useState('');
+
+  //TODO: get player name from user
+  const user = useSelector(store => store.user);
+  const date = new Date();
+  let today = date.toISOString().substring(0, 10);
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -34,29 +44,18 @@ function CreateRidePage(props) {
   }
   const handleConfirmCreate = () => {
     console.log(`in handleConfirmCreate`);
-    //event.preventDefault();
-
-    //concatenate the date & time into a timestamp
-    console.log(`newRide is:`, newRide)
-
-    // dispatch({
-    //   type: 'CREATE_RIDE',
-    //   payload: {
-    //     ride: newRide
-    //   },
-    // });
   }
-
-  const handleEventTypeChange = (event) => {
+  const handleEventChange = (event) => {
+    console.log(`in handleEventChange`);
     setNewRide({ ...newRide, eventType: event.target.value })
   }
   const handleReturnTripChange = (event) => {
+    console.log(`in handleReturnTripChange`);
     setNewRide({ ...newRide, returnTrip: event.target.checked });
   }
 
   return (
     <div>
-      {/* <h3>{JSON.stringify(user)}</h3> */}
       {/* Define modal reqs here - to be opened when user clicks on the 
       create button. */}
       <Dialog open={open}>
@@ -131,8 +130,7 @@ function CreateRidePage(props) {
             variant="filled"
             type="text"
             fullWidth
-            defaultValue={
-              newRide.returnTrip ? 'Yes' : 'No'}
+            defaultValue={newRide.returnTrip}
           />
           <TextField
             autoFocus
@@ -172,7 +170,7 @@ function CreateRidePage(props) {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                variant="standard"
+                variant="outlined"
                 required
                 value={newRide.playerName}
                 onChange={(event) => setNewRide({ ...newRide, playerName: event.target.value })}
@@ -187,7 +185,7 @@ function CreateRidePage(props) {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                variant="standard"
+                variant="outlined"
                 required
                 value={newRide.pickupDate}
                 onChange={(event) => setNewRide({ ...newRide, pickupDate: event.target.value })}
@@ -202,7 +200,7 @@ function CreateRidePage(props) {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                variant="standard"
+                variant="outlined"
                 required
                 value={newRide.pickupTime}
                 onChange={(event) => setNewRide({ ...newRide, pickupTime: event.target.value })}
@@ -216,7 +214,7 @@ function CreateRidePage(props) {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                variant="standard"
+                variant="outlined"
                 required
                 value={newRide.pickupLocation}
                 onChange={(event) => setNewRide({ ...newRide, pickupLocation: event.target.value })}
@@ -230,7 +228,7 @@ function CreateRidePage(props) {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                variant="standard"
+                variant="outlined"
                 required
                 value={newRide.dropoffLocation}
                 onChange={(event) => setNewRide({ ...newRide, dropoffLocation: event.target.value })}
@@ -245,7 +243,7 @@ function CreateRidePage(props) {
                   aria-label="event"
                   name="row-radio-buttons-group"
                   defaultValue="Practice"
-                  onChange={handleEventTypeChange}>
+                  onChange={handleEventChange}>
                   <FormControlLabel value="Practice" control={<Radio />} label="Practice" />
                   <FormControlLabel value="Game" control={<Radio />} label="Game" />
                   <FormControlLabel value="Other" control={<Radio />} label="Other" />

@@ -51,8 +51,8 @@ router.get('/', (req, res) => {
 
 // POST a new ride
 router.post('/create', (req, res) => {
-  const insertRideQuery = `INSERT INTO ride (pickup_location, dropoff_location, creator_id, player_name, 
-                            event_type, return_trip, event_timestamp )
+  const insertRideQuery = `INSERT INTO rides (pickup_date, pickup_location, dropoff_location, 
+                                                creator_id, driver_id, child_name, ride_status)
                        VALUES ($1,$2,$3,$4,$5,$6,$7)
                        RETURNING "id"`;
   let values = [req.body.pickupDate, req.body.pickupLocation, req.body.dropoffLocation,

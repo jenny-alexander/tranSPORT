@@ -36,6 +36,7 @@ function RegisterForm() {
       payload: {
         username: username,
         password: password,
+        //email: userProfile.email,
         userProfile: userProfile
       },
     });
@@ -111,6 +112,7 @@ function RegisterForm() {
                 variant="standard"
                 required
                 value={userProfile.parentName}
+                // onChange={(event) => setParentName(event.target.value)}
                 onChange={(event) => setUserProfile({ ...userProfile, parentName: event.target.value })}
               />
             </Grid>
@@ -125,6 +127,7 @@ function RegisterForm() {
                 variant="standard"
                 required
                 value={userProfile.playerName}
+                // onChange={(event) => setPlayerName(event.target.value)}
                 onChange={(event) => setUserProfile({ ...userProfile, playerName: event.target.value })}
               />
             </Grid>
@@ -139,8 +142,21 @@ function RegisterForm() {
                 variant="standard"
                 required
                 value={userProfile.phoneNumber}
+                // onChange={(event) => setContactNumber(event.target.value)}
                 onChange={(event) => setUserProfile({ ...userProfile, phoneNumber: event.target.value })}
               />
+              {/* <MuiPhoneNumber defaultCountry={'us'}
+                label="Phone Number"
+                id="phoneNumber"
+                sx={{ m: 1, width: '30ch' }}
+                InputProps={{
+                  startAdornment: <InputAdornment position="start"><ContactPhoneIcon /></InputAdornment>,
+                }}
+                variant="standard"
+                required
+                // value={userProfile.phoneNumber}
+                onChange={(event) => setUserProfile({ ...userProfile, phoneNumber: event.target.value })}
+              /> */}
             </Grid>
             <Grid item sx={12}>
               <Button variant="contained" type="submit" name="submit" fullWidth
@@ -152,6 +168,44 @@ function RegisterForm() {
       </Container>
     </div>
   );
+
+  // return (
+  //   <form className="formPanel" onSubmit={registerUser}>
+  //     <h2>Register Yourself!</h2>
+  //     {errors.registrationMessage && (
+  //       <h3 className="alert" role="alert">
+  //         {errors.registrationMessage}
+  //       </h3>
+  //     )}
+  //     <div>
+  //       <label htmlFor="username">
+  //         Username:
+  //         <input
+  //           type="text"
+  //           name="username"
+  //           value={username}
+  //           required
+  //           onChange={(event) => setUsername(event.target.value)}
+  //         />
+  //       </label>
+  //     </div>
+  //     <div>
+  //       <label htmlFor="password">
+  //         Password:
+  //         <input
+  //           type="password"
+  //           name="password"
+  //           value={password}
+  //           required
+  //           onChange={(event) => setPassword(event.target.value)}
+  //         />
+  //       </label>
+  //     </div>
+  //     <div>
+  //       <input className="btn" type="submit" name="submit" value="Register" />
+  //     </div>
+  //   </form>
+  // );
 }
 
 export default RegisterForm;
