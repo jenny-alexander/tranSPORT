@@ -10,13 +10,18 @@ function UserProfilePage() {
 
   return (
     <div>
-      <Box sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left' }} >
-        <Grid item xs={4} sx={{ mb: 5, ml: 2, mt: 1 }}>
-          <Typography variant="h4" gutterBottom component="div">
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        sx={{ mb: 3, mt: 5 }}>
+        <Grid item xs={12} >
+          <Typography variant="h5" gutterBottom component="div">
             User Profile
           </Typography>
         </Grid>
-      </Box>
+      </Grid>
       <UserProfileForm />
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
         <Grid item>

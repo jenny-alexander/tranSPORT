@@ -37,7 +37,8 @@ const ResponsiveAppBar = () => {
       style={{
         color: "black",
         backgroundColor: "#FFFFFF",
-        boxShadow: "0px 0px 0px 0px"
+        boxShadow: "0px 0px 0px 0px",
+        borderRadius: 5
       }}>
 
       <Container maxWidth="xl">
@@ -50,7 +51,7 @@ const ResponsiveAppBar = () => {
           >
             LOGO
           </Typography>
-
+          {/* TODO: ---> Menu icon turns to 'LOGO' when page is wide */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -98,7 +99,7 @@ const ResponsiveAppBar = () => {
               </Link>
             </Menu>
           </Box>
-
+          {/* ---> TODO: Logo shifts to left when page is too big. */}
           <Box sx={{ flexGrow: 1 }}>
             <img src='images/logo.png' alt='logo'></img>
           </Box>
