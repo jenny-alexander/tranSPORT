@@ -12,6 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
 import './ResponsiveAppBar.css';
 import GlobalCSS from '../GlobalCSS/GlobalCSS';
+import Grid from '@mui/material/Grid';
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -33,14 +34,15 @@ const ResponsiveAppBar = () => {
 
   return (
     <AppBar position="sticky"
-    style={{
-      color: "black", 
-      backgroundColor: "#FFFFFF",
-      boxShadow: "0px 0px 0px 0px"}}>
+      style={{
+        color: "black",
+        backgroundColor: "#FFFFFF",
+        boxShadow: "0px 0px 0px 0px"
+      }}>
 
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-        <Typography
+          <Typography
             variant="h6"
             noWrap
             component="div"
@@ -78,7 +80,7 @@ const ResponsiveAppBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              <Link className={globalClasses.link} to="/home">                      
+              <Link className={globalClasses.link} to="/home">
                 <MenuItem key='home' onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Home</Typography>
                 </MenuItem>
@@ -96,17 +98,11 @@ const ResponsiveAppBar = () => {
               </Link>
             </Menu>
           </Box>
-          {/* <Typography
-            variant="h4"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-          > */}
-          {/* <Box component='div' 
-            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <img src='/images/logo.png' alt='logo'></img>
-          </Box> */}
-          {/* </Typography> */}
+
+          <Box sx={{ flexGrow: 1 }}>
+            <img src='images/logo.png' alt='logo'></img>
+          </Box>
+
         </Toolbar>
       </Container>
     </AppBar>

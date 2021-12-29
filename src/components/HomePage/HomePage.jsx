@@ -10,27 +10,17 @@ function HomePage(props) {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  //TODO: Check when parent doesn't have an ID in user_profile table
-  // useEffect(() => {
-  //   if (profile.id != '') {
-  //     setProfileButtonText('View Profile');
-  //   } else {
-  //     setProfileButtonText('Create Profile')
-  //   }
-  // }, []);
-
-  const user = useSelector((store) => store.user);
-  // const profile = [];
-  const profile = useSelector((store) => store.profile);
+  // const user = useSelector((store) => store.user);
+  // const profile = useSelector((store) => store.profile);
 
   return (
     <div>
       {/* <h3>{JSON.stringify(profile)}</h3> */}
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+      {/* <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 3 }} >
         <img src='images/logo.png' alt='logo'></img>
-      </Box>
+      </Box> */}
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
-        <Typography variant="h5" sx={{ mb: 5 }}>
+        <Typography variant="h5" sx={{ mb: 5, mt: 5 }}>
           What would you like to do?
         </Typography>
       </Box>
