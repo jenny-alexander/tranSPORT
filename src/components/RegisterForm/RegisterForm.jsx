@@ -36,7 +36,6 @@ function RegisterForm() {
       payload: {
         username: username,
         password: password,
-        //email: userProfile.email,
         userProfile: userProfile
       },
     });
@@ -56,7 +55,7 @@ function RegisterForm() {
             direction="column"
             justifyContent="center"
             alignItems="center"
-            spacing={3}>
+            spacing={2}>
 
             <Grid item sx={12}>
               <TextField

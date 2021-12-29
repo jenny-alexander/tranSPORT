@@ -10,18 +10,23 @@ function RegisterPage() {
 
   return (
     <div>
-      <Box sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left'}} >
-        <Grid item xs={4} sx={{mb:5, ml:2, mt:1}}>
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        sx={{ mb: 3, mt: 5 }}>
+        <Grid item xs={12} >
           <Typography variant="h4" gutterBottom component="div">
             Create Account
           </Typography>
-        </Grid>          
-      </Box>
+        </Grid>
+      </Grid>
       <RegisterForm />
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
         <Grid item>
-          <Button variant="outlined" sx={{width: '30ch', mt:2}}
-                  onClick={()=>{history.push('/login')}}>Back to Login</Button>
+          <Button variant="outlined" sx={{ width: '30ch', mt: 2 }}
+            onClick={() => { history.push('/login') }}>Back to Login</Button>
         </Grid>
       </Box>
     </div>

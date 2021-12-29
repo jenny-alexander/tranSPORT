@@ -19,18 +19,20 @@ function HomePage(props) {
       {/* <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 3 }} >
         <img src='images/logo.png' alt='logo'></img>
       </Box> */}
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
-        <Typography variant="h5" sx={{ mb: 5, mt: 5 }}>
-          What would you like to do?
-        </Typography>
-      </Box>
+      <div class='title'>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+          <Typography variant="h4" sx={{ mb: 5, mt: 5 }}>
+            What would you like to do?
+          </Typography>
+        </Box>
+      </div>
       <Container>
         <Grid
           container
           direction="column"
           justifyContent="center"
           alignItems="center"
-          spacing={2}>
+          spacing={3}>
           <Grid item sx={12}>
             <Button variant="contained"
               sx={{ width: '30ch', height: '7ch', borderRadius: 7 }}

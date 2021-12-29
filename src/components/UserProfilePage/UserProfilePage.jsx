@@ -17,7 +17,7 @@ function UserProfilePage() {
         alignItems="center"
         sx={{ mb: 3, mt: 5 }}>
         <Grid item xs={12} >
-          <Typography variant="h5" gutterBottom component="div">
+          <Typography variant="h4" gutterBottom component="div">
             User Profile
           </Typography>
         </Grid>

@@ -17,12 +17,6 @@ function* registerUser(action) {
     // automatically log a user in after registration
     yield put({ type: 'LOGIN', payload: action.payload });
 
-    // //---> BEGIN NEW
-    // console.log(`line 18 of registration.saga & action.payload is:`, action.payload);
-    // //create the user profile
-    // yield put({ type: 'CREATE_PROFILE', payload: action.payload });
-    // //<--- END NEW
-
     // set to 'login' mode so they see the login screen
     // after registration or after they log out
     yield put({ type: 'SET_TO_LOGIN_MODE' });

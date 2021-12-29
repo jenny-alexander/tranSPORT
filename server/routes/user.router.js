@@ -5,7 +5,6 @@ const {
 const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
-
 const router = express.Router();
 
 // Handles Ajax request for user information if user is authenticated
@@ -69,5 +68,42 @@ router.post('/logout', (req, res) => {
   req.logout();
   res.sendStatus(200);
 });
+
+//Update the user information
+router.put('/', (req, res) => {
+  console.log(`ribbit in user.router PUT`)
+
+  let postQueryString = `UPDATE "user" SET email = '${manipulateDataForDB(req.body.updatedUser.email)}',
+                                   parent_name = '${manipulateDataForDB(req.body.updatedUser.parent_name)}',
+                                   player_name = '${manipulateDataForDB(req.body.updatedUser.player_name)}',
+                                  phone_number = '${manipulateDataForDB(req.body.updatedUser.phone_number)}'
+                            WHERE id = ${req.body.updatedUser.id}`;
+
+  console.log(`query string is`, postQueryString);
+
+  pool
+    .query(postQueryString)
+    .then((results) => {
+      res.sendStatus(200);
+    }).catch((error) => {
+      console.log(`Error updating user profile.`, error);
+      res.sendStatus(500);
+    })
+})
+
+const replaceApostrophe = (singleApostropheString) => {
+  let doubleApostropheString = singleApostropheString.replace(/'/g, "''");
+  return doubleApostropheString;
+}
+
+const manipulateDataForDB = (requestValue) => {
+  if (typeof value == 'string') {
+    //Replace single apostrophe with double apostrophe.
+    requestValue = replaceApostrophe(requestValue);
+    //Put single quotes around string value
+    requestValue = "'" + requestValue + "'";
+  }
+  return requestValue;
+}
 
 module.exports = router;

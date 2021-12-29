@@ -10,6 +10,8 @@ function LoginPage() {
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(true);
 
+  //--->TODO: Need to store a value in a store to say that we loaded the splash
+  //screen once already and don't do it again.
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
@@ -27,7 +29,7 @@ function LoginPage() {
           alt='logo' /> */}
         {/* <Header /> */}
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 10 }} >
-          <Typography variant="h4" sx={{ mb: 5 }}>
+          <Typography variant="h4" sx={{ mb: 5, mt: 3 }}>
             Log-in
           </Typography>
         </Box>

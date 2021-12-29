@@ -12,54 +12,27 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 
 function UserProfileForm() {
-  const [profileExists, setProfileExists] = useState(false);
+  //const [profileExists, setProfileExists] = useState(false);
 
-  const [userProfile, setUserProfile] = useState({
-    parentName: '',
-    email: '',
-    contactNumber: '',
-    playerName: ''
-  })
+  const [updatedUser, setUpdatedUser] = useState({})
 
   const errors = useSelector((store) => store.errors);
-  const profile = useSelector((store) => store.profile);
-  const user = useSelector((store) => store.user);
+
+  const user = useSelector(store => store.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (profile.id != null) {
-      setProfileExists(true);
-    }
+    setUpdatedUser(user)
   }, []);
 
-  const createProfile = (event) => {
-    event.preventDefault();
-
-    //This will start the process of adding the user profile
-    //to the user_profile table.
-    //Eventually, we will need a way to update the user profile via menu
-    dispatch({
-      type: 'CREATE_PROFILE',
-      payload: {
-        profile
-      },
-    });
-  };
-
-  const handleProfileChange = (event) => {
-
-  }
-
   const updateProfile = (event) => {
+    console.log(`in updateProfile with user info:`, updatedUser)
     event.preventDefault();
 
-    //This will start the process of adding the user profile
-    //to the user_profile table.
-    //Eventually, we will need a way to update the user profile via menu
     dispatch({
-      type: 'UPDATE_PROFILE',
+      type: 'UPDATE_USER',
       payload: {
-        profile
+        updatedUser
       },
     });
   };
@@ -71,15 +44,16 @@ function UserProfileForm() {
           {errors.loginMessage}
         </h3>
       )}
+      <h3>{JSON.stringify(user)}</h3>
       <Container>
-        <Box component="form" onSubmit={handleProfileChange}>
+        <Box component="form" onSubmit={updateProfile}>
           <Grid
             container
             direction="column"
             justifyContent="center"
             alignItems="center"
             spacing={3}>
-            <Grid item sx={12}>
+            <Grid item xs={12}>
               <TextField
                 label="Parent Name"
                 id="parentName"
@@ -89,11 +63,11 @@ function UserProfileForm() {
                 }}
                 variant="standard"
                 required
-                value={user.parent_name}
-                onChange={(event) => setUserProfile({ ...userProfile, parentName: event.target.value })}
+                value={updatedUser.parent_name}
+                onChange={(event) => setUpdatedUser({ ...updatedUser, parent_name: event.target.value })}
               />
             </Grid>
-            <Grid item sx={12}>
+            <Grid item xs={12}>
               <TextField
                 label="Email"
                 id="email"
@@ -103,11 +77,11 @@ function UserProfileForm() {
                 }}
                 variant="standard"
                 required
-                value={user.email}
-                onChange={(event) => setUserProfile({ ...userProfile, email: event.target.value })}
+                value={updatedUser.email}
+                onChange={(event) => setUpdatedUser({ ...updatedUser, email: event.target.value })}
               />
             </Grid>
-            <Grid item sx={12}>
+            <Grid item xs={12}>
               <TextField
                 label="Contact Number"
                 id="contactNumber"
@@ -117,11 +91,11 @@ function UserProfileForm() {
                 }}
                 variant="standard"
                 required
-                value={user.phone_number}
-                onChange={(event) => setUserProfile({ ...userProfile, contactNumber: event.target.value })}
+                value={updatedUser.phone_number}
+                onChange={(event) => setUpdatedUser({ ...updatedUser, phone_number: event.target.value })}
               />
             </Grid>
-            <Grid item sx={12}>
+            <Grid item xs={12}>
               <TextField
                 label="Player Name"
                 id="playerName"
@@ -131,8 +105,8 @@ function UserProfileForm() {
                 }}
                 variant="standard"
                 required
-                value={user.player_name}
-                onChange={(event) => setUserProfile({ ...userProfile, playerName: event.target.value })}
+                value={updatedUser.player_name}
+                onChange={(event) => setUpdatedUser({ ...updatedUser, player_name: event.target.value })}
               />
             </Grid>
             <Grid item sx={12}>
