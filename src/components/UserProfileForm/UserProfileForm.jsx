@@ -23,6 +23,7 @@ function UserProfileForm() {
 
   const errors = useSelector((store) => store.errors);
   const profile = useSelector((store) => store.profile);
+  const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -78,20 +79,6 @@ function UserProfileForm() {
             justifyContent="center"
             alignItems="center"
             spacing={3}>
-            {/* <Grid item sx={12}>
-              <TextField
-                label="Username"
-                id="username"
-                sx={{ m: 1, width: '30ch' }}
-                InputProps={{
-                  startAdornment: <InputAdornment position="start"><AccountCircle /></InputAdornment>,
-                }}
-                variant="standard"
-                required
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
-              />
-            </Grid> */}
             <Grid item sx={12}>
               <TextField
                 label="Parent Name"
@@ -102,8 +89,7 @@ function UserProfileForm() {
                 }}
                 variant="standard"
                 required
-                value={userProfile.parentName}
-                // onChange={(event) => setParentName(event.target.value)}
+                value={user.parent_name}
                 onChange={(event) => setUserProfile({ ...userProfile, parentName: event.target.value })}
               />
             </Grid>
@@ -117,8 +103,7 @@ function UserProfileForm() {
                 }}
                 variant="standard"
                 required
-                value={userProfile.email}
-                // onChange={(event) => setEmail(event.target.value)}
+                value={user.email}
                 onChange={(event) => setUserProfile({ ...userProfile, email: event.target.value })}
               />
             </Grid>
@@ -132,8 +117,7 @@ function UserProfileForm() {
                 }}
                 variant="standard"
                 required
-                value={userProfile.contactNumber}
-                // onChange={(event) => setContactNumber(event.target.value)}
+                value={user.phone_number}
                 onChange={(event) => setUserProfile({ ...userProfile, contactNumber: event.target.value })}
               />
             </Grid>
@@ -147,16 +131,14 @@ function UserProfileForm() {
                 }}
                 variant="standard"
                 required
-                value={userProfile.playerName}
-                // onChange={(event) => setPlayerName(event.target.value)}
+                value={user.player_name}
                 onChange={(event) => setUserProfile({ ...userProfile, playerName: event.target.value })}
               />
             </Grid>
             <Grid item sx={12}>
               <Button variant="contained" type="submit" name="submit" fullWidth
                 sx={{ width: '30ch' }}>
-                {profileExists ? 'Update Profile' : 'Create New Profile'}
-                {/* Create Profile */}
+                Update Profile
               </Button>
             </Grid>
           </Grid>
