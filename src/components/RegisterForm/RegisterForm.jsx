@@ -4,16 +4,26 @@ import TextField from '@mui/material/TextField';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
+import PersonIcon from '@mui/icons-material/Person';
+import FaceIcon from '@mui/icons-material/Face';
+import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import InputAdornment from '@mui/material/InputAdornment';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import MuiPhoneNumber from 'material-ui-phone-number';
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
+  //const [email, setEmail] = useState('');
+  const [userProfile, setUserProfile] = useState({
+    parentName: '',
+    email: '',
+    phoneNumber: '',
+    playerName: ''
+  });
 
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
@@ -26,7 +36,8 @@ function RegisterForm() {
       payload: {
         username: username,
         password: password,
-        email: email,
+        //email: userProfile.email,
+        userProfile: userProfile
       },
     });
   };
@@ -46,20 +57,7 @@ function RegisterForm() {
             justifyContent="center"
             alignItems="center"
             spacing={3}>
-            <Grid item sx={12}>
-              <TextField
-                label="Email"
-                id="email"
-                sx={{ m: 1, width: '30ch' }}
-                InputProps={{
-                  startAdornment: <InputAdornment position="start"><EmailIcon /></InputAdornment>,
-                }}
-                variant="standard"
-                required
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-              />
-            </Grid>
+
             <Grid item sx={12}>
               <TextField
                 label="Username"
@@ -74,7 +72,6 @@ function RegisterForm() {
                 onChange={(event) => setUsername(event.target.value)}
               />
             </Grid>
-
             <Grid item sx={12}>
               <TextField
                 type="password"
@@ -89,6 +86,77 @@ function RegisterForm() {
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
               />
+            </Grid>
+            <Grid item sx={12}>
+              <TextField
+                label="Email"
+                id="email"
+                sx={{ m: 1, width: '30ch' }}
+                InputProps={{
+                  startAdornment: <InputAdornment position="start"><EmailIcon /></InputAdornment>,
+                }}
+                variant="standard"
+                required
+                value={userProfile.email}
+                onChange={(event) => setUserProfile({ ...userProfile, email: event.target.value })}
+              />
+            </Grid>
+            <Grid item sx={12}>
+              <TextField
+                label="Parent Name"
+                id="parentName"
+                sx={{ m: 1, width: '30ch' }}
+                InputProps={{
+                  startAdornment: <InputAdornment position="start"><PersonIcon /></InputAdornment>,
+                }}
+                variant="standard"
+                required
+                value={userProfile.parentName}
+                // onChange={(event) => setParentName(event.target.value)}
+                onChange={(event) => setUserProfile({ ...userProfile, parentName: event.target.value })}
+              />
+            </Grid>
+            <Grid item sx={12}>
+              <TextField
+                label="Player Name"
+                id="playerName"
+                sx={{ m: 1, width: '30ch' }}
+                InputProps={{
+                  startAdornment: <InputAdornment position="start"><FaceIcon /></InputAdornment>,
+                }}
+                variant="standard"
+                required
+                value={userProfile.playerName}
+                // onChange={(event) => setPlayerName(event.target.value)}
+                onChange={(event) => setUserProfile({ ...userProfile, playerName: event.target.value })}
+              />
+            </Grid>
+            <Grid item sx={12}>
+              <TextField
+                label="Phone Number"
+                id="phoneNumber"
+                sx={{ m: 1, width: '30ch' }}
+                InputProps={{
+                  startAdornment: <InputAdornment position="start"><ContactPhoneIcon /></InputAdornment>,
+                }}
+                variant="standard"
+                required
+                value={userProfile.phoneNumber}
+                // onChange={(event) => setContactNumber(event.target.value)}
+                onChange={(event) => setUserProfile({ ...userProfile, phoneNumber: event.target.value })}
+              />
+              {/* <MuiPhoneNumber defaultCountry={'us'}
+                label="Phone Number"
+                id="phoneNumber"
+                sx={{ m: 1, width: '30ch' }}
+                InputProps={{
+                  startAdornment: <InputAdornment position="start"><ContactPhoneIcon /></InputAdornment>,
+                }}
+                variant="standard"
+                required
+                // value={userProfile.phoneNumber}
+                onChange={(event) => setUserProfile({ ...userProfile, phoneNumber: event.target.value })}
+              /> */}
             </Grid>
             <Grid item sx={12}>
               <Button variant="contained" type="submit" name="submit" fullWidth

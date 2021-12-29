@@ -20,6 +20,7 @@ function HomePage(props) {
   // }, []);
 
   const user = useSelector((store) => store.user);
+  // const profile = [];
   const profile = useSelector((store) => store.profile);
 
   return (
@@ -63,8 +64,7 @@ function HomePage(props) {
               sx={{ width: '30ch', height: '7ch', borderRadius: 7 }}
               startIcon={<AccountCircleIcon />}
               onClick={() => { history.push('/profile') }}>
-              {profile.id != null ? 'Update Profile' : 'Create Profile'}
-              {/* {profileButtonText} */}
+              View Profile
             </Button>
           </Grid>
         </Grid>

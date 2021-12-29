@@ -16,9 +16,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 //Check that the user's email exists in the team table. This means they are ok
 //to use the app as a parent of a player on the team.
-router.get('/api/user/check-email/:email', (req, res) => {
-  console.log('/api/user/check-email');
-  const getEmailQuery = `SELECT * FROM team where email=${req.params.email};`;
+router.get('/check-email/:email', (req, res) => {
+  const getEmailQuery = `SELECT * FROM team where parent_email = '${req.params.email}';`;
 
   console.log(`getEmail query is:`, getEmailQuery);
 
@@ -41,10 +40,14 @@ router.post('/register', (req, res, next) => {
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
 
-  const queryText = `INSERT INTO "user" (username, password)
-  VALUES ($1, $2) RETURNING id`;
+  // const queryText = `INSERT INTO "user" (username, password)
+  // VALUES ($1, $2) RETURNING id`;
+  const queryText = `INSERT INTO "user" (username, password, email, parent_name, player_name, phone_number)
+  VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`;
+
   pool
-    .query(queryText, [username, password])
+    .query(queryText, [username, password, req.body.userProfile.email, req.body.userProfile.parentName, req.body.userProfile.playerName,
+      req.body.userProfile.phoneNumber])
     .then(() => res.sendStatus(201))
     .catch((err) => {
       console.log('User registration failed: ', err);
