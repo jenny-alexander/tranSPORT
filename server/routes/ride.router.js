@@ -51,25 +51,31 @@ router.get('/', (req, res) => {
 
 // POST a new ride
 router.post('/create', (req, res) => {
-  const insertRideQuery = `INSERT INTO rides (pickup_date, pickup_location, dropoff_location, 
-                                                creator_id, driver_id, child_name, ride_status)
+  const insertRideQuery = `INSERT INTO ride (pickup_location, dropoff_location, creator_id,
+                                                player_name, event_timestamp, event_type, return_trip)
                        VALUES ($1,$2,$3,$4,$5,$6,$7)
                        RETURNING "id"`;
-  let values = [req.body.pickupDate, req.body.pickupLocation, req.body.dropoffLocation,
-  req.body.creatorId, null, req.body.childName, null];
+  //--->TODO: Add the manipulateDataForDB into a global HELPER class
+  let values = [manipulateDataForDB(req.body.ride.pickupLocation),
+  manipulateDataForDB(req.body.ride.dropoffLocation),
+  manipulateDataForDB(req.body.creatorId),
+  manipulateDataForDB(req.body.player),
+  manipulateDataForDB(req.body.eventTimestamp),
+  manipulateDataForDB(req.body.ride.eventType),
+  manipulateDataForDB(req.body.ride.returnTrip)];
 
   // CREATE the new ride
   pool.query(insertRideQuery, values)
     .then(result => {
-      console.log(`new ride id is:`, result.rows[0].id)//new ride is here!
+      //console.log(`new ride id is:`, result.rows[0].id)//new ride is here!
 
       const newRideId = result.rows[0].id;
 
       //Now handle the join table user_ride
-      const insertUserRideQuery = `INSERT INTO user_ride (user_id, ride_id);
+      const insertUserRideQuery = `INSERT INTO user_ride (user_id, ride_id)
                                  VALUES($1,$2);`;
 
-      pool.query(insertUserRideQuery, [newRideId, req.body.creatorId])
+      pool.query(insertUserRideQuery, [req.body.creatorId, newRideId])
         .then((result) => {
           //send back success
           res.sendStatus(201);
@@ -146,5 +152,20 @@ router.delete('/delete/:id', (req, res) => {
       res.sendStatus(500);
     })
 });
+
+const replaceApostrophe = (singleApostropheString) => {
+  let doubleApostropheString = singleApostropheString.replace(/'/g, "''");
+  return doubleApostropheString;
+}
+
+const manipulateDataForDB = (requestValue) => {
+  if (typeof value == 'string') {
+    //Replace single apostrophe with double apostrophe.
+    requestValue = replaceApostrophe(requestValue);
+    //Put single quotes around string value
+    requestValue = "'" + requestValue + "'";
+  }
+  return requestValue;
+}
 
 module.exports = router;

@@ -5,7 +5,7 @@ function* createRide(action) {
   console.log(`help`)
   try {
     console.log(`in createRide of ride.saga.js with action.payload:`, action.payload);
-    //   yield axios.post('/api/ride/create', action.payload);
+    yield axios.post('/api/ride/create', action.payload);
   } catch (error) {
     console.log('Error creating ride.', error);
   }

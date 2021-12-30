@@ -74,7 +74,7 @@ function CreateRidePage(props) {
 
   return (
     <div>
-      <h3>{JSON.stringify(user)}</h3>
+      {/* <h3>{JSON.stringify(user)}</h3> */}
       {/* Define modal reqs here - to be opened when user clicks on the 
       create button. */}
       <Dialog open={open}>
