@@ -16,10 +16,14 @@ import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material
 function CreateRidePage(props) {
   const [open, setOpen] = useState(false); //this is for the modal confirmation 
   const [player, setPlayer] = useState('')
+  const [time, setTime] = useState('');
+  const [date, setDate] = useState('');
   const [newRide, setNewRide] = useState({
+    creatorId: '',
     playerName: '',
-    pickupDate: '',
-    pickupTime: '',
+    // pickupDate: '',
+    // pickupTime: '',
+    timestamp: '',
     pickupLocation: '',
     dropoffLocation: '',
     eventType: 'Practice',
@@ -28,7 +32,6 @@ function CreateRidePage(props) {
   const [newComments, setNewComments] = useState('');
 
   const user = useSelector(store => store.user);
-  const date = new Date();
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -45,6 +48,15 @@ function CreateRidePage(props) {
   }
   const handleConfirmCreate = () => {
     console.log(`in handleConfirmCreate`);
+
+    const concatDateTime = date + " " + time;
+    console.log(`date and time concatenated together are:`, concatDateTime);
+    const rideTimestamp = new Date('12/29/2021 05:30 PM').toISOString();
+    console.log(`timestamp is:`, rideTimestamp);
+
+    setNewRide({ ...newRide, timestamp: rideTimestamp });
+    setNewRide({ ...newRide, creatorId: user.id });
+    setNewRide({ ...newRide, playerName: player });
   }
   const handleEventChange = (event) => {
     console.log(`in handleEventChange`);
@@ -82,7 +94,7 @@ function CreateRidePage(props) {
             variant="filled"
             type="text"
             fullWidth
-            defaultValue={newRide.pickupDate}
+            defaultValue={date}
           />
           <TextField
             autoFocus
@@ -92,7 +104,7 @@ function CreateRidePage(props) {
             variant="filled"
             type="text"
             fullWidth
-            defaultValue={newRide.pickupTime}
+            defaultValue={time}
           />
           <TextField
             autoFocus
@@ -132,7 +144,7 @@ function CreateRidePage(props) {
             type="text"
             fullWidth
             defaultValue={
-              newRide.returnTrip ? 'True' : 'False'
+              newRide.returnTrip ? 'Yes' : 'No'
             }
           />
           <TextField
@@ -191,8 +203,9 @@ function CreateRidePage(props) {
                 }}
                 variant="outlined"
                 required
-                value={newRide.pickupDate}
-                onChange={(event) => setNewRide({ ...newRide, pickupDate: event.target.value })}
+                value={date}
+                //onChange={(event) => setNewRide({ ...newRide, pickupDate: event.target.value })}
+                onChange={(event) => { setDate(event.target.value) }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -206,8 +219,8 @@ function CreateRidePage(props) {
                 }}
                 variant="outlined"
                 required
-                value={newRide.pickupTime}
-                onChange={(event) => setNewRide({ ...newRide, pickupTime: event.target.value })}
+                value={time}
+                onChange={(event) => { setTime(event.target.value) }}
               />
             </Grid>
             <Grid item xs={12}>
