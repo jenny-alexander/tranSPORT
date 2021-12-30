@@ -16,14 +16,12 @@ import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material
 function CreateRidePage(props) {
   const [open, setOpen] = useState(false); //this is for the modal confirmation 
   const [player, setPlayer] = useState('')
-  const [time, setTime] = useState('');
-  const [date, setDate] = useState('');
+  //const [creatorId, setCreatorId] = useState('');
+  // const [time, setTime] = useState('');
+  // const [date, setDate] = useState('');
   const [newRide, setNewRide] = useState({
-    creatorId: '',
-    playerName: '',
-    // pickupDate: '',
-    // pickupTime: '',
-    timestamp: '',
+    pickupDate: '',
+    pickupTime: '',
     pickupLocation: '',
     dropoffLocation: '',
     eventType: 'Practice',
@@ -36,7 +34,8 @@ function CreateRidePage(props) {
   const history = useHistory();
 
   useEffect(() => {
-    setPlayer(user.player_name); //set player name as-is from the DB
+    setPlayer(user.player_name);
+    //setCreatorId(user.id);
   }, []);
 
   const createRide = () => {
@@ -46,17 +45,23 @@ function CreateRidePage(props) {
   const handleCancel = () => {
     setOpen(false);
   }
-  const handleConfirmCreate = () => {
-    console.log(`in handleConfirmCreate`);
+  const handleConfirmCreate = (event) => {
+    const concatDateTime = newRide.pickupDate + " " + newRide.pickupTime;
+    const rideTimestamp = new Date(concatDateTime).toISOString();
+    // console.log(`timestamp is:`, rideTimestamp);
+    // console.log(`newRide details are:`, newRide, `and player is:`, player);
 
-    const concatDateTime = date + " " + time;
-    console.log(`date and time concatenated together are:`, concatDateTime);
-    const rideTimestamp = new Date('12/29/2021 05:30 PM').toISOString();
-    console.log(`timestamp is:`, rideTimestamp);
-
-    setNewRide({ ...newRide, timestamp: rideTimestamp });
-    setNewRide({ ...newRide, creatorId: user.id });
-    setNewRide({ ...newRide, playerName: player });
+    event.preventDefault();
+    console.log(`about to call CREATE_RIDE dispatch`);
+    dispatch({
+      type: 'CREATE_RIDE',
+      payload: {
+        ride: newRide,
+        player: user.player_name,
+        creatorId: user.id,
+        eventTimestamp: rideTimestamp
+      },
+    });
   }
   const handleEventChange = (event) => {
     console.log(`in handleEventChange`);
@@ -69,6 +74,7 @@ function CreateRidePage(props) {
 
   return (
     <div>
+      <h3>{JSON.stringify(user)}</h3>
       {/* Define modal reqs here - to be opened when user clicks on the 
       create button. */}
       <Dialog open={open}>
@@ -94,7 +100,7 @@ function CreateRidePage(props) {
             variant="filled"
             type="text"
             fullWidth
-            defaultValue={date}
+            defaultValue={newRide.pickupDate}
           />
           <TextField
             autoFocus
@@ -104,7 +110,7 @@ function CreateRidePage(props) {
             variant="filled"
             type="text"
             fullWidth
-            defaultValue={time}
+            defaultValue={newRide.pickupTime}
           />
           <TextField
             autoFocus
@@ -179,6 +185,7 @@ function CreateRidePage(props) {
             {/* Textfields containing user input */}
             <Grid item xs={12}>
               <TextField
+                disabled
                 label="Player Name"
                 id="playerName"
                 sx={{ m: 1, width: '40ch' }}
@@ -188,8 +195,8 @@ function CreateRidePage(props) {
                 variant="outlined"
                 required
                 value={player}
-                //onChange={(event) => setNewRide({ ...newRide, playerName: event.target.value })}
-                onChange={(event) => { setPlayer(event.target.value) }}
+              //onChange={(event) => setNewRide({ ...newRide, playerName: event.target.value })}
+              //onChange={(event) => { setPlayer(event.target.value) }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -203,9 +210,9 @@ function CreateRidePage(props) {
                 }}
                 variant="outlined"
                 required
-                value={date}
-                //onChange={(event) => setNewRide({ ...newRide, pickupDate: event.target.value })}
-                onChange={(event) => { setDate(event.target.value) }}
+                value={newRide.pickupDate}
+                onChange={(event) => setNewRide({ ...newRide, pickupDate: event.target.value })}
+              // onChange={(event) => { setDate(event.target.value) }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -219,8 +226,9 @@ function CreateRidePage(props) {
                 }}
                 variant="outlined"
                 required
-                value={time}
-                onChange={(event) => { setTime(event.target.value) }}
+                value={newRide.pickupTime}
+                onChange={(event) => setNewRide({ ...newRide, pickupTime: event.target.value })}
+              //onChange={(event) => { setTime(event.target.value) }}
               />
             </Grid>
             <Grid item xs={12}>
