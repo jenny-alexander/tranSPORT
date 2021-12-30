@@ -1,12 +1,21 @@
 import React from 'react';
-
-// This is one of our simplest components
-// It doesn't have local state, so it can be a function component.
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is, so it doesn't need 'connect()'
+import Box from '@mui/material/Box';
 
 function Footer() {
-  return <footer>&copy; Prime Digital Academy</footer>;
+  // return <footer>&copy; Jennifer Alexander</footer>;
+  return (
+    <Box sx={{
+      //position="sticky",
+      display: "flex",
+      justifyContent: "center",
+      position: "absolute",
+      bottom: "1%",
+
+      left: "35%"
+    }}>
+      &copy; Jennifer Alexander
+    </Box>
+  )
 }
 
 export default Footer;

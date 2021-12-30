@@ -30,8 +30,6 @@ function NewRideList(props) {
           }
         </Typography>
       </Box>
-      {/* <h3>{JSON.stringify(rides)}</h3> */}
-
       <Grid
         container
         direction="row"
@@ -53,7 +51,7 @@ function NewRideList(props) {
                         alignItems="center"
                         spacing={1}>
 
-                        <Grid item xs={7} sx={{ padding: 1 }}>
+                        <Grid item xs={6} sx={{ padding: 1 }}>
                           <Typography sx={{ fontSize: '22px', fontWeight: 600 }} >
                             {new Date(ride.event_timestamp).toLocaleDateString()}
                           </Typography>
@@ -65,7 +63,7 @@ function NewRideList(props) {
                             {ride.event_type}
                           </Typography>
                         </Grid>
-                        <Grid item xs={5}>
+                        <Grid item xs={6}>
                           <Grid
                             container
                             direction="column"
@@ -76,40 +74,17 @@ function NewRideList(props) {
                             <Grid item xs={12} sx={{ mt: 1 }}>
                               <Grid
                                 container
-                                direction="row"
+                                direction="column"
                                 justifyContent="left"
                                 alignItems="left"
                               >
-                                {/* <Grid item xs={2}
-                                  sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                  <FaceIcon fontSize='medium' />
-                                </Grid> */}
-                                <Grid item xs={8}
+                                <Grid item xs={12}
                                   sx={{ display: 'flex', alignItems: 'right', justifyContent: 'right' }}
                                 >
-                                  {/* <Typography sx={{ fontSize: '12px' }} >{ride.child_name}</Typography> */}
                                   <Typography sx={{ fontSize: '20px', color: 'success.main' }} >{ride.ride_status}</Typography>
                                 </Grid>
                               </Grid>
                             </Grid>
-
-                            {/* <Grid item xs={12} >
-                              <Grid
-                                container
-                                direction="row"
-                                justifyContent="left"
-                                alignItems="left"
-                              >
-                                <Grid item xs={2}
-                                  sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                  <HomeIcon fontSize='medium' />
-                                </Grid>
-                                <Grid item xs={10}
-                                  sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left', pt: 1 }}>
-                                  <Typography sx={{ fontSize: '12px' }} >{ride.pickup_location}</Typography>
-                                </Grid>
-                              </Grid>
-                            </Grid> */}
                           </Grid>
                         </Grid>
                       </Grid>

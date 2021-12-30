@@ -74,9 +74,6 @@ function CreateRidePage(props) {
 
   return (
     <div>
-      {/* <h3>{JSON.stringify(user)}</h3> */}
-      {/* Define modal reqs here - to be opened when user clicks on the 
-      create button. */}
       <Dialog open={open}>
         <DialogTitle>
           Confirm new ride details
@@ -188,7 +185,7 @@ function CreateRidePage(props) {
                 disabled
                 label="Player Name"
                 id="playerName"
-                sx={{ m: 1, width: '40ch' }}
+                sx={{ m: 1, width: '30ch' }}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -204,7 +201,7 @@ function CreateRidePage(props) {
                 label="Event Date"
                 type="date"
                 id="pickupDate"
-                sx={{ m: 1, width: '40ch' }}
+                sx={{ m: 1, width: '30ch' }}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -220,7 +217,7 @@ function CreateRidePage(props) {
                 label="Event Time"
                 type="time"
                 id="pickupTime"
-                sx={{ m: 1, width: '40ch' }}
+                sx={{ m: 1, width: '30ch' }}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -235,7 +232,7 @@ function CreateRidePage(props) {
               <TextField
                 label="Pickup Location"
                 id="pickupLocation"
-                sx={{ m: 1, width: '40ch' }}
+                sx={{ m: 1, width: '30ch' }}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -249,7 +246,7 @@ function CreateRidePage(props) {
               <TextField
                 label="Dropoff Location"
                 id="dropoffLocation"
-                sx={{ m: 1, width: '40ch' }}
+                sx={{ m: 1, width: '30ch' }}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -259,9 +256,9 @@ function CreateRidePage(props) {
                 onChange={(event) => setNewRide({ ...newRide, dropoffLocation: event.target.value })}
               />
             </Grid>
-            <Grid item sx={12}>
+            <Grid item xs={12}>
               <FormControl component="fieldset"
-                sx={{ width: '40ch' }}>
+                sx={{ width: '30ch' }}>
                 <FormLabel component="event">Event type</FormLabel>
                 <RadioGroup
                   row
@@ -278,7 +275,7 @@ function CreateRidePage(props) {
             <Grid xs={12}>
               <Box sx={{
                 display: 'flex', alignItems: 'left', justifyContent: 'left',
-                mt: 1, width: '40ch'
+                mt: 1, width: '30ch'
               }} >
                 <FormGroup>
                   <FormControlLabel control={
@@ -297,7 +294,7 @@ function CreateRidePage(props) {
                 label="Comments"
                 multiline
                 rows={4}
-                sx={{ m: 1, width: '40ch', fontSize: 17 }}
+                sx={{ m: 1, width: '30ch', fontSize: 17 }}
                 InputLabelProps={{
                   shrink: true,
                 }}
