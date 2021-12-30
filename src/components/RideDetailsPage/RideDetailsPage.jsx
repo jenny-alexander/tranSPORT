@@ -5,12 +5,18 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import RideDetailsForm from '../RideDetailsForm/RideDetailsForm';
 
 function RideDetailsPage(props) {
   const store = useSelector((store) => store);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const handleSignUp = () => {
+    console.log(`in handleSignUp!`);
+  }
 
   return (
     <div>
@@ -27,33 +33,21 @@ function RideDetailsPage(props) {
           </Typography>
         </Grid>
       </Grid>
+
       <Container>
-        {/* <CreateRideForm /> */}
+        <RideDetailsForm />
 
         <Grid item xs={12}>
           <Box sx={{
             display: "flex",
             justifyContent: "center",
             position: "absolute",
+            // bottom: "0", 
             left: "2%"
           }}>
             <Button variant="outlined" sx={{ width: '20ch', m: 1 }}
               onClick={() => { history.push('/view/allrides') }}>
-              Back to List
-            </Button>
-          </Box>
-        </Grid>
-        <Grid item xs={12}>
-          <Box sx={{
-            display: "flex",
-            justifyContent: "center",
-            position: "absolute",
-            right: "2%"
-          }}>
-            <Button variant="contained" type="submit" name="submit"
-              sx={{ width: '20ch', m: 1 }}
-            >
-              Sign Up As Driver!
+              Back
             </Button>
           </Box>
         </Grid>
