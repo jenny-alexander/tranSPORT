@@ -26,7 +26,7 @@ function RideDetailsPage(props) {
             direction="column"
             justifyContent="center"
             alignItems="center"
-            spacing={3}
+            spacing={1}
           >
             {/* Textfields containing user input */}
             <Grid item xs={12}>
@@ -39,8 +39,99 @@ function RideDetailsPage(props) {
                   shrink: true,
                 }}
                 variant="outlined"
-                required
                 value='My player'
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                disabled
+                label="Event Date"
+                id="pickupDate"
+                sx={{ m: 1, width: '30ch' }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                value='Dec 30 2021'
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                disabled
+                label="Event Time"
+                id="pickupTime"
+                sx={{ m: 1, width: '30ch' }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                value='8:30 PM'
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                disabled
+                label="Pickup Location"
+                id="pickupLocation"
+                sx={{ m: 1, width: '30ch' }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                value='My house'
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                disabled
+                label="Dropoff Location"
+                id="dropoffLocation"
+                sx={{ m: 1, width: '30ch' }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                value='The rink'
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                disabled
+                label="Event Type"
+                id="eventType"
+                sx={{ m: 1, width: '30ch' }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                value='Game'
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                disabled
+                label="Return Trip"
+                id="returnTrip"
+                sx={{ m: 1, width: '30ch' }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                value='Yes'
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                disabled
+                id="comments"
+                label="Comments"
+                multiline
+                rows={4}
+                sx={{ m: 1, width: '30ch', fontSize: 17 }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                value='These are my comments.'
               />
             </Grid>
             <Grid item xs={12}>

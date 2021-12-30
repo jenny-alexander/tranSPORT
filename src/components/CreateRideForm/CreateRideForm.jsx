@@ -154,6 +154,8 @@ function CreateRidePage(props) {
             autoFocus
             margin="dense"
             id="comments"
+            multiline
+            maxRows={4}
             label="Comments"
             variant="filled"
             type="textarea"
@@ -177,7 +179,7 @@ function CreateRidePage(props) {
             direction="column"
             justifyContent="center"
             alignItems="center"
-            spacing={3}
+            spacing={1}
           >
             {/* Textfields containing user input */}
             <Grid item xs={12}>
