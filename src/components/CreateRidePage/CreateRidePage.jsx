@@ -22,7 +22,8 @@ function CreateRidePage(props) {
         alignItems="center"
         sx={{ mb: 3, mt: 3 }}>
         <Grid item xs={12} >
-          <Typography variant="h4" gutterBottom component="div">
+          <Typography gutterBottom component="div"
+            sx={{ fontSize: 28 }}>
             Create New Ride Request
           </Typography>
         </Grid>
