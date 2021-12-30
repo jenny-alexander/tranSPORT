@@ -42,7 +42,7 @@ function NewRideList(props) {
             <Grid item xs={12}>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
                 <Card sx={{ width: 325 }} elevation={5}>
-                  <CardActionArea onClick={() => { history.push('/home') }}>
+                  <CardActionArea onClick={() => { history.push('/ride-details') }}>
                     <CardContent>
                       <Grid
                         container

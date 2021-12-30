@@ -21,7 +21,7 @@ function HomePage(props) {
       </Box> */}
       <div class='title'>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
-          <Typography variant="h4" sx={{ mb: 5, mt: 5 }}>
+          <Typography sx={{ mb: 5, mt: 5, fontSize: 28 }}>
             What would you like to do?
           </Typography>
         </Box>

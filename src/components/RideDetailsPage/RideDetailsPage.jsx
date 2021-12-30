@@ -6,9 +6,8 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import CreateRideForm from '../CreateRideForm/CreateRideForm';
 
-function CreateRidePage(props) {
+function RideDetailsPage(props) {
   const store = useSelector((store) => store);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -24,24 +23,37 @@ function CreateRidePage(props) {
         <Grid item xs={12} >
           <Typography gutterBottom component="div"
             sx={{ fontSize: 28 }}>
-            Create New Ride Request
+            Ride Details
           </Typography>
         </Grid>
       </Grid>
       <Container>
-        <CreateRideForm />
+        {/* <CreateRideForm /> */}
 
         <Grid item xs={12}>
           <Box sx={{
             display: "flex",
             justifyContent: "center",
             position: "absolute",
-            // bottom: "0", 
             left: "2%"
           }}>
             <Button variant="outlined" sx={{ width: '20ch', m: 1 }}
-              onClick={() => { history.push('/home') }}>
-              Back
+              onClick={() => { history.push('/view/allrides') }}>
+              Back to List
+            </Button>
+          </Box>
+        </Grid>
+        <Grid item xs={12}>
+          <Box sx={{
+            display: "flex",
+            justifyContent: "center",
+            position: "absolute",
+            right: "2%"
+          }}>
+            <Button variant="contained" type="submit" name="submit"
+              sx={{ width: '20ch', m: 1 }}
+            >
+              Sign Up As Driver!
             </Button>
           </Box>
         </Grid>
@@ -50,4 +62,4 @@ function CreateRidePage(props) {
   );
 }
 
-export default CreateRidePage;
+export default RideDetailsPage;

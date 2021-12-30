@@ -7,16 +7,9 @@ import {
 } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-
-//import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-
 import AboutPage from '../AboutPage/AboutPage';
-//import UserPage from '../UserPage/UserPage';
-// import InfoPage from '../InfoPage/InfoPage';
-//import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import HomePage from '../HomePage/HomePage';
@@ -24,6 +17,7 @@ import CreateRidePage from '../CreateRidePage/CreateRidePage';
 import RideList from '../RideList/RideList';
 import ResponsiveAppBar from '../ResponsiveAppBar/ResponsiveAppBar';
 import UserProfilePage from '../UserProfilePage/UserProfilePage';
+import RideDetailsPage from '../RideDetailsPage/RideDetailsPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -101,6 +95,10 @@ function App() {
 
           <Route exact path="/view/allrides">
             {user.id ? <RideList filterByUser={false} /> : <LoginPage />}
+          </Route>
+
+          <Route exact path="/ride-details">
+            {user.id ? <RideDetailsPage /> : <LoginPage />}
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}

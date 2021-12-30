@@ -307,7 +307,7 @@ function CreateRidePage(props) {
                 justifyContent: "center",
                 position: "absolute",
                 // bottom: "0", 
-                right: "0%"
+                right: "2%"
               }}>
                 <Button variant="contained" type="submit" name="submit"
                   sx={{ width: '20ch', m: 1 }}
