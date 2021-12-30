@@ -9,6 +9,7 @@ import CardActionArea from '@mui/material/CardActionArea';
 function NewRideList(props) {
 
   const rides = useSelector((store) => store.rides);
+  const user = useSelector(store => store.user);
   const dispatch = useDispatch();
   const options = { hour: "2-digit", minute: "2-digit" };
   const history = useHistory();
@@ -18,8 +19,21 @@ function NewRideList(props) {
     dispatch({ type: 'FETCH_ALL_RIDES' });
   }, []);
 
-  const handleOnClick = () => {
-    console.log('in handleOnClick');
+  const handleOnClick = (ride) => {
+    console.log(`in handleOnClick and ride id is:`, ride.id);
+
+    dispatch({
+      type: 'FETCH_RIDE_DETAILS',
+      payload: {
+        rideID: ride.id
+      },
+    });
+
+    // history.push({
+    //   pathname: "/view/allrides",
+    //   state: { driverId: user.id },
+    // });
+
   }
 
   return (
@@ -42,7 +56,9 @@ function NewRideList(props) {
             <Grid item xs={12}>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
                 <Card sx={{ width: 325 }} elevation={5}>
-                  <CardActionArea onClick={() => { history.push('/ride-details') }}>
+                  <CardActionArea
+                    onClick={() => { history.push(`/ride-details/${ride.id}`) }}
+                  >
                     <CardContent>
                       <Grid
                         container
@@ -59,7 +75,6 @@ function NewRideList(props) {
                             {new Date(ride.event_timestamp).toLocaleTimeString(`en-US`, options)}
                           </Typography>
                           <Typography sx={{ fontSize: '18px', fontWeight: 500 }} >
-                            {/* {ride.ride_status} */}
                             {ride.event_type}
                           </Typography>
                         </Grid>
@@ -90,22 +105,14 @@ function NewRideList(props) {
                       </Grid>
                     </CardContent>
                   </CardActionArea>
-                  {/* <CardActions>
-                              <Button variant="contained" 
-                                                    size="large"
-                                                    sx={{ height: 60, width: 90, m:3}}
-                                                    onClick={handleOnClick}>Submit</Button>  
-                            </CardActions> */}
                 </Card>
               </Box>
             </Grid>
           )
         })}
       </Grid>
-
-    </div>
+    </div >
   );
-
 }
 
 export default NewRideList;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Button from '@mui/material/Button';
@@ -12,9 +13,11 @@ function RideDetailsPage(props) {
   const store = useSelector((store) => store);
   const dispatch = useDispatch();
   const history = useHistory();
+  const { id } = useParams();
 
   const handleSignUp = () => {
     console.log(`in handleSignUp!`);
+    console.log(`id from params is:`, id);
   }
 
   return (

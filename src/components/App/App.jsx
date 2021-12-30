@@ -93,11 +93,11 @@ function App() {
             {user.id ? <RideList filterByUser={true} /> : <LoginPage />}
           </Route>
 
-          <Route exact path="/view/allrides">
+          <Route exact path="/view/allrides" >
             {user.id ? <RideList filterByUser={false} /> : <LoginPage />}
           </Route>
 
-          <Route exact path="/ride-details">
+          <Route exact path="/ride-details/:id">
             {user.id ? <RideDetailsPage /> : <LoginPage />}
           </Route>
 

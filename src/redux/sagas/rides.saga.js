@@ -35,20 +35,21 @@ function* fetchUserRides(action) {
   }
 }
 
-function* sendRideDetails(action) {
-  console.log(`in sendRideDetails!`);
-  try {
-    yield put({ type: 'SET_RIDE_DETAILS', payload: action.payload });
-  } catch (error) {
-    console.log('Store ride details request failed', error);
-  }
+function* fetchRideDetails(action) {
+  console.log(`in fetchRideDetails!`);
+  console.log(`action is`, action)
+  // try {
+  //   yield put({ type: 'SET_RIDE_DETAILS', payload: action.payload });
+  // } catch (error) {
+  //   console.log('Store ride details request failed', error);
+  // }
 }
 
 function* ridesSaga() {
   yield takeLatest('FETCH_ALL_RIDES', fetchAllRides);
   yield takeLatest('FETCH_USER_RIDES', fetchUserRides);
   yield takeLatest('CREATE_RIDE', createRide)
-  yield takeLatest('SEND_RIDE_DETAILS', sendRideDetails);
+  yield takeLatest('FETCH_RIDE_DETAILS', fetchRideDetails);
 }
 
 export default ridesSaga;
