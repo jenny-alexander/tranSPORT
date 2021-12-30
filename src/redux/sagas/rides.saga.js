@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
+import { useSelector, useDispatch } from 'react-redux';
 
 function* createRide(action) {
   console.log(`help`)
@@ -38,11 +39,13 @@ function* fetchUserRides(action) {
 function* fetchRideDetails(action) {
   console.log(`in fetchRideDetails!`);
   console.log(`action is`, action)
-  // try {
-  //   yield put({ type: 'SET_RIDE_DETAILS', payload: action.payload });
-  // } catch (error) {
-  //   console.log('Store ride details request failed', error);
-  // }
+
+  try {
+    console.log(`about to SET_RIDE_DETAILS with action.payload:`, action.payload);
+    yield put({ type: 'SET_RIDE_DETAILS', payload: action.payload });
+  } catch (error) {
+    console.log('Store ride details request failed', error);
+  }
 }
 
 function* ridesSaga() {

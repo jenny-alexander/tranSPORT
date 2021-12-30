@@ -9,7 +9,6 @@ import Typography from '@mui/material/Typography';
 import CreateRideForm from '../CreateRideForm/CreateRideForm';
 
 function CreateRidePage(props) {
-  const store = useSelector((store) => store);
   const dispatch = useDispatch();
   const history = useHistory();
 

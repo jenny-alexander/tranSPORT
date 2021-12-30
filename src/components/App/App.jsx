@@ -97,7 +97,7 @@ function App() {
             {user.id ? <RideList filterByUser={false} /> : <LoginPage />}
           </Route>
 
-          <Route exact path="/ride-details/:id">
+          <Route exact path="/ride-details">
             {user.id ? <RideDetailsPage /> : <LoginPage />}
           </Route>
 

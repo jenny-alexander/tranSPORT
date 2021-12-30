@@ -3,8 +3,8 @@ const ridesReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_RIDES':
       return action.payload;
-    case 'SET_RIDE_DETAILS':
-      return action.payload;
+    case 'UNSET_RIDES':
+      return [];
     default:
       return state;
   }

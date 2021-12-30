@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -10,18 +10,23 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 function RideDetailsPage(props) {
-  const store = useSelector((store) => store);
+  const rideDetails = useSelector(store => store.rideDetails);
   const dispatch = useDispatch();
   const history = useHistory();
   const { id } = useParams();
 
+  useEffect(() => {
+    //console.log(`this is in history`, history);
+  }, []);
+
   const handleSignUp = () => {
     console.log(`in handleSignUp!`);
-    console.log(`id from params is:`, id);
+    console.log(`ride details are`, rideDetails);
   }
 
   return (
     <div>
+      <h3>{JSON.stringify(rideDetails)}</h3>
       <Container>
         <Box component="form" onSubmit={handleSignUp}>
           <Grid

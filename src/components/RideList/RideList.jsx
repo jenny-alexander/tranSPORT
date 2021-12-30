@@ -20,20 +20,8 @@ function NewRideList(props) {
   }, []);
 
   const handleOnClick = (ride) => {
-    console.log(`in handleOnClick and ride id is:`, ride.id);
-
-    dispatch({
-      type: 'FETCH_RIDE_DETAILS',
-      payload: {
-        rideID: ride.id
-      },
-    });
-
-    // history.push({
-    //   pathname: "/view/allrides",
-    //   state: { driverId: user.id },
-    // });
-
+    dispatch({ type: 'FETCH_RIDE_DETAILS', payload: ride })
+    history.push('/ride-details')
   }
 
   return (
@@ -57,7 +45,9 @@ function NewRideList(props) {
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
                 <Card sx={{ width: 325 }} elevation={5}>
                   <CardActionArea
-                    onClick={() => { history.push(`/ride-details/${ride.id}`) }}
+                    onClick={() => {
+                      handleOnClick(ride);
+                    }}
                   >
                     <CardContent>
                       <Grid
