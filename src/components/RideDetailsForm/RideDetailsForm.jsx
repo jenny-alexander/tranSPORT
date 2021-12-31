@@ -10,10 +10,13 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 function RideDetailsPage(props) {
+
   const rideDetails = useSelector(store => store.rideDetails);
+  const user = useSelector(store => store.user);
   const dispatch = useDispatch();
   const history = useHistory();
   const { id } = useParams();
+  const options = { hour: "2-digit", minute: "2-digit" };
 
   useEffect(() => {
     //console.log(`this is in history`, history);
@@ -21,12 +24,17 @@ function RideDetailsPage(props) {
 
   const handleSignUp = () => {
     console.log(`in handleSignUp!`);
-    console.log(`ride details are`, rideDetails);
+    dispatch({
+      type: 'UPDATE_RIDE_WITH_DRIVER',
+      payload: {
+        userID: user.id,
+        rideID: rideDetails.id
+      },
+    })
   }
 
   return (
     <div>
-      <h3>{JSON.stringify(rideDetails)}</h3>
       <Container>
         <Box component="form" onSubmit={handleSignUp}>
           <Grid
@@ -36,18 +44,17 @@ function RideDetailsPage(props) {
             alignItems="center"
             spacing={1}
           >
-            {/* Textfields containing user input */}
             <Grid item xs={12}>
               <TextField
                 disabled
                 label="Player Name"
                 id="playerName"
-                sx={{ m: 1, width: '30ch' }}
+                sx={{ mb: 1, width: '30ch' }}
                 InputLabelProps={{
                   shrink: true,
                 }}
                 variant="outlined"
-                value='My player'
+                value={rideDetails.player_name}
               />
             </Grid>
             <Grid item xs={12}>
@@ -55,12 +62,12 @@ function RideDetailsPage(props) {
                 disabled
                 label="Event Date"
                 id="pickupDate"
-                sx={{ m: 1, width: '30ch' }}
+                sx={{ mb: 1, width: '30ch' }}
                 InputLabelProps={{
                   shrink: true,
                 }}
                 variant="outlined"
-                value='Dec 30 2021'
+                value={new Date(rideDetails.event_timestamp).toLocaleDateString()}
               />
             </Grid>
             <Grid item xs={12}>
@@ -68,12 +75,12 @@ function RideDetailsPage(props) {
                 disabled
                 label="Event Time"
                 id="pickupTime"
-                sx={{ m: 1, width: '30ch' }}
+                sx={{ mb: 1, width: '30ch' }}
                 InputLabelProps={{
                   shrink: true,
                 }}
                 variant="outlined"
-                value='8:30 PM'
+                value={new Date(rideDetails.event_timestamp).toLocaleTimeString(`en-US`, options)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -81,12 +88,12 @@ function RideDetailsPage(props) {
                 disabled
                 label="Pickup Location"
                 id="pickupLocation"
-                sx={{ m: 1, width: '30ch' }}
+                sx={{ mb: 1, width: '30ch' }}
                 InputLabelProps={{
                   shrink: true,
                 }}
                 variant="outlined"
-                value='My house'
+                value={rideDetails.pickup_location}
               />
             </Grid>
             <Grid item xs={12}>
@@ -94,12 +101,12 @@ function RideDetailsPage(props) {
                 disabled
                 label="Dropoff Location"
                 id="dropoffLocation"
-                sx={{ m: 1, width: '30ch' }}
+                sx={{ mb: 1, width: '30ch' }}
                 InputLabelProps={{
                   shrink: true,
                 }}
                 variant="outlined"
-                value='The rink'
+                value={rideDetails.dropoff_location}
               />
             </Grid>
             <Grid item xs={12}>
@@ -107,12 +114,12 @@ function RideDetailsPage(props) {
                 disabled
                 label="Event Type"
                 id="eventType"
-                sx={{ m: 1, width: '30ch' }}
+                sx={{ mb: 1, width: '30ch' }}
                 InputLabelProps={{
                   shrink: true,
                 }}
                 variant="outlined"
-                value='Game'
+                value={rideDetails.event_type}
               />
             </Grid>
             <Grid item xs={12}>
@@ -120,12 +127,14 @@ function RideDetailsPage(props) {
                 disabled
                 label="Return Trip"
                 id="returnTrip"
-                sx={{ m: 1, width: '30ch' }}
+                sx={{ mb: 1, width: '30ch' }}
                 InputLabelProps={{
                   shrink: true,
                 }}
                 variant="outlined"
-                value='Yes'
+                value={
+                  rideDetails.return_trip ? 'Yes' : 'No'
+                }
               />
             </Grid>
             <Grid item xs={12}>
@@ -135,26 +144,17 @@ function RideDetailsPage(props) {
                 label="Comments"
                 multiline
                 rows={4}
-                sx={{ m: 1, width: '30ch', fontSize: 17 }}
+                sx={{ mb: 1, width: '30ch', fontSize: 17 }}
                 InputLabelProps={{
                   shrink: true,
                 }}
-                value='These are my comments.'
+                value='TODO: Get comments'
               />
             </Grid>
-            <Grid item xs={12}>
-              <Box sx={{
-                display: "flex",
-                justifyContent: "center",
-                position: "absolute",
-                right: "2%"
-              }}>
-                <Button variant="contained" type="submit" name="submit"
-                  sx={{ width: '23ch', m: 1 }}
-                >
-                  Sign Up As Driver!
-                </Button>
-              </Box>
+            <Grid item sx={12}>
+              <Button variant="contained" type="submit" name="submit" fullWidth
+                sx={{ width: '32ch', m: 1 }}>Sign up as Driver!
+              </Button>
             </Grid>
           </Grid>
         </Box>

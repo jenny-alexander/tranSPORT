@@ -37,20 +37,12 @@ function RideDetailsPage(props) {
       <Container>
         <RideDetailsForm />
 
-        <Grid item xs={12}>
-          <Box sx={{
-            display: "flex",
-            justifyContent: "center",
-            position: "absolute",
-            // bottom: "0", 
-            left: "2%"
-          }}>
-            <Button variant="outlined" sx={{ width: '20ch', m: 1 }}
-              onClick={() => { history.push('/view/allrides') }}>
-              Back
-            </Button>
-          </Box>
-        </Grid>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+          <Grid item>
+            <Button variant="outlined" sx={{ width: '32ch', m: 1 }}
+              onClick={() => { history.push('/view/allrides') }}>Back to Ride List</Button>
+          </Grid>
+        </Box>
       </Container>
     </div >
   );

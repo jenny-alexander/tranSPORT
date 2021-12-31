@@ -48,11 +48,22 @@ function* fetchRideDetails(action) {
   }
 }
 
+function* updateRideWithDriver(action) {
+  console.log(`in updateRideWithDriver!`);
+  console.log(`action.payload is:`, action.payload)
+  try {
+    yield axios.put(`api/ride/assign-ride`, action.payload)
+  } catch (error) {
+    console.log(`Ride UPDATE request failed.`);
+  }
+}
+
 function* ridesSaga() {
   yield takeLatest('FETCH_ALL_RIDES', fetchAllRides);
   yield takeLatest('FETCH_USER_RIDES', fetchUserRides);
   yield takeLatest('CREATE_RIDE', createRide)
   yield takeLatest('FETCH_RIDE_DETAILS', fetchRideDetails);
+  yield takeLatest('UPDATE_RIDE_WITH_DRIVER', updateRideWithDriver);
 }
 
 export default ridesSaga;

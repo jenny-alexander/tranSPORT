@@ -112,22 +112,29 @@ router.put('/edit-ride/:id', (req, res) => {
 //PUT - update an existing ride when a non-creator SIGNS UP to be the driver
 //driverId should be passed as id
 // NEED TWO PARAMS FROM FRONT_END
-router.put('/assign-ride/:id', (req, res) => {
-  const updateRideQuery = `UPDATE ride SET driver_id = ${req.params.driverId},
-                                           ride_state = 'Assigned'
-                          WHERE id = ${req.params.rideId};`;
+router.put('/assign-ride', (req, res) => {
+  console.log(`req.body are:`, req.body);
+  const updateRideQuery = `UPDATE ride SET driver_id = ${req.body.userID},
+                                         ride_status = 'Assigned Driver'
+                                            WHERE id = ${req.body.rideID};`;
+  console.log(`updateRideQuery is:`, updateRideQuery);
 
-  pool.quuery(updateRideQuery)
+  // pool.query('BEGIN');
+
+  pool.query(updateRideQuery)
     .then((result) => {
       console.log(`successfully updated the ride with driver and status`);
 
       //Now handle the join table user_ride
       const insertUserRideQuery = `INSERT INTO user_ride (user_id, ride_id )
                                    VALUES($1,$2);`;
-      pool.query(insertUserRideQuery, [req.params.id, req.params.rideId])
+      pool.query(insertUserRideQuery, [req.body.userID, req.params.rideID])
         .then((result) => {
+          // pool.query('COMMIT');
+          console.log(`record successfully created in user_ride after assigned driver`)
           res.sendStatus(200);
         }).catch((error) => {
+          // pool.query('ROLLBACK');
           console.log(`assign ride INSERT into user_ride error is:`, error);
           res.sendStatus(500);
         })
