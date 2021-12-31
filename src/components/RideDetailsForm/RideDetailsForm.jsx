@@ -33,8 +33,18 @@ function RideDetailsPage(props) {
     })
   }
 
+  const determineButtonType = () => {
+    if (user.id === rideDetails.creator_id) {
+      return 'contained';
+    } else {
+      return 'outlined';
+    }
+
+  }
+
   return (
     <div>
+      <h3>{JSON.stringify(rideDetails)}</h3>
       <Container>
         <Box component="form" onSubmit={handleSignUp}>
           <Grid
@@ -44,6 +54,19 @@ function RideDetailsPage(props) {
             alignItems="center"
             spacing={1}
           >
+            <Grid item xs={12}>
+              <TextField
+                disabled
+                label="Driver Name"
+                id="driverName"
+                sx={{ mb: 1, width: '30ch' }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                value={rideDetails.driver}
+              />
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 disabled
@@ -151,9 +174,16 @@ function RideDetailsPage(props) {
                 value='TODO: Get comments'
               />
             </Grid>
+            {rideDetails.creator_id === user.id ? '' :
+              <Grid item sx={12}>
+                <Button variant="contained" type="submit" name="submit" fullWidth
+                  sx={{ width: '32ch', m: 1 }}>Sign up as Driver!
+                </Button>
+              </Grid>
+            }
             <Grid item sx={12}>
-              <Button variant="contained" type="submit" name="submit" fullWidth
-                sx={{ width: '32ch', m: 1 }}>Sign up as Driver!
+              <Button variant={determineButtonType()} sx={{ width: '32ch', m: 1 }}
+                onClick={() => { history.push('/view/allrides') }}>Back to Ride List
               </Button>
             </Grid>
           </Grid>

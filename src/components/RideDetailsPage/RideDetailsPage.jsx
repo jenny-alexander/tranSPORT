@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import RideDetailsForm from '../RideDetailsForm/RideDetailsForm';
 
 function RideDetailsPage(props) {
-  const store = useSelector((store) => store);
+  const user = useSelector(store => store.user);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -37,12 +37,12 @@ function RideDetailsPage(props) {
       <Container>
         <RideDetailsForm />
 
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+        {/* <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
           <Grid item>
             <Button variant="outlined" sx={{ width: '32ch', m: 1 }}
               onClick={() => { history.push('/view/allrides') }}>Back to Ride List</Button>
           </Grid>
-        </Box>
+        </Box> */}
       </Container>
     </div >
   );

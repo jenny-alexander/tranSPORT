@@ -30,13 +30,10 @@ router.get('/view/my-rides/:id', (req, res) => {
 // GET all rides in system
 router.get('/', (req, res) => {
   console.log(`woof`)
-  // const getAllQuery = `SELECT r.*,
-  //                  c.parent_name AS creator_name,
-  //                  d.parent_name AS driver_name
-  //                  FROM ride AS r
-  //                  JOIN "user" AS c ON r.creator_id = c.id
-  //                  JOIN "user" AS d ON r.driver_id = d.id;`;
-  const getAllQuery = `SELECT * FROM ride;`;
+  // const getAllQuery = `SELECT * FROM ride;`;
+  const getAllQuery = `SELECT r.*, u.parent_name as driver FROM ride as r
+                       LEFT JOIN "user" as u 
+                       ON u.id = r.driver_id`;
   console.log(`get all query is`, getAllQuery);
 
   pool.query(getAllQuery)

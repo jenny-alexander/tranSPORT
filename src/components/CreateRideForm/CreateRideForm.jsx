@@ -86,7 +86,7 @@ function CreateRidePage(props) {
             label="Player Name"
             variant="filled"
             type="text"
-            width="35ch"
+            fullWidth
             defaultValue={player}
           />
           <TextField
@@ -96,7 +96,7 @@ function CreateRidePage(props) {
             label="Event Date"
             variant="filled"
             type="text"
-            width="35ch"
+            fullWidth
             defaultValue={newRide.pickupDate}
           />
           <TextField
@@ -106,7 +106,7 @@ function CreateRidePage(props) {
             label="Event Time"
             variant="filled"
             type="text"
-            width="35ch"
+            fullWidth
             defaultValue={newRide.pickupTime}
           />
           <TextField
@@ -116,7 +116,7 @@ function CreateRidePage(props) {
             label="Pickup Location"
             variant="filled"
             type="text"
-            width="35ch"
+            fullWidth
             defaultValue={newRide.pickupLocation}
           />
           <TextField
@@ -126,7 +126,7 @@ function CreateRidePage(props) {
             label="Dropoff Location"
             variant="filled"
             type="text"
-            width="35ch"
+            fullWidth
             defaultValue={newRide.dropoffLocation}
           /><TextField
             autoFocus
@@ -135,7 +135,7 @@ function CreateRidePage(props) {
             label="Event Type"
             variant="filled"
             type="text"
-            width="35ch"
+            fullWidth
             defaultValue={newRide.eventType}
           />
           <TextField
@@ -145,7 +145,7 @@ function CreateRidePage(props) {
             label="Return Trip"
             variant="filled"
             type="text"
-            width="35ch"
+            fullWidth
             defaultValue={
               newRide.returnTrip ? 'Yes' : 'No'
             }

@@ -3,7 +3,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 import { useSelector, useDispatch } from 'react-redux';
 
 function* createRide(action) {
-  console.log(`help`)
   try {
     console.log(`in createRide of ride.saga.js with action.payload:`, action.payload);
     yield axios.post('/api/ride/create', action.payload);
@@ -11,6 +10,7 @@ function* createRide(action) {
     console.log('Error creating ride.', error);
   }
 }
+
 // worker Saga: will be fired on "FETCH_ALL_RIDES" actions
 function* fetchAllRides() {
   try {
@@ -31,6 +31,8 @@ function* fetchUserRides(action) {
     const rides = yield axios.get(`/api/ride/view/my-rides/${action.payload}`);
     console.log(`results for get all are:`, rides.data);
     yield put({ type: 'SET_RIDES', payload: rides.data });
+
+
   } catch (error) {
     console.log('Ride GET request failed', error);
   }

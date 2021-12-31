@@ -26,6 +26,7 @@ function NewRideList(props) {
 
   return (
     <div>
+      <h3>{JSON.stringify(rides)}</h3>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
         <Typography variant="h4" sx={{ mb: 5, mt: 3 }}>
           {props.filterByUser ? 'My Rides' : 'All Rides'
@@ -65,6 +66,9 @@ function NewRideList(props) {
                           <Typography sx={{ fontSize: '18px', fontWeight: 500 }} >
                             {ride.event_type}
                           </Typography>
+                          <Typography sx={{ mt: 3, fontSize: '14px', fontWeight: 500 }} >
+                            {ride.player_name}
+                          </Typography>
                         </Grid>
                         <Grid item xs={6}>
                           <Grid
@@ -84,7 +88,11 @@ function NewRideList(props) {
                                 <Grid item xs={12}
                                   sx={{ display: 'flex', alignItems: 'right', justifyContent: 'right' }}
                                 >
-                                  <Typography sx={{ fontSize: '20px', color: 'success.main' }} >{ride.ride_status}</Typography>
+                                  {ride.ride_status === 'Needs Driver!' ?
+                                    <Typography sx={{ fontSize: '18px', color: 'error.main' }} >{ride.ride_status}</Typography>
+                                    :
+                                    <Typography sx={{ fontSize: '18px' }} >{ride.ride_status}</Typography>
+                                  }
                                 </Grid>
                               </Grid>
                             </Grid>
