@@ -14,6 +14,7 @@ function* createRide(action) {
 // worker Saga: will be fired on "FETCH_ALL_RIDES" actions
 function* fetchAllRides() {
   try {
+    yield put({ type: 'UNSET_RIDES' });
     //const response = yield axios.get('api/ride/view/all-rides');
     console.log(`in fetchAllRides!`);
     const response = yield axios.get('/api/ride');
@@ -24,15 +25,13 @@ function* fetchAllRides() {
 }
 
 // worker Saga: will be fired on "FETCH_ALL_RIDES" actions
-function* fetchUserRides(action) {
+function* fetchMyRides(action) {
   //get all of the rides from the db
   try {
-    console.log(`in fetchUserRides! User id is:`, action.payload)
-    const rides = yield axios.get(`/api/ride/view/my-rides/${action.payload}`);
-    console.log(`results for get all are:`, rides.data);
-    yield put({ type: 'SET_RIDES', payload: rides.data });
-
-
+    yield put({ type: 'UNSET_RIDES' });
+    console.log(`in fetchMyRides! User id is:`, action.payload)
+    const response = yield axios.get(`/api/ride/view/my-rides/${action.payload}`);
+    yield put({ type: 'SET_RIDES', payload: response.data });
   } catch (error) {
     console.log('Ride GET request failed', error);
   }
@@ -62,7 +61,7 @@ function* updateRideWithDriver(action) {
 
 function* ridesSaga() {
   yield takeLatest('FETCH_ALL_RIDES', fetchAllRides);
-  yield takeLatest('FETCH_USER_RIDES', fetchUserRides);
+  yield takeLatest('FETCH_MY_RIDES', fetchMyRides);
   yield takeLatest('CREATE_RIDE', createRide)
   yield takeLatest('FETCH_RIDE_DETAILS', fetchRideDetails);
   yield takeLatest('UPDATE_RIDE_WITH_DRIVER', updateRideWithDriver);

@@ -5,13 +5,11 @@ import { Grid, Typography, Box } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActionArea from '@mui/material/CardActionArea';
-import FaceIcon from '@mui/icons-material/Face';
 import HailIcon from '@mui/icons-material/Hail';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import SportsIcon from '@mui/icons-material/Sports';
 import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
 
-function MyRideListPage(props) {
+function MyRideList(props) {
 
   const rides = useSelector((store) => store.rides);
   const user = useSelector(store => store.user);
@@ -20,7 +18,8 @@ function MyRideListPage(props) {
   const history = useHistory();
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_MY_RIDES' });
+    console.log(`about to dispatch FETCH_MY_RIDES!`)
+    dispatch({ type: 'FETCH_MY_RIDES', payload: user.id });
   }, []);
 
   const handleOnClick = (ride) => {
@@ -32,7 +31,7 @@ function MyRideListPage(props) {
     <div>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
         <Typography variant="h4" sx={{ mb: 5, mt: 3 }}>
-          'My Rides'
+          My Rides
         </Typography>
       </Box>
       <Grid
@@ -94,4 +93,4 @@ function MyRideListPage(props) {
   );
 }
 
-export default MyRideListPage;
+export default MyRideList;

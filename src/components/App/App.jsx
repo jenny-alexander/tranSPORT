@@ -18,6 +18,7 @@ import RideList from '../RideList/RideList';
 import ResponsiveAppBar from '../ResponsiveAppBar/ResponsiveAppBar';
 import UserProfilePage from '../UserProfilePage/UserProfilePage';
 import RideDetailsPage from '../RideDetailsPage/RideDetailsPage';
+import MyRideList from '../MyRideList/MyRideList';
 
 function App() {
   const dispatch = useDispatch();
@@ -90,11 +91,11 @@ function App() {
           </Route>
 
           <Route exact path="/view/myrides">
-            {user.id ? <RideList filterByUser={true} /> : <LoginPage />}
+            {user.id ? <MyRideList /> : <LoginPage />}
           </Route>
 
           <Route exact path="/view/allrides" >
-            {user.id ? <RideList filterByUser={false} /> : <LoginPage />}
+            {user.id ? <RideList /> : <LoginPage />}
           </Route>
 
           <Route exact path="/ride-details">

@@ -5,24 +5,19 @@ const router = express.Router();
 // GET rides for user logged into app
 router.get('/view/my-rides/:id', (req, res) => {
   console.log('meow');
-  // const getQuery = `SELECT r.*,
-  //                  c.parent_name AS creator_name,
-  //                  d.parent_name AS driver_name
-  //                  FROM ride AS r
-  //                  JOIN "user" AS c ON r.creator_id = c.id
-  //                  JOIN "user" AS d ON r.driver_id = d.id
-  const getQuery = `SELECT *
-                   FROM ride
-                   WHERE creator_id = ${req.params.id} OR
-                   driver_id = ${req.params.id};`
+  const getAllQuery = `SELECT r.*, u.parent_name as driver FROM ride as r
+                       LEFT JOIN "user" as u 
+                       ON u.id = r.driver_id
+                       WHERE r.creator_id = ${req.params.id}
+                       OR r.driver_id = ${req.params.id}`;
+  console.log(`get all query is`, getAllQuery);
 
-  console.log(`in get rides. query is:`, getQuery)
-
-  pool.query(getQuery)
+  pool.query(getAllQuery)
     .then((results) => {
-      res.send(results.rows);
+      console.log(`results are:`, results.rows);
+      res.send(results.rows)
     }).catch((error) => {
-      console.log(`GET error is:`, error);
+      console.log(`GET all error is: `, error);
       res.sendStatus(500);
     })
 });

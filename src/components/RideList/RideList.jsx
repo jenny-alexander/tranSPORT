@@ -33,8 +33,7 @@ function NewRideList(props) {
     <div>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
         <Typography variant="h4" sx={{ mb: 5, mt: 3 }}>
-          {props.filterByUser ? 'My Rides' : 'All Rides'
-          }
+          All Rides
         </Typography>
       </Box>
       <Grid
