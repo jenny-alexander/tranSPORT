@@ -1,23 +1,26 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-// worker Saga: will be fired on "FETCH_USER" actions
-function* fetchComments() {
+function* createRideComment(action) {
   try {
-
-    const response = yield axios.get('/api/user', config);
-
-    // now that the session has given us a user object
-    // with an id and username set the client-side user object to let
-    // the client-side code know the user is logged in
-    yield put({ type: 'SET_USER', payload: response.data });
+    yield axios.post('api/comment/create', action.payload)
   } catch (error) {
-    console.log('User get request failed', error);
+    console.log(`Error creating ride comment.`, error);
+  }
+}
+
+function* fetchRideComments(action) {
+  try {
+    const response = yield axios.get(`/api/comment/${action.payload}`);
+    yield put({ type: 'SET_RIDE_COMMENTS', payload: response.data });
+  } catch (error) {
+    console.log('Error getting ride comments', error);
   }
 }
 
 function* commentSaga() {
-  yield takeLatest('FETCH_USER', fetchUser);
+  yield takeLatest('FETCH_RIDE_COMMENTS', fetchRideComments);
+  yield takeLatest('CREATE_RIDE_COMMENT', createRideComment);
 }
 
 export default commentSaga;

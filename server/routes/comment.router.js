@@ -20,7 +20,7 @@ router.get('/:id', (req, res) => {
  * POST route template
  */
 router.post('/', (req, res) => {
-  const insertQuery = `INSERT INTO comment (ride_id, text)
+  const insertQuery = `INSERT INTO comment (ride_id, user_id, text)
                       VALUES ($1,$2,$3);`;
   const values = [req.body.rideId, req.body.text];
 
