@@ -139,9 +139,12 @@ router.put('/assign-ride', (req, res) => {
 
 //DELETE an existing ride. Using inner join to delete any associated comments from Comment table.
 router.delete('/delete/:id', (req, res) => {
-  const deleteQuery = `DELETE ride, comment FROM ride
-                       INNER JOIN comment ON ride.id = comment.ride_id
-                       WHERE ride.id = ${req.params.id}";`;
+  // const deleteQuery = `DELETE ride, comment FROM ride
+  //                      INNER JOIN comment ON ride.id = comment.ride_id
+  //                      WHERE ride.id = ${req.params.id}";`;
+  const deleteQuery = `DELETE from ride WHERE id = ${req.params.id};`;
+  console.log(`deleteQuery is:`, deleteQuery);
+  //TODO: Check if 'ON CASCADE' worked for user_ride table and comments table.
 
   pool.query(deleteQuery)
     .then((result) => {

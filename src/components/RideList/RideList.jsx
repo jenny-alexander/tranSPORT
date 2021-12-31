@@ -5,10 +5,9 @@ import { Grid, Typography, Box } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActionArea from '@mui/material/CardActionArea';
-import FaceIcon from '@mui/icons-material/Face';
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import HailIcon from '@mui/icons-material/Hail';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import SportsIcon from '@mui/icons-material/Sports';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
 
 function NewRideList(props) {
@@ -78,8 +77,8 @@ function NewRideList(props) {
                         </Grid>
                         <Grid item xs={3} sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left' }}>
                           {ride.ride_status === 'Needs Driver!' ?
-                            <HailIcon sx={{ fontSize: 50 }} /> :
-                            <CheckCircleOutlineIcon sx={{ fontSize: 40, color: 'success.main' }} />
+                            <HailIcon sx={{ fontSize: 50, color: 'error.main' }} /> :
+                            <DirectionsCarIcon sx={{ fontSize: 40 }} />
                           }
                         </Grid>
                       </Grid>

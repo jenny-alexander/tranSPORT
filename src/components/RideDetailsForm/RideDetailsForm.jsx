@@ -30,6 +30,10 @@ function RideDetailsPage(props) {
 
   const handleDeleteRide = () => {
     console.log(`in handleDeleteRide`);
+    dispatch({
+      type: 'DELETE_RIDE_REQUEST',
+      payload: rideDetails.id
+    })
   }
 
   return (

@@ -11,6 +11,15 @@ function* createRide(action) {
   }
 }
 
+function* deleteRideRequest(action) {
+  console.log(`in deleteRideRequest!`);
+  try {
+    yield axios.delete(`api/ride/delete/${action.payload}`);
+  } catch (error) {
+    console.log(`Error deleting ride request.`, error);
+  }
+}
+
 // worker Saga: will be fired on "FETCH_ALL_RIDES" actions
 function* fetchAllRides() {
   try {
@@ -42,6 +51,7 @@ function* fetchRideDetails(action) {
   console.log(`action is`, action)
 
   try {
+    yield put({ type: 'UNSET_RIDE_DETAILS' });
     console.log(`about to SET_RIDE_DETAILS with action.payload:`, action.payload);
     yield put({ type: 'SET_RIDE_DETAILS', payload: action.payload });
   } catch (error) {
@@ -60,9 +70,10 @@ function* updateRideWithDriver(action) {
 }
 
 function* ridesSaga() {
+  yield takeLatest('CREATE_RIDE', createRide)
+  yield takeLatest('DELETE_RIDE_REQUEST', deleteRideRequest)
   yield takeLatest('FETCH_ALL_RIDES', fetchAllRides);
   yield takeLatest('FETCH_MY_RIDES', fetchMyRides);
-  yield takeLatest('CREATE_RIDE', createRide)
   yield takeLatest('FETCH_RIDE_DETAILS', fetchRideDetails);
   yield takeLatest('UPDATE_RIDE_WITH_DRIVER', updateRideWithDriver);
 }
