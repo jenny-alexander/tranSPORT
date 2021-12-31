@@ -48,9 +48,6 @@ function CreateRidePage(props) {
   const handleConfirmCreate = (event) => {
     const concatDateTime = newRide.pickupDate + " " + newRide.pickupTime;
     const rideTimestamp = new Date(concatDateTime).toISOString();
-    // console.log(`timestamp is:`, rideTimestamp);
-    // console.log(`newRide details are:`, newRide, `and player is:`, player);
-
     event.preventDefault();
     console.log(`about to call CREATE_RIDE dispatch`);
     dispatch({
@@ -62,6 +59,7 @@ function CreateRidePage(props) {
         eventTimestamp: rideTimestamp
       },
     });
+    setOpen(false);
   }
   const handleEventChange = (event) => {
     console.log(`in handleEventChange`);

@@ -28,12 +28,8 @@ function RideDetailsPage(props) {
     })
   }
 
-  const determineButtonType = () => {
-    if (user.id === rideDetails.creator_id) {
-      return 'contained';
-    } else {
-      return 'outlined';
-    }
+  const handleDeleteRide = () => {
+    console.log(`in handleDeleteRide`);
   }
 
   return (
@@ -167,15 +163,19 @@ function RideDetailsPage(props) {
                 value='TODO: Get comments'
               />
             </Grid>
-            {rideDetails.creator_id === user.id ? '' :
-              <Grid item sx={12}>
+            <Grid item sx={12}>
+              {rideDetails.creator_id === user.id ?
+                <Button variant="contained" sx={{ width: '32ch', mb: 1 }}
+                  onClick={handleDeleteRide}>Delete
+                </Button>
+                :
                 <Button variant="contained" type="submit" name="submit" fullWidth
                   sx={{ width: '32ch', m: 1 }}>Sign up as Driver!
                 </Button>
-              </Grid>
-            }
+              }
+            </Grid>
             <Grid item sx={12}>
-              <Button variant={determineButtonType()} sx={{ width: '32ch', m: 1 }}
+              <Button variant="outlined" sx={{ width: '32ch' }}
                 onClick={() => { history.push('/view/allrides') }}>Back to Ride List
               </Button>
             </Grid>
