@@ -5,6 +5,11 @@ import { Grid, Typography, Box } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActionArea from '@mui/material/CardActionArea';
+import FaceIcon from '@mui/icons-material/Face';
+import HailIcon from '@mui/icons-material/Hail';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import SportsIcon from '@mui/icons-material/Sports';
+import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
 
 function NewRideList(props) {
 
@@ -26,7 +31,6 @@ function NewRideList(props) {
 
   return (
     <div>
-      <h3>{JSON.stringify(rides)}</h3>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
         <Typography variant="h4" sx={{ mb: 5, mt: 3 }}>
           {props.filterByUser ? 'My Rides' : 'All Rides'
@@ -44,7 +48,7 @@ function NewRideList(props) {
           return (
             <Grid item xs={12}>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
-                <Card sx={{ width: 325 }} elevation={5}>
+                <Card sx={{ width: 325, borderRadius: 5 }} elevation={5}>
                   <CardActionArea
                     onClick={() => { handleOnClick(ride) }}
                   >
@@ -52,51 +56,32 @@ function NewRideList(props) {
                       <Grid
                         container
                         direction="row"
-                        justifyContent="left"
+                        justifyContent="center"
                         alignItems="center"
-                        spacing={1}>
-
-                        <Grid item xs={6} sx={{ padding: 1 }}>
+                      >
+                        <Grid item xs={9}>
                           <Typography sx={{ fontSize: '22px', fontWeight: 600 }} >
                             {new Date(ride.event_timestamp).toLocaleDateString()}
                           </Typography>
                           <Typography sx={{ fontSize: '20px', fontWeight: 500 }} >
                             {new Date(ride.event_timestamp).toLocaleTimeString(`en-US`, options)}
                           </Typography>
-                          <Typography sx={{ fontSize: '18px', fontWeight: 500 }} >
-                            {ride.event_type}
-                          </Typography>
+                          <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+                            <SportsHockeyIcon sx={{ mr: 1 }} />
+                            <Typography sx={{ fontSize: '18px', fontWeight: 500 }} >
+                              {ride.event_type}
+                            </Typography>
+
+                          </Box>
                           <Typography sx={{ mt: 3, fontSize: '14px', fontWeight: 500 }} >
                             {ride.player_name}
                           </Typography>
                         </Grid>
-                        <Grid item xs={6}>
-                          <Grid
-                            container
-                            direction="column"
-                            justifyContent="left"
-                            alignItems="left"
-                            sx={{ pt: 1 }}
-                          >
-                            <Grid item xs={12} sx={{ mt: 1 }}>
-                              <Grid
-                                container
-                                direction="column"
-                                justifyContent="left"
-                                alignItems="left"
-                              >
-                                <Grid item xs={12}
-                                  sx={{ display: 'flex', alignItems: 'right', justifyContent: 'right' }}
-                                >
-                                  {ride.ride_status === 'Needs Driver!' ?
-                                    <Typography sx={{ fontSize: '18px', color: 'error.main' }} >{ride.ride_status}</Typography>
-                                    :
-                                    <Typography sx={{ fontSize: '18px' }} >{ride.ride_status}</Typography>
-                                  }
-                                </Grid>
-                              </Grid>
-                            </Grid>
-                          </Grid>
+                        <Grid item xs={3} sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left' }}>
+                          {ride.ride_status === 'Needs Driver!' ?
+                            <HailIcon sx={{ fontSize: 50 }} /> :
+                            <CheckCircleOutlineIcon sx={{ fontSize: 40, color: 'success.main' }} />
+                          }
                         </Grid>
                       </Grid>
                     </CardContent>

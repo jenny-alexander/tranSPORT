@@ -15,12 +15,7 @@ function RideDetailsPage(props) {
   const user = useSelector(store => store.user);
   const dispatch = useDispatch();
   const history = useHistory();
-  const { id } = useParams();
   const options = { hour: "2-digit", minute: "2-digit" };
-
-  useEffect(() => {
-    //console.log(`this is in history`, history);
-  }, []);
 
   const handleSignUp = () => {
     console.log(`in handleSignUp!`);
@@ -39,12 +34,10 @@ function RideDetailsPage(props) {
     } else {
       return 'outlined';
     }
-
   }
 
   return (
     <div>
-      <h3>{JSON.stringify(rideDetails)}</h3>
       <Container>
         <Box component="form" onSubmit={handleSignUp}>
           <Grid
