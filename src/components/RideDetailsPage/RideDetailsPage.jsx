@@ -25,8 +25,7 @@ function RideDetailsPage(props) {
         container
         direction="column"
         justifyContent="center"
-        alignItems="center"
-        sx={{ mb: 3, mt: 3 }}>
+        alignItems="center">
         <Grid item xs={12} >
           <Typography gutterBottom component="div"
             sx={{ fontSize: 28 }}>
@@ -36,9 +35,23 @@ function RideDetailsPage(props) {
       </Grid>
 
       <Container>
-        <RideDetailsForm />
+        {/* <RideDetailsForm /> */}
         <RideDetailsPaper />
       </Container>
+      <Grid item xs={12}>
+        <Box sx={{
+          display: "flex",
+          justifyContent: "center",
+          position: "absolute",
+          bottom: "0",
+          left: "2%"
+        }}>
+          <Button variant="outlined" sx={{ width: '20ch', m: 1 }}
+            onClick={() => { history.push('/view/allrides') }}>
+            Back
+          </Button>
+        </Box>
+      </Grid>
     </div >
   );
 }

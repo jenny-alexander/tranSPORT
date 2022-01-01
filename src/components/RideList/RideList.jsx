@@ -46,7 +46,7 @@ function NewRideList(props) {
           return (
             <Grid item xs={12}>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
-                <Card sx={{ width: 325, borderRadius: 5 }} elevation={5}>
+                <Card sx={{ width: 325, borderRadius: 3 }} elevation={5}>
                   <CardActionArea
                     onClick={() => { handleOnClick(ride) }}
                   >

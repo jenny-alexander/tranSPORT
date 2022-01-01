@@ -205,7 +205,7 @@ function CreateRidePage(props) {
                   aria-label="event"
                   name="row-radio-buttons-group"
                   defaultValue="Practice"
-                  onChange={handleEventChange}>
+                  onChange={(event) => handleEventChange(event)}>
                   <FormControlLabel value="Practice" control={<Radio />} label="Practice" />
                   <FormControlLabel value="Game" control={<Radio />} label="Game" />
                   <FormControlLabel value="Other" control={<Radio />} label="Other" />
@@ -221,7 +221,7 @@ function CreateRidePage(props) {
                   <FormControlLabel control={
                     <Checkbox
                       checked={newRide.returnTrip}
-                      onChange={handleReturnTripChange}
+                      onChange={(event) => handleReturnTripChange(event)}
                     />}
                     label="Return Trip?"
                     labelPlacement='start' />

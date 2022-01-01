@@ -3,16 +3,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
+// import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { Card, CardContent, CardActions } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import HailIcon from '@mui/icons-material/Hail';
-import DialogContentText from '@mui/material/DialogContentText';
-import RideDetailsTextField from '../RideDetailsTextField/RideDetailsTextField';
+// import HailIcon from '@mui/icons-material/Hail';
+// import DialogContentText from '@mui/material/DialogContentText';
+// import RideDetailsTextField from '../RideDetailsTextField/RideDetailsTextField';
 
 function RideDetailsPaper(props) {
   const [open, setOpen] = useState(false); //this is for the modal confirmation 
@@ -24,16 +24,16 @@ function RideDetailsPaper(props) {
   const dispatch = useDispatch();
   const history = useHistory();
   const options = { hour: "2-digit", minute: "2-digit" };
-  const textfieldValues = [
-    { label: 'Driver Name', value: rideDetails.driver },
-    { label: 'Player Name', value: rideDetails.player_name },
-    { label: 'Event Date', value: new Date(rideDetails.event_timestamp).toLocaleDateString() },
-    { label: 'Event Time', value: new Date(rideDetails.event_timestamp).toLocaleTimeString(`en-US`, options) },
-    { label: 'Pickup Location', value: rideDetails.pickup_location },
-    { label: 'Dropoff Location', value: rideDetails.dropoff_location },
-    { label: 'Event Type', value: rideDetails.event_type },
-    { label: 'Return Trip', value: returnTripText }
-  ]
+  // const textfieldValues = [
+  //   { label: 'Driver Name', value: rideDetails.driver },
+  //   { label: 'Player Name', value: rideDetails.player_name },
+  //   { label: 'Event Date', value: new Date(rideDetails.event_timestamp).toLocaleDateString() },
+  //   { label: 'Event Time', value: new Date(rideDetails.event_timestamp).toLocaleTimeString(`en-US`, options) },
+  //   { label: 'Pickup Location', value: rideDetails.pickup_location },
+  //   { label: 'Dropoff Location', value: rideDetails.dropoff_location },
+  //   { label: 'Event Type', value: rideDetails.event_type },
+  //   { label: 'Return Trip', value: returnTripText }
+  // ]
 
   useEffect(() => {
     if (user.id === rideDetails.creator_id ||
@@ -80,7 +80,7 @@ function RideDetailsPaper(props) {
 
   return (
     <div>
-      {/* <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add Comments</DialogTitle>
         <DialogContent>
           <TextField
@@ -98,19 +98,19 @@ function RideDetailsPaper(props) {
           <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleClose}>Save</Button>
         </DialogActions>
-      </Dialog> */}
+      </Dialog>
       <Grid
         container
         direction="column"
         justifyContent="center"
         alignItems="center"
-        sx={{ mb: 3, mt: 3 }}>
+        sx={{ mt: 1 }}>
         <Box
           sx={{
             display: 'flex',
             '& > :not(style)': {
               m: 1,
-              width: 320
+              width: 350
             },
           }}
         >
@@ -134,10 +134,17 @@ function RideDetailsPaper(props) {
                 <Typography>
                   Pickup Location is {rideDetails.pickup_location} and dropoff is {rideDetails.dropoff_location}.
                 </Typography>
-              </Box>
-              <Typography>
+              </Box >
+              <Typography sx={{ mb: 1 }}>
                 This is a {returnTripText}.
               </Typography>
+              <Divider />
+              <Box sx={{ mt: 3 }}>
+                <Typography>Comments:</Typography>
+              </Box>
+              <Box sx={{ mt: 1 }}>
+                <Typography>These will be the comments for the ride.</Typography>
+              </Box>
             </CardContent>
             <CardActions>
               {showUpdateCommentsButton ?
@@ -148,9 +155,11 @@ function RideDetailsPaper(props) {
                 ''
               }
               {rideDetails.creator_id === user.id ?
-                <Button size="small" sx={{ ml: 10 }}>Delete Ride</Button>
+                <Button size="small" sx={{ ml: 10 }}
+                  onClick={handleDeleteRide}>Delete Ride</Button>
                 :
-                <Button size="small" >Sign Up to Drive</Button>
+                <Button size="medium"
+                  onClick={handleSignUp}>Sign Up to Drive</Button>
               }
             </CardActions>
           </Card>
