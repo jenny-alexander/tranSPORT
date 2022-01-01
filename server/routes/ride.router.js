@@ -44,7 +44,7 @@ router.get('/', (req, res) => {
 // POST a new ride
 router.post('/create', (req, res) => {
   const insertRideQuery = `INSERT INTO ride (pickup_location, dropoff_location, creator_id,
-                                                player_name, event_timestamp, event_type, return_trip)
+                                                player_name, event_timestamp, game, return_trip)
                        VALUES ($1,$2,$3,$4,$5,$6,$7)
                        RETURNING "id"`;
   //--->TODO: Add the manipulateDataForDB into a global HELPER class
@@ -53,7 +53,7 @@ router.post('/create', (req, res) => {
   manipulateDataForDB(req.body.creatorId),
   manipulateDataForDB(req.body.player),
   manipulateDataForDB(req.body.eventTimestamp),
-  manipulateDataForDB(req.body.ride.eventType),
+  manipulateDataForDB(req.body.ride.game),
   manipulateDataForDB(req.body.ride.returnTrip)];
 
   // CREATE the new ride

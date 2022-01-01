@@ -66,7 +66,7 @@ function MyRideList(props) {
                           <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                             <SportsHockeyIcon sx={{ mr: 1 }} />
                             <Typography sx={{ fontSize: '18px', fontWeight: 500 }} >
-                              {ride.event_type}
+                              {ride.game}
                             </Typography>
 
                           </Box>

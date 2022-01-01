@@ -27,7 +27,8 @@ function RideDetailsForm(props) {
     { label: 'Event Time', value: new Date(rideDetails.event_timestamp).toLocaleTimeString(`en-US`, options) },
     { label: 'Pickup Location', value: rideDetails.pickup_location },
     { label: 'Dropoff Location', value: rideDetails.dropoff_location },
-    { label: 'Event Type', value: rideDetails.event_type },
+    // { label: 'Event Type', value: rideDetails.event_type },
+    { label: 'Event Type', value: rideDetails.game },
     { label: 'Return Trip', value: returnTripText }
   ]
 

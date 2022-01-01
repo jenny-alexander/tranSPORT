@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Button, Box, TextField, formLabelClasses } from '@mui/material';
+import { Button, Box, TextField } from '@mui/material';
 import { Container, Grid } from '@mui/material';
-import { RadioGroup, Radio, Checkbox } from '@mui/material';
 import Switch from '@mui/material/Switch';
-import { FormControlLabel, FormControl, FormLabel } from '@mui/material';
-import FormGroup from '@mui/material/FormGroup';
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import ConfirmRideTextField from '../ConfirmRideTextField/ConfirmRideTextField';
 import Typography from '@mui/material/Typography';
@@ -14,7 +11,6 @@ import Typography from '@mui/material/Typography';
 function CreateRidePage(props) {
   const [open, setOpen] = useState(false); //this is for the modal confirmation 
   const [player, setPlayer] = useState('')
-  //const [game, setGame] = useState(false);
   const [returnTripText, setReturnTripText] = useState('');
   const [gameText, setGameText] = useState('');
   const [newRide, setNewRide] = useState({
@@ -74,10 +70,6 @@ function CreateRidePage(props) {
     });
     setOpen(false);
   }
-  // const handleEventChange = (event) => {
-  //   console.log(`in handleEventChange`);
-  //   setNewRide({ ...newRide, eventType: event.target.value })
-  // }
 
   const handleGameChange = (event) => {
     console.log(`in gameChange handler`);

@@ -14,6 +14,7 @@ function RideDetailsPaper(props) {
   const [open, setOpen] = useState(false); //this is for the modal confirmation 
   const [showUpdateCommentsButton, setShowUpdateCommentsButton] = useState(false)
   const [returnTripText, setReturnTripText] = useState('');
+  const [gameText, setGameText] = useState('');
   const rideDetails = useSelector(store => store.rideDetails);
   const user = useSelector(store => store.user);
   const dispatch = useDispatch();
@@ -27,12 +28,8 @@ function RideDetailsPaper(props) {
       setShowUpdateCommentsButton(true);
     }
     //Changing True/False values from DB to Yes/No
-    if (rideDetails.return_trip) {
-      setReturnTripText('return trip');
-    } else {
-      setReturnTripText('one way trip');
-    }
-
+    rideDetails.return_trip ? setReturnTripText('Yes') : setReturnTripText('No');
+    rideDetails.game ? setGameText(' game') : setGameText(' practice');
   }, []);
 
   const handleSignUp = () => {
@@ -65,6 +62,7 @@ function RideDetailsPaper(props) {
 
   return (
     <div>
+      <h3>{JSON.stringify(rideDetails.game)}</h3>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add Comments</DialogTitle>
         <DialogContent>
@@ -112,7 +110,7 @@ function RideDetailsPaper(props) {
               <Box sx={{ mt: 2 }}>
                 <Typography >
                   Pickup {rideDetails.player_name} on {new Date(rideDetails.event_timestamp).toLocaleDateString()} for
-                  {rideDetails.event_type} at {new Date(rideDetails.event_timestamp).toLocaleTimeString(`en-US`, options)}.
+                  {gameText} at {new Date(rideDetails.event_timestamp).toLocaleTimeString(`en-US`, options)}.
                 </Typography>
               </Box>
               <Box sx={{ mt: 1, mb: 1 }}>
