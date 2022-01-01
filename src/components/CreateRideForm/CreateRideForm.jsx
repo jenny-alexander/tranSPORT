@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Button, Box, TextField } from '@mui/material';
+import { Button, Box, TextField, formLabelClasses } from '@mui/material';
 import { Container, Grid } from '@mui/material';
 import { RadioGroup, Radio, Checkbox } from '@mui/material';
+import Switch from '@mui/material/Switch';
 import { FormControlLabel, FormControl, FormLabel } from '@mui/material';
 import FormGroup from '@mui/material/FormGroup';
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import ConfirmRideTextField from '../ConfirmRideTextField/ConfirmRideTextField';
+import Typography from '@mui/material/Typography';
 
 function CreateRidePage(props) {
   const [open, setOpen] = useState(false); //this is for the modal confirmation 
   const [player, setPlayer] = useState('')
+  //const [game, setGame] = useState(false);
   const [returnTripText, setReturnTripText] = useState('');
+  const [gameText, setGameText] = useState('');
   const [newRide, setNewRide] = useState({
     pickupDate: '',
     pickupTime: '',
     pickupLocation: '',
     dropoffLocation: '',
-    eventType: 'Practice',
+    game: false,
     returnTrip: false
   });
   const [newComment, setNewComment] = useState('');
@@ -31,7 +35,7 @@ function CreateRidePage(props) {
     { label: 'Event Time', defaultValue: newRide.pickupTime },
     { label: 'Pickup Location', defaultValue: newRide.pickupLocation },
     { label: 'Dropoff Location', defaultValue: newRide.pickupLocation },
-    { label: 'Event Type', defaultValue: newRide.eventType },
+    { label: 'Game', defaultValue: gameText },
     { label: 'Return Trip', defaultValue: returnTripText }
   ]
 
@@ -40,12 +44,9 @@ function CreateRidePage(props) {
   }, []);
 
   const determineReturnTripText = () => {
-    console.log(`in determineReturnTripText and newRide.returnTrip is:`, newRide.returnTrip);
-    if (newRide.returnTrip) {
-      setReturnTripText('Yes');
-    } else {
-      setReturnTripText('No');
-    }
+    //Make boolean values more user-friendly.
+    newRide.returnTrip ? setReturnTripText('Yes') : setReturnTripText('No');
+    newRide.game ? setGameText('Yes') : setGameText('No');
   }
 
   const createRide = () => {
@@ -71,13 +72,18 @@ function CreateRidePage(props) {
         comment: newComment
       },
     });
-
     setOpen(false);
   }
-  const handleEventChange = (event) => {
-    console.log(`in handleEventChange`);
-    setNewRide({ ...newRide, eventType: event.target.value })
+  // const handleEventChange = (event) => {
+  //   console.log(`in handleEventChange`);
+  //   setNewRide({ ...newRide, eventType: event.target.value })
+  // }
+
+  const handleGameChange = (event) => {
+    console.log(`in gameChange handler`);
+    setNewRide({ ...newRide, game: event.target.checked });
   }
+
   const handleReturnTripChange = (event) => {
     console.log(`in handleReturnTripChange`);
     setNewRide({ ...newRide, returnTrip: event.target.checked });
@@ -198,34 +204,31 @@ function CreateRidePage(props) {
               />
             </Grid>
             <Grid item xs={12}>
-              <FormControl component="fieldset"
-                sx={{ width: '30ch' }}>
-                <FormLabel component="event">Event type</FormLabel>
-                <RadioGroup
-                  aria-label="event"
-                  name="row-radio-buttons-group"
-                  defaultValue="Practice"
-                  onChange={(event) => handleEventChange(event)}>
-                  <FormControlLabel value="Practice" control={<Radio />} label="Practice" />
-                  <FormControlLabel value="Game" control={<Radio />} label="Game" />
-                  <FormControlLabel value="Other" control={<Radio />} label="Other" />
-                </RadioGroup>
-              </FormControl>
-            </Grid>
-            <Grid xs={12}>
               <Box sx={{
                 display: 'flex', alignItems: 'left', justifyContent: 'left',
-                mt: 1, width: '30ch'
+                width: '30ch'
               }} >
-                <FormGroup>
-                  <FormControlLabel control={
-                    <Checkbox
-                      checked={newRide.returnTrip}
-                      onChange={(event) => handleReturnTripChange(event)}
-                    />}
-                    label="Return Trip?"
-                    labelPlacement='start' />
-                </FormGroup>
+                <Switch
+                  label="Game"
+                  checked={newRide.game}
+                  onChange={handleGameChange}
+                  inputProps={{ 'aria-label': 'controlled' }}
+                />
+                <Typography sx={{ display: 'flex', alignItems: 'center' }}>Game</Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <Box sx={{
+                display: 'flex', alignItems: 'left', justifyContent: 'left',
+                width: '30ch'
+              }} >
+                <Switch
+                  label="Return Trip"
+                  checked={newRide.returnTrip}
+                  onChange={handleReturnTripChange}
+                  inputProps={{ 'aria-label': 'controlled' }}
+                />
+                <Typography sx={{ display: 'flex', alignItems: 'center' }}>Return Trip</Typography>
               </Box>
             </Grid>
             <Grid item xs={12}>

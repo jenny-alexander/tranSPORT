@@ -3,20 +3,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-// import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { Card, CardContent, CardActions } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-// import HailIcon from '@mui/icons-material/Hail';
-// import DialogContentText from '@mui/material/DialogContentText';
-// import RideDetailsTextField from '../RideDetailsTextField/RideDetailsTextField';
 
 function RideDetailsPaper(props) {
   const [open, setOpen] = useState(false); //this is for the modal confirmation 
-  //const [enableComments, setEnableComments] = useState(false);
   const [showUpdateCommentsButton, setShowUpdateCommentsButton] = useState(false)
   const [returnTripText, setReturnTripText] = useState('');
   const rideDetails = useSelector(store => store.rideDetails);
@@ -24,16 +19,6 @@ function RideDetailsPaper(props) {
   const dispatch = useDispatch();
   const history = useHistory();
   const options = { hour: "2-digit", minute: "2-digit" };
-  // const textfieldValues = [
-  //   { label: 'Driver Name', value: rideDetails.driver },
-  //   { label: 'Player Name', value: rideDetails.player_name },
-  //   { label: 'Event Date', value: new Date(rideDetails.event_timestamp).toLocaleDateString() },
-  //   { label: 'Event Time', value: new Date(rideDetails.event_timestamp).toLocaleTimeString(`en-US`, options) },
-  //   { label: 'Pickup Location', value: rideDetails.pickup_location },
-  //   { label: 'Dropoff Location', value: rideDetails.dropoff_location },
-  //   { label: 'Event Type', value: rideDetails.event_type },
-  //   { label: 'Return Trip', value: returnTripText }
-  // ]
 
   useEffect(() => {
     if (user.id === rideDetails.creator_id ||
