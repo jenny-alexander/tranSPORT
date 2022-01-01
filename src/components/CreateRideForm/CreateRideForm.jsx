@@ -7,11 +7,12 @@ import { RadioGroup, Radio, Checkbox } from '@mui/material';
 import { FormControlLabel, FormControl, FormLabel } from '@mui/material';
 import FormGroup from '@mui/material/FormGroup';
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import ConfirmRideTextField from '../ConfirmRideTextField/ConfirmRideTextField';
 
 function CreateRidePage(props) {
   const [open, setOpen] = useState(false); //this is for the modal confirmation 
   const [player, setPlayer] = useState('')
-
+  const [returnTripText, setReturnTripText] = useState('');
   const [newRide, setNewRide] = useState({
     pickupDate: '',
     pickupTime: '',
@@ -25,12 +26,31 @@ function CreateRidePage(props) {
   const user = useSelector(store => store.user);
   const dispatch = useDispatch();
   const history = useHistory();
+  const modalTextfieldValues = [
+    { label: 'Player Name', defaultValue: player },
+    { label: 'Event Date', defaultValue: newRide.pickupDate },
+    { label: 'Event Time', defaultValue: newRide.pickupTime },
+    { label: 'Pickup Location', defaultValue: newRide.pickupLocation },
+    { label: 'Dropoff Location', defaultValue: newRide.pickupLocation },
+    { label: 'Event Type', defaultValue: newRide.eventType },
+    { label: 'Return Trip', defaultValue: returnTripText }
+  ]
 
   useEffect(() => {
     setPlayer(user.player_name);
   }, []);
 
+  const determineReturnTripText = () => {
+    console.log(`in determineReturnTripText and newRide.returnTrip is:`, newRide.returnTrip);
+    if (newRide.returnTrip) {
+      setReturnTripText('Yes');
+    } else {
+      setReturnTripText('No');
+    }
+  }
+
   const createRide = () => {
+    determineReturnTripText();
     //This displays the confirmation modal to the user
     setOpen(true);
   }
@@ -71,77 +91,9 @@ function CreateRidePage(props) {
           Confirm new ride details
         </DialogTitle>
         <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="playerName"
-            label="Player Name"
-            variant="filled"
-            type="text"
-            fullWidth
-            defaultValue={player}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="pickupDate"
-            label="Event Date"
-            variant="filled"
-            type="text"
-            fullWidth
-            defaultValue={newRide.pickupDate}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="pickupTime"
-            label="Event Time"
-            variant="filled"
-            type="text"
-            fullWidth
-            defaultValue={newRide.pickupTime}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="pickupLocation"
-            label="Pickup Location"
-            variant="filled"
-            type="text"
-            fullWidth
-            defaultValue={newRide.pickupLocation}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="dropoffLocation"
-            label="Dropoff Location"
-            variant="filled"
-            type="text"
-            fullWidth
-            defaultValue={newRide.dropoffLocation}
-          /><TextField
-            autoFocus
-            margin="dense"
-            id="eventType"
-            label="Event Type"
-            variant="filled"
-            type="text"
-            fullWidth
-            defaultValue={newRide.eventType}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="returnTrip"
-            label="Return Trip"
-            variant="filled"
-            type="text"
-            fullWidth
-            defaultValue={
-              newRide.returnTrip ? 'Yes' : 'No'
-            }
-          />
+          {modalTextfieldValues.map((modalValues) => (
+            <ConfirmRideTextField label={modalValues.label} defaultValue={modalValues.defaultValue} />
+          ))}
           <TextField
             autoFocus
             margin="dense"
@@ -251,7 +203,6 @@ function CreateRidePage(props) {
                 sx={{ width: '30ch' }}>
                 <FormLabel component="event">Event type</FormLabel>
                 <RadioGroup
-
                   aria-label="event"
                   name="row-radio-buttons-group"
                   defaultValue="Practice"

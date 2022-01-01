@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Button from '@mui/material/Button';
@@ -7,16 +6,27 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
+import RideDetailsTextField from '../RideDetailsTextField/RideDetailsTextField';
 
 function RideDetailsPage(props) {
   const [enableComments, setEnableComments] = useState(false);
   const [showUpdateCommentsButton, setShowUpdateCommentsButton] = useState(false)
+  const [returnTripText, setReturnTripText] = useState('');
   const rideDetails = useSelector(store => store.rideDetails);
   const user = useSelector(store => store.user);
   const dispatch = useDispatch();
   const history = useHistory();
   const options = { hour: "2-digit", minute: "2-digit" };
+  const textfieldValues = [
+    { label: 'Driver Name', value: rideDetails.driver },
+    { label: 'Player Name', value: rideDetails.player_name },
+    { label: 'Event Date', value: new Date(rideDetails.event_timestamp).toLocaleDateString() },
+    { label: 'Event Time', value: new Date(rideDetails.event_timestamp).toLocaleTimeString(`en-US`, options) },
+    { label: 'Pickup Location', value: rideDetails.pickup_location },
+    { label: 'Dropoff Location', value: rideDetails.dropoff_location },
+    { label: 'Event Type', value: rideDetails.event_type },
+    { label: 'Return Trip', value: returnTripText }
+  ]
 
   useEffect(() => {
     if (user.id === rideDetails.creator_id ||
@@ -24,6 +34,13 @@ function RideDetailsPage(props) {
       setEnableComments(true);
       setShowUpdateCommentsButton(true);
     }
+    //Changing True/False values from DB to Yes/No
+    if (rideDetails.return_trip) {
+      setReturnTripText('Yes');
+    } else {
+      setReturnTripText('No');
+    }
+
   }, []);
 
   const handleSignUp = () => {
@@ -60,112 +77,9 @@ function RideDetailsPage(props) {
             alignItems="center"
             spacing={1}
           >
-            <Grid item xs={12}>
-              <TextField
-                disabled
-                label="Driver Name"
-                id="driverName"
-                sx={{ mb: 1, width: '30ch' }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-                value={rideDetails.driver}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                disabled
-                label="Player Name"
-                id="playerName"
-                sx={{ mb: 1, width: '30ch' }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-                value={rideDetails.player_name}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                disabled
-                label="Event Date"
-                id="pickupDate"
-                sx={{ mb: 1, width: '30ch' }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-                value={new Date(rideDetails.event_timestamp).toLocaleDateString()}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                disabled
-                label="Event Time"
-                id="pickupTime"
-                sx={{ mb: 1, width: '30ch' }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-                value={new Date(rideDetails.event_timestamp).toLocaleTimeString(`en-US`, options)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                disabled
-                label="Pickup Location"
-                id="pickupLocation"
-                sx={{ mb: 1, width: '30ch' }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-                value={rideDetails.pickup_location}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                disabled
-                label="Dropoff Location"
-                id="dropoffLocation"
-                sx={{ mb: 1, width: '30ch' }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-                value={rideDetails.dropoff_location}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                disabled
-                label="Event Type"
-                id="eventType"
-                sx={{ mb: 1, width: '30ch' }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-                value={rideDetails.event_type}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                disabled
-                label="Return Trip"
-                id="returnTrip"
-                sx={{ mb: 1, width: '30ch' }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-                value={
-                  rideDetails.return_trip ? 'Yes' : 'No'
-                }
-              />
-            </Grid>
+            {textfieldValues.map((textfield) => (
+              <RideDetailsTextField label={textfield.label} value={textfield.value} />
+            ))}
             <Grid item xs={12}>
               <TextField
                 disabled={!enableComments}
@@ -180,6 +94,7 @@ function RideDetailsPage(props) {
                 value='TODO: Get comments'
               />
             </Grid>
+            {/* Buttons */}
             <Grid item sx={12}>
               {showUpdateCommentsButton ?
                 <Button variant="contained" sx={{ width: '32ch', mb: 1 }}
@@ -192,7 +107,7 @@ function RideDetailsPage(props) {
             <Grid item sx={12}>
               {rideDetails.creator_id === user.id ?
                 <Button variant="contained" sx={{ width: '32ch', mb: 1 }}
-                  onClick={handleDeleteRide}>Delete
+                  onClick={handleDeleteRide}>Delete Ride
                 </Button>
                 :
                 <Button variant="contained" type="submit" name="submit" fullWidth
