@@ -59,18 +59,18 @@ router.post('/create', (req, res) => {
   // CREATE the new ride
   pool.query(insertRideQuery, values)
     .then(result => {
-      //console.log(`new ride id is:`, result.rows[0].id)//new ride is here!
-
       const newRideId = result.rows[0].id;
 
       //Now handle the join table user_ride
       const insertUserRideQuery = `INSERT INTO user_ride (user_id, ride_id)
-                                 VALUES($1,$2);`;
+                                 VALUES($1,$2)
+                                 RETURNING "ride_id";`;
 
       pool.query(insertUserRideQuery, [req.body.creatorId, newRideId])
         .then((result) => {
-          //send back success
-          res.sendStatus(201);
+          console.log(`result is:`, result)
+          //send back ride id so comments can be created with it
+          res.send({ ride_id: newRideId });
         }).catch(error => {
           console.log(`CREATE ride_user error is:`, error);
           res.sendStatus(500);

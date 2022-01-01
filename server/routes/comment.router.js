@@ -20,9 +20,10 @@ router.get('/:id', (req, res) => {
  * POST route template
  */
 router.post('/', (req, res) => {
+  console.log(`req.body for POST comment is:`, req.body);
   const insertQuery = `INSERT INTO comment (ride_id, user_id, text)
                       VALUES ($1,$2,$3);`;
-  const values = [req.body.rideId, req.body.text];
+  const values = [req.body.rideID, req.body.creatorID, req.body.comment];
 
   pool.query(insertQuery, values)
     .then((result) => {

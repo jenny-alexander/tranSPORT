@@ -5,7 +5,19 @@ import { useSelector, useDispatch } from 'react-redux';
 function* createRide(action) {
   try {
     console.log(`in createRide of ride.saga.js with action.payload:`, action.payload);
-    yield axios.post('/api/ride/create', action.payload);
+    const response = yield axios.post('/api/ride/create', action.payload);
+
+    console.log(`response from POST is:`, response)
+
+    //Now create the comment for this ride
+    // yield put({ type: 'CREATE_RIDE_COMMENT', payload: { action.payload })
+    yield put({
+      type: 'CREATE_RIDE_COMMENT', payload: {
+        rideID: response.data.ride_id,
+        creatorID: action.payload.creatorId,
+        comment: action.payload.comment
+      }
+    })
   } catch (error) {
     console.log('Error creating ride.', error);
   }

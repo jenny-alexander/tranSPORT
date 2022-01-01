@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Button, Box, TextField, Typography } from '@mui/material';
+import { Button, Box, TextField } from '@mui/material';
 import { Container, Grid } from '@mui/material';
 import { RadioGroup, Radio, Checkbox } from '@mui/material';
 import { FormControlLabel, FormControl, FormLabel } from '@mui/material';
 import FormGroup from '@mui/material/FormGroup';
-import InputAdornment from '@mui/material/InputAdornment';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import FaceIcon from '@mui/icons-material/Face';
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 
 function CreateRidePage(props) {
   const [open, setOpen] = useState(false); //this is for the modal confirmation 
   const [player, setPlayer] = useState('')
-  //const [creatorId, setCreatorId] = useState('');
-  // const [time, setTime] = useState('');
-  // const [date, setDate] = useState('');
+
   const [newRide, setNewRide] = useState({
     pickupDate: '',
     pickupTime: '',
@@ -27,7 +20,7 @@ function CreateRidePage(props) {
     eventType: 'Practice',
     returnTrip: false
   });
-  const [newComments, setNewComments] = useState('');
+  const [newComment, setNewComment] = useState('');
 
   const user = useSelector(store => store.user);
   const dispatch = useDispatch();
@@ -35,7 +28,6 @@ function CreateRidePage(props) {
 
   useEffect(() => {
     setPlayer(user.player_name);
-    //setCreatorId(user.id);
   }, []);
 
   const createRide = () => {
@@ -56,9 +48,11 @@ function CreateRidePage(props) {
         ride: newRide,
         player: user.player_name,
         creatorId: user.id,
-        eventTimestamp: rideTimestamp
+        eventTimestamp: rideTimestamp,
+        comment: newComment
       },
     });
+
     setOpen(false);
   }
   const handleEventChange = (event) => {
@@ -158,7 +152,7 @@ function CreateRidePage(props) {
             variant="filled"
             type="textarea"
             fullWidth
-            defaultValue={newComments}
+            defaultValue={newComment}
           />
         </DialogContent>
         <DialogActions>
@@ -192,8 +186,6 @@ function CreateRidePage(props) {
                 variant="outlined"
                 required
                 value={player}
-              //onChange={(event) => setNewRide({ ...newRide, playerName: event.target.value })}
-              //onChange={(event) => { setPlayer(event.target.value) }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -209,7 +201,6 @@ function CreateRidePage(props) {
                 required
                 value={newRide.pickupDate}
                 onChange={(event) => setNewRide({ ...newRide, pickupDate: event.target.value })}
-              // onChange={(event) => { setDate(event.target.value) }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -225,7 +216,6 @@ function CreateRidePage(props) {
                 required
                 value={newRide.pickupTime}
                 onChange={(event) => setNewRide({ ...newRide, pickupTime: event.target.value })}
-              //onChange={(event) => { setTime(event.target.value) }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -298,7 +288,7 @@ function CreateRidePage(props) {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(event) => setNewComments(event.target.value)}
+                onChange={(event) => setNewComment(event.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
