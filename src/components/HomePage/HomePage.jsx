@@ -10,15 +10,8 @@ function HomePage(props) {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  // const user = useSelector((store) => store.user);
-  // const profile = useSelector((store) => store.profile);
-
   return (
     <div>
-      {/* <h3>{JSON.stringify(profile)}</h3> */}
-      {/* <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 3 }} >
-        <img src='images/logo.png' alt='logo'></img>
-      </Box> */}
       <div class='title'>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
           <Typography sx={{ mb: 5, mt: 5, fontSize: 28 }}>
@@ -51,14 +44,14 @@ function HomePage(props) {
               onClick={() => { history.push('/view/allrides') }}>View All Rides
             </Button>
           </Grid>
-          <Grid item sx={12}>
+          {/* <Grid item sx={12}>
             <Button variant="outlined"
               sx={{ width: '30ch', height: '7ch', borderRadius: 7 }}
               startIcon={<AccountCircleIcon />}
               onClick={() => { history.push('/profile') }}>
               View Profile
             </Button>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
     </div>

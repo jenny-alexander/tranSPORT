@@ -13,11 +13,14 @@ import { Link } from 'react-router-dom';
 import './ResponsiveAppBar.css';
 import GlobalCSS from '../GlobalCSS/GlobalCSS';
 import Grid from '@mui/material/Grid';
+import { useHistory } from 'react-router-dom';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const dispatch = useDispatch();
   const globalClasses = GlobalCSS();
+  const history = useHistory();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -98,12 +101,20 @@ const ResponsiveAppBar = () => {
                 </MenuItem>
               </Link>
             </Menu>
+
           </Box>
+
           {/* ---> TODO: Logo shifts to left when page is too big. */}
           <Box sx={{ flexGrow: 1, mb: 3 }}>
             <img src='images/logo.png' alt='logo'></img>
           </Box>
-
+          {/* ---> TODO: Logo shifts to left when page is too big. */}
+          <Box >
+            {/* TODO:---> Change color of icon to black */}
+            <IconButton color='primary' onClick={() => { history.push('/profile') }}>
+              <AccountCircleIcon fontSize="large" />
+            </IconButton>
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>

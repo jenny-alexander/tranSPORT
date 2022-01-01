@@ -18,7 +18,6 @@ function MyRideList(props) {
   const history = useHistory();
 
   useEffect(() => {
-    console.log(`about to dispatch FETCH_MY_RIDES!`)
     dispatch({ type: 'FETCH_MY_RIDES', payload: user.id });
   }, []);
 
@@ -65,8 +64,10 @@ function MyRideList(props) {
                           </Typography>
                           <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                             <SportsHockeyIcon sx={{ mr: 1 }} />
-                            <Typography sx={{ fontSize: '18px', fontWeight: 500 }} >
-                              {ride.game}
+                            <Typography sx={{ fontSize: '16px', fontWeight: 500 }} >
+                              {
+                                ride.game ? 'Game' : 'Practice'
+                              }
                             </Typography>
 
                           </Box>

@@ -28,7 +28,7 @@ function RideDetailsPaper(props) {
       setShowUpdateCommentsButton(true);
     }
     //Changing True/False values from DB to Yes/No
-    rideDetails.return_trip ? setReturnTripText('Yes') : setReturnTripText('No');
+    rideDetails.return_trip ? setReturnTripText('return trip') : setReturnTripText('one way trip');
     rideDetails.game ? setGameText(' game') : setGameText(' practice');
   }, []);
 
@@ -62,7 +62,6 @@ function RideDetailsPaper(props) {
 
   return (
     <div>
-      <h3>{JSON.stringify(rideDetails.game)}</h3>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add Comments</DialogTitle>
         <DialogContent>
@@ -131,7 +130,7 @@ function RideDetailsPaper(props) {
             </CardContent>
             <CardActions>
               {showUpdateCommentsButton ?
-                <Button size="small" sx={{ mr: 5, ml: 1 }}
+                <Button size="small" sx={{ mr: 7, ml: 1 }}
                   onClick={handleAddComments}>Add Comments
                 </Button>
                 :
