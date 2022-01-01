@@ -15,6 +15,7 @@ function RideDetailsPaper(props) {
   const [showUpdateCommentsButton, setShowUpdateCommentsButton] = useState(false)
   const [returnTripText, setReturnTripText] = useState('');
   const [gameText, setGameText] = useState('');
+  const [newComment, setNewComment] = useState('');
   const rideComments = useSelector(store => store.comment)
   const rideDetails = useSelector(store => store.rideDetails);
   const user = useSelector(store => store.user);
@@ -25,7 +26,6 @@ function RideDetailsPaper(props) {
   useEffect(() => {
     if (user.id === rideDetails.creator_id ||
       user.id === rideDetails.driver) {
-      //setEnableComments(true);
       setShowUpdateCommentsButton(true);
     }
     //Changing True/False values from DB to Yes/No
@@ -62,7 +62,13 @@ function RideDetailsPaper(props) {
   const handleSaveComments = () => {
     console.log(`in handleSaveComments`);
     //do stuff with comments
-
+    dispatch({
+      type: 'CREATE_RIDE_COMMENT', payload: {
+        rideID: rideDetails.id,
+        creatorID: user.id,
+        comment: newComment
+      }
+    })
     handleClose(false);
   }
 
@@ -72,7 +78,6 @@ function RideDetailsPaper(props) {
 
   return (
     <div>
-      <h3>{JSON.stringify(rideComments)}</h3>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add Comments</DialogTitle>
         <DialogContent>
@@ -85,6 +90,7 @@ function RideDetailsPaper(props) {
             multiline
             fullWidth
             variant="standard"
+            onChange={(event) => setNewComment(event.target.value)}
           />
         </DialogContent>
         <DialogActions>
