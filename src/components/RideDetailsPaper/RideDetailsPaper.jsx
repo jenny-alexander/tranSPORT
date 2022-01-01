@@ -15,6 +15,7 @@ function RideDetailsPaper(props) {
   const [showUpdateCommentsButton, setShowUpdateCommentsButton] = useState(false)
   const [returnTripText, setReturnTripText] = useState('');
   const [gameText, setGameText] = useState('');
+  const rideComments = useSelector(store => store.comment)
   const rideDetails = useSelector(store => store.rideDetails);
   const user = useSelector(store => store.user);
   const dispatch = useDispatch();
@@ -30,6 +31,8 @@ function RideDetailsPaper(props) {
     //Changing True/False values from DB to Yes/No
     rideDetails.return_trip ? setReturnTripText('return trip') : setReturnTripText('one way trip');
     rideDetails.game ? setGameText(' game') : setGameText(' practice');
+
+    dispatch({ type: 'FETCH_RIDE_COMMENTS', payload: rideDetails.id });
   }, []);
 
   const handleSignUp = () => {
@@ -56,12 +59,20 @@ function RideDetailsPaper(props) {
     setOpen(true);
   }
 
+  const handleSaveComments = () => {
+    console.log(`in handleSaveComments`);
+    //do stuff with comments
+
+    handleClose(false);
+  }
+
   const handleClose = () => {
     setOpen(false);
   };
 
   return (
     <div>
+      <h3>{JSON.stringify(rideComments)}</h3>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add Comments</DialogTitle>
         <DialogContent>
@@ -78,7 +89,7 @@ function RideDetailsPaper(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Save</Button>
+          <Button onClick={handleSaveComments}>Save</Button>
         </DialogActions>
       </Dialog>
       <Grid
@@ -125,7 +136,11 @@ function RideDetailsPaper(props) {
                 <Typography>Comments:</Typography>
               </Box>
               <Box sx={{ mt: 1 }}>
-                <Typography>These will be the comments for the ride.</Typography>
+                {
+                  rideComments.map((comment) => (
+                    <Typography>{comment.text}</Typography>
+                  ))
+                }
               </Box>
             </CardContent>
             <CardActions>
