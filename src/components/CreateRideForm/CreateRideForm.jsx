@@ -22,7 +22,6 @@ function CreateRidePage(props) {
     returnTrip: false
   });
   const [newComment, setNewComment] = useState('');
-
   const user = useSelector(store => store.user);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -259,7 +258,6 @@ function CreateRidePage(props) {
             </Grid>
           </Grid>
         </Box>
-
       </Container>
     </div >
   );

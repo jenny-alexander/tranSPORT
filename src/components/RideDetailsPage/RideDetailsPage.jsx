@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import RideDetailsForm from '../RideDetailsForm/RideDetailsForm';
+import RideDetailsPaper from '../RideDetailsPaper/RideDetailsPaper';
 
 function RideDetailsPage(props) {
   const user = useSelector(store => store.user);
@@ -36,13 +37,7 @@ function RideDetailsPage(props) {
 
       <Container>
         <RideDetailsForm />
-
-        {/* <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
-          <Grid item>
-            <Button variant="outlined" sx={{ width: '32ch', m: 1 }}
-              onClick={() => { history.push('/view/allrides') }}>Back to Ride List</Button>
-          </Grid>
-        </Box> */}
+        <RideDetailsPaper />
       </Container>
     </div >
   );
