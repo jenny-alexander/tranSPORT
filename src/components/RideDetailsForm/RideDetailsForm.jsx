@@ -10,12 +10,21 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 function RideDetailsPage(props) {
-
+  const [enableComments, setEnableComments] = useState(false);
+  const [showUpdateCommentsButton, setShowUpdateCommentsButton] = useState(false)
   const rideDetails = useSelector(store => store.rideDetails);
   const user = useSelector(store => store.user);
   const dispatch = useDispatch();
   const history = useHistory();
   const options = { hour: "2-digit", minute: "2-digit" };
+
+  useEffect(() => {
+    if (user.id === rideDetails.creator_id ||
+      user.id === rideDetails.driver) {
+      setEnableComments(true);
+      setShowUpdateCommentsButton(true);
+    }
+  }, []);
 
   const handleSignUp = () => {
     console.log(`in handleSignUp!`);
@@ -34,6 +43,10 @@ function RideDetailsPage(props) {
       type: 'DELETE_RIDE_REQUEST',
       payload: rideDetails.id
     })
+  }
+
+  const handleUpdateComments = () => {
+    console.log(` in handleUpdateComments!`);
   }
 
   return (
@@ -155,7 +168,7 @@ function RideDetailsPage(props) {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                disabled
+                disabled={!enableComments}
                 id="comments"
                 label="Comments"
                 multiline
@@ -166,6 +179,15 @@ function RideDetailsPage(props) {
                 }}
                 value='TODO: Get comments'
               />
+            </Grid>
+            <Grid item sx={12}>
+              {showUpdateCommentsButton ?
+                <Button variant="contained" sx={{ width: '32ch', mb: 1 }}
+                  onClick={handleUpdateComments}>Update Comments
+                </Button>
+                :
+                ''
+              }
             </Grid>
             <Grid item sx={12}>
               {rideDetails.creator_id === user.id ?
