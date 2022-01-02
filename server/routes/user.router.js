@@ -17,9 +17,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 //to use the app as a parent of a player on the team.
 router.get('/check-email/:email', (req, res) => {
   const getEmailQuery = `SELECT * FROM team where parent_email = '${req.params.email}';`;
-
-  console.log(`getEmail query is:`, getEmailQuery);
-
   pool.query(getEmailQuery)
     .then((results) => {
       res.send(results.rows)
@@ -33,14 +30,8 @@ router.get('/check-email/:email', (req, res) => {
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
 router.post('/register', (req, res, next) => {
-
-  console.log(`req.body is:`, req.body);
-
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
-
-  // const queryText = `INSERT INTO "user" (username, password)
-  // VALUES ($1, $2) RETURNING id`;
   const queryText = `INSERT INTO "user" (username, password, email, parent_name, player_name, phone_number)
   VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`;
 
@@ -71,16 +62,11 @@ router.post('/logout', (req, res) => {
 
 //Update the user information
 router.put('/', (req, res) => {
-  console.log(`ribbit in user.router PUT`)
-
   let postQueryString = `UPDATE "user" SET email = '${manipulateDataForDB(req.body.updatedUser.email)}',
                                    parent_name = '${manipulateDataForDB(req.body.updatedUser.parent_name)}',
                                    player_name = '${manipulateDataForDB(req.body.updatedUser.player_name)}',
                                   phone_number = '${manipulateDataForDB(req.body.updatedUser.phone_number)}'
                             WHERE id = ${req.body.updatedUser.id}`;
-
-  console.log(`query string is`, postQueryString);
-
   pool
     .query(postQueryString)
     .then((results) => {
@@ -91,6 +77,7 @@ router.put('/', (req, res) => {
     })
 })
 
+//TODO:-->>> PUT this in a global helper class instead (keep it DRY)
 const replaceApostrophe = (singleApostropheString) => {
   let doubleApostropheString = singleApostropheString.replace(/'/g, "''");
   return doubleApostropheString;

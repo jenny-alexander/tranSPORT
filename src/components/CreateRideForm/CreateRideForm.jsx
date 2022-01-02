@@ -24,7 +24,6 @@ function CreateRidePage(props) {
   const [newComment, setNewComment] = useState('');
   const user = useSelector(store => store.user);
   const dispatch = useDispatch();
-  const history = useHistory();
   const modalTextfieldValues = [
     { label: 'Player Name', defaultValue: player },
     { label: 'Event Date', defaultValue: newRide.pickupDate },
@@ -56,8 +55,9 @@ function CreateRidePage(props) {
   const handleConfirmCreate = (event) => {
     const concatDateTime = newRide.pickupDate + " " + newRide.pickupTime;
     const rideTimestamp = new Date(concatDateTime).toISOString();
+
     event.preventDefault();
-    console.log(`about to call CREATE_RIDE dispatch`);
+
     dispatch({
       type: 'CREATE_RIDE',
       payload: {
@@ -72,12 +72,10 @@ function CreateRidePage(props) {
   }
 
   const handleGameChange = (event) => {
-    console.log(`in gameChange handler`);
     setNewRide({ ...newRide, game: event.target.checked });
   }
 
   const handleReturnTripChange = (event) => {
-    console.log(`in handleReturnTripChange`);
     setNewRide({ ...newRide, returnTrip: event.target.checked });
   }
 

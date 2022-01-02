@@ -4,17 +4,13 @@ const router = express.Router();
 
 // GET rides for user logged into app
 router.get('/view/my-rides/:id', (req, res) => {
-  console.log('meow');
   const getAllQuery = `SELECT r.*, u.parent_name as driver FROM ride as r
                        LEFT JOIN "user" as u 
                        ON u.id = r.driver_id
                        WHERE r.creator_id = ${req.params.id}
                        OR r.driver_id = ${req.params.id}`;
-  console.log(`get all query is`, getAllQuery);
-
   pool.query(getAllQuery)
     .then((results) => {
-      console.log(`results are:`, results.rows);
       res.send(results.rows)
     }).catch((error) => {
       console.log(`GET all error is: `, error);
@@ -24,16 +20,11 @@ router.get('/view/my-rides/:id', (req, res) => {
 
 // GET all rides in system
 router.get('/', (req, res) => {
-  console.log(`woof`)
-  // const getAllQuery = `SELECT * FROM ride;`;
   const getAllQuery = `SELECT r.*, u.parent_name as driver FROM ride as r
                        LEFT JOIN "user" as u 
                        ON u.id = r.driver_id`;
-  console.log(`get all query is`, getAllQuery);
-
   pool.query(getAllQuery)
     .then((results) => {
-      console.log(`results are:`, results.rows);
       res.send(results.rows)
     }).catch((error) => {
       console.log(`GET all error is: `, error);
@@ -43,16 +34,12 @@ router.get('/', (req, res) => {
 
 // GET Ride by ID
 router.get('/:rideID', (req, res) => {
-  console.log(`woof`)
   const getRideByIDQuery = `SELECT r.*, u.parent_name as driver FROM ride as r
                        LEFT JOIN "user" as u 
                        ON u.id = r.driver_id
                        WHERE r.id = ${req.params.rideID}`;
-  console.log(`get all query is`, getRideByIDQuery);
-
   pool.query(getRideByIDQuery)
     .then((results) => {
-      console.log(`results are:`, results.rows);
       res.send(results.rows)
     }).catch((error) => {
       console.log(`GET ride by ID error is: `, error);
@@ -87,7 +74,6 @@ router.post('/create', (req, res) => {
 
       pool.query(insertUserRideQuery, [req.body.creatorId, newRideId])
         .then((result) => {
-          console.log(`result is:`, result)
           //send back ride id so comments can be created with it
           res.send({ ride_id: newRideId });
         }).catch(error => {
@@ -111,7 +97,6 @@ router.put('/edit-ride/:id', (req, res) => {
 
   pool.query(updateRideQuery)
     .then((result) => {
-      console.log(`successfully updated the ride updated info`);
       res.sendStatus(200);
     }).catch((error) => {
       console.log(`Update ride error is:`, error);
@@ -128,28 +113,18 @@ router.put('/assign-ride', (req, res) => {
   const updateRideQuery = `UPDATE ride SET driver_id = ${req.body.userID},
                                          ride_status = 'Assigned Driver'
                                             WHERE id = ${req.body.rideID};`;
-  console.log(`updateRideQuery is:`, updateRideQuery);
-
-  // pool.query('BEGIN');
-
   pool.query(updateRideQuery)
     .then((result) => {
-      console.log(`successfully updated the ride with driver and status`);
-
       //Now handle the join table user_ride
       const insertUserRideQuery = `INSERT INTO user_ride (user_id, ride_id )
                                    VALUES($1,$2);`;
       pool.query(insertUserRideQuery, [req.body.userID, req.params.rideID])
         .then((result) => {
-          // pool.query('COMMIT');
-          console.log(`record successfully created in user_ride after assigned driver`)
           res.sendStatus(200);
         }).catch((error) => {
-          // pool.query('ROLLBACK');
           console.log(`assign ride INSERT into user_ride error is:`, error);
           res.sendStatus(500);
         })
-
     }).catch((error) => {
       console.log(`UPDATE RIDE with driver error is:`, error);
       res.sendStatus(500);
@@ -158,13 +133,7 @@ router.put('/assign-ride', (req, res) => {
 
 //DELETE an existing ride. Using inner join to delete any associated comments from Comment table.
 router.delete('/delete/:id', (req, res) => {
-  // const deleteQuery = `DELETE ride, comment FROM ride
-  //                      INNER JOIN comment ON ride.id = comment.ride_id
-  //                      WHERE ride.id = ${req.params.id}";`;
   const deleteQuery = `DELETE from ride WHERE id = ${req.params.id};`;
-  console.log(`deleteQuery is:`, deleteQuery);
-  //TODO: Check if 'ON CASCADE' worked for user_ride table and comments table.
-
   pool.query(deleteQuery)
     .then((result) => {
       res.sendStatus(200);
