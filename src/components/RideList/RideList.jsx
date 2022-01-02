@@ -24,8 +24,9 @@ function NewRideList(props) {
   }, []);
 
   const handleOnClick = (ride) => {
-    dispatch({ type: 'FETCH_RIDE_DETAILS', payload: ride })
-    history.push('/ride-details')
+    //dispatch({ type: 'FETCH_RIDE_DETAILS', payload: ride })
+    //dispatch({ type: 'SET_RIDE_DETAILS', payload: ride })
+    history.push(`/ride-details/${ride.id}`)
   }
 
   return (

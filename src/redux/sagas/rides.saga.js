@@ -46,6 +46,21 @@ function* fetchAllRides() {
 }
 
 // worker Saga: will be fired on "FETCH_ALL_RIDES" actions
+function* fetchRideByID(action) {
+  try {
+    //console.log(`in fetchRideByID!!!!!`, action)
+    yield put({ type: 'UNSET_RIDE_DETAILS' });
+    //const response = yield axios.get('api/ride/view/all-rides');
+    console.log(`in fetchRideByID! action.payload is:`, action.payload);
+    const response = yield axios.get(`/api/ride/${action.payload}`);
+    console.log(`response is:`, response.data)
+    yield put({ type: 'SET_RIDE_DETAILS', payload: response.data[0] });
+  } catch (error) {
+    console.log('Ride GET RIDE BY ID request failed', error);
+  }
+}
+
+// worker Saga: will be fired on "FETCH_ALL_RIDES" actions
 function* fetchMyRides(action) {
   //get all of the rides from the db
   try {
@@ -86,6 +101,7 @@ function* ridesSaga() {
   yield takeLatest('DELETE_RIDE_REQUEST', deleteRideRequest)
   yield takeLatest('FETCH_ALL_RIDES', fetchAllRides);
   yield takeLatest('FETCH_MY_RIDES', fetchMyRides);
+  yield takeLatest('FETCH_RIDE_BY_ID', fetchRideByID);
   yield takeLatest('FETCH_RIDE_DETAILS', fetchRideDetails);
   yield takeLatest('UPDATE_RIDE_WITH_DRIVER', updateRideWithDriver);
 }

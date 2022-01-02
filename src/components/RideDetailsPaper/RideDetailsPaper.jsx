@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -18,22 +18,38 @@ function RideDetailsPaper(props) {
   const [newComment, setNewComment] = useState('');
   const rideComments = useSelector(store => store.comment)
   const rideDetails = useSelector(store => store.rideDetails);
+  const rides = useSelector(store => store.rides);
+  let thisRide;
+  const params = useParams();
   const user = useSelector(store => store.user);
   const dispatch = useDispatch();
   const history = useHistory();
   const options = { hour: "2-digit", minute: "2-digit" };
 
   useEffect(() => {
-    if (user.id === rideDetails.creator_id ||
-      user.id === rideDetails.driver) {
+    console.log(`params.id is:`, params.id)
+
+    dispatch({
+      type: 'FETCH_RIDE_BY_ID',
+      payload: params.id
+    })
+    console.log(`hi in useEffect`)
+    if (user.id == rideDetails.creator_id ||
+      user.id == rideDetails.driver_id) {
       setShowUpdateCommentsButton(true);
+    } else {
+      console.log(`user.id is:`, user.id)
+      console.log(`creator_id is:`, rideDetails.creator_id);
+      console.log(`driver_id is: `, rideDetails.driver_id);
     }
+
     //Changing True/False values from DB to Yes/No
     rideDetails.return_trip ? setReturnTripText('return trip') : setReturnTripText('one way trip');
     rideDetails.game ? setGameText(' game') : setGameText(' practice');
 
-    dispatch({ type: 'FETCH_RIDE_COMMENTS', payload: rideDetails.id });
-  }, []);
+    // dispatch({ type: 'FETCH_RIDE_COMMENTS', payload: rideDetails.id });
+    dispatch({ type: 'FETCH_RIDE_COMMENTS', payload: params.id });
+  }, [params.id]);
 
   const handleSignUp = () => {
     console.log(`in handleSignUp!`);
@@ -76,8 +92,18 @@ function RideDetailsPaper(props) {
     setOpen(false);
   };
 
+  const showCommentsButton = () => {
+    let allowCommentsChange = false;
+    if (user.id == rideDetails.creator_id ||
+      user.id == rideDetails.driver_id) {
+      allowCommentsChange = true;
+    }
+    return allowCommentsChange;
+  }
+
   return (
     <div>
+
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add Comments</DialogTitle>
         <DialogContent>
@@ -150,7 +176,7 @@ function RideDetailsPaper(props) {
               </Box>
             </CardContent>
             <CardActions>
-              {showUpdateCommentsButton ?
+              {showCommentsButton() ?
                 <Button size="small" sx={{ mr: 7, ml: 1 }}
                   onClick={handleAddComments}>Add Comments
                 </Button>

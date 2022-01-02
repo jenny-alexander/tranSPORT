@@ -41,6 +41,25 @@ router.get('/', (req, res) => {
     })
 });
 
+// GET Ride by ID
+router.get('/:rideID', (req, res) => {
+  console.log(`woof`)
+  const getRideByIDQuery = `SELECT r.*, u.parent_name as driver FROM ride as r
+                       LEFT JOIN "user" as u 
+                       ON u.id = r.driver_id
+                       WHERE r.id = ${req.params.rideID}`;
+  console.log(`get all query is`, getRideByIDQuery);
+
+  pool.query(getRideByIDQuery)
+    .then((results) => {
+      console.log(`results are:`, results.rows);
+      res.send(results.rows)
+    }).catch((error) => {
+      console.log(`GET ride by ID error is: `, error);
+      res.sendStatus(500);
+    })
+});
+
 // POST a new ride
 router.post('/create', (req, res) => {
   const insertRideQuery = `INSERT INTO ride (pickup_location, dropoff_location, creator_id,
