@@ -6,7 +6,6 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-//import RideDetailsForm from '../RideDetailsForm/RideDetailsForm';
 import RideDetailsPaper from '../RideDetailsPaper/RideDetailsPaper';
 
 function RideDetailsPage(props) {
@@ -34,9 +33,7 @@ function RideDetailsPage(props) {
           </Typography>
         </Grid>
       </Grid>
-
       <Container>
-        {/* <RideDetailsForm /> */}
         <RideDetailsPaper />
       </Container>
       <Grid item xs={12}>

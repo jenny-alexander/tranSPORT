@@ -5,13 +5,17 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import {
+  Dialog, DialogTitle, DialogContent,
+  DialogActions, DialogContentText
+} from '@mui/material';
 import { Card, CardContent, CardActions } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 
 function RideDetailsPaper(props) {
-  const [open, setOpen] = useState(false); //this is for the modal confirmation 
+  const [openComments, setOpenComments] = useState(false); //this is for the modal confirmation 
+  const [openConfirmDialogue, setOpenConfirmDialogue] = useState(false);
   const [showUpdateCommentsButton, setShowUpdateCommentsButton] = useState(false)
   const [returnTripText, setReturnTripText] = useState('');
   const [gameText, setGameText] = useState('');
@@ -41,6 +45,23 @@ function RideDetailsPaper(props) {
 
   const handleSignUp = () => {
     console.log(`in handleSignUp!`);
+
+    //---> BEGIN NEW
+    //now show modal dialogue to confirm sign up.
+    setOpenConfirmDialogue(true);
+
+    // dispatch({
+    //   type: 'UPDATE_RIDE_WITH_DRIVER',
+    //   payload: {
+    //     userID: user.id,
+    //     rideID: rideDetails.id
+    //   },
+    // })
+    //<---END NEW
+  }
+
+  const dispatchDriverSignUp = () => {
+    console.log(`in dispatchDriverSignUp)`);
     dispatch({
       type: 'UPDATE_RIDE_WITH_DRIVER',
       payload: {
@@ -60,7 +81,7 @@ function RideDetailsPaper(props) {
 
   const handleAddComments = () => {
     console.log(` in handleAddComments!`);
-    setOpen(true);
+    setOpenComments(true);
   }
 
   const handleSaveComments = () => {
@@ -73,12 +94,16 @@ function RideDetailsPaper(props) {
         comment: newComment
       }
     })
-    handleClose(false);
+    handleCloseComments(false);
   }
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleCloseComments = () => {
+    setOpenComments(false);
   };
+
+  const handleCloseConfirmDialogue = () => {
+    setOpenConfirmDialogue(false);
+  }
 
   const showCommentsButton = () => {
     let allowCommentsChange = false;
@@ -91,7 +116,7 @@ function RideDetailsPaper(props) {
 
   return (
     <div>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={openComments} onClose={handleCloseComments}>
         <DialogTitle>Add Comments</DialogTitle>
         <DialogContent>
           <TextField
@@ -107,8 +132,29 @@ function RideDetailsPaper(props) {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleCloseComments}>Cancel</Button>
           <Button onClick={handleSaveComments}>Save</Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        open={openConfirmDialogue}
+        onClose={handleCloseConfirmDialogue}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Signup to driver?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Confirm that you want to be the driver of this ride request.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseConfirmDialogue}>Disagree</Button>
+          <Button onClick={dispatchDriverSignUp} autoFocus>
+            Agree
+          </Button>
         </DialogActions>
       </Dialog>
       <Grid
