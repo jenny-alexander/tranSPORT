@@ -104,6 +104,11 @@ function RideDetailsPaper(props) {
     setOpenConfirmDialogue(false);
   }
 
+  const handleDriverRemoval = () => {
+    console.log(`in handleDriverRemoval!`);
+    //TODO: Add route to update ride where we remove the driver_id
+  }
+
   const showCommentsButton = () => {
     let allowCommentsChange = false;
     if (user.id == rideDetails.creator_id ||
@@ -113,6 +118,32 @@ function RideDetailsPaper(props) {
     return allowCommentsChange;
   }
 
+  const showSignupToDriveBtn = () => {
+    let allowDriverSignup = false;
+
+    if (rideDetails.driver_id === null) {
+      if (rideDetails.creator_id != user.id) {
+        allowDriverSignup = true;
+      }
+    }
+    return allowDriverSignup;
+  }
+  const showDriverRemovalBtn = () => {
+    let allowDriverRemoval = false;
+
+    if (rideDetails.driver_id === user.id) {
+      allowDriverRemoval = true;
+    }
+    return allowDriverRemoval;
+  }
+  const showDeleteRideBtn = () => {
+    let allowDeleteRide = false;
+
+    if (rideDetails.creator_id === user.id) {
+      allowDeleteRide = true;
+    }
+    return allowDeleteRide;
+  }
   const showSignupSnackbar = () => {
     return (
       <div>
@@ -240,12 +271,23 @@ function RideDetailsPaper(props) {
                 :
                 ''
               }
-              {rideDetails.creator_id === user.id ?
+              {showSignupToDriveBtn() ?
+                <Button size="small"
+                  onClick={handleSignUp}>Sign Up to Drive</Button>
+                :
+                ''
+              }
+              {showDriverRemovalBtn() ?
+                <Button size="small"
+                  onClick={handleDriverRemoval}>Withdraw as driver</Button>
+                :
+                ''
+              }
+              {showDeleteRideBtn() ?
                 <Button size="small" sx={{ ml: 10 }}
                   onClick={handleDeleteRide}>Delete Ride</Button>
                 :
-                <Button size="medium"
-                  onClick={handleSignUp}>Sign Up to Drive</Button>
+                ''
               }
             </CardActions>
           </Card>
