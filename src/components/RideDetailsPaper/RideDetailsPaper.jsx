@@ -12,10 +12,14 @@ import {
 import { Card, CardContent, CardActions } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 function RideDetailsPaper(props) {
   const [openComments, setOpenComments] = useState(false); //this is for the modal confirmation 
   const [openConfirmDialogue, setOpenConfirmDialogue] = useState(false);
+  const [signupSnackbarState, setSignupSnackbarState] = useState(false);
   const [showUpdateCommentsButton, setShowUpdateCommentsButton] = useState(false)
   const [returnTripText, setReturnTripText] = useState('');
   const [gameText, setGameText] = useState('');
@@ -44,24 +48,11 @@ function RideDetailsPaper(props) {
   }, [params.id]);
 
   const handleSignUp = () => {
-    console.log(`in handleSignUp!`);
-
-    //---> BEGIN NEW
-    //now show modal dialogue to confirm sign up.
+    //Show modal dialogue to confirm sign up.
     setOpenConfirmDialogue(true);
-
-    // dispatch({
-    //   type: 'UPDATE_RIDE_WITH_DRIVER',
-    //   payload: {
-    //     userID: user.id,
-    //     rideID: rideDetails.id
-    //   },
-    // })
-    //<---END NEW
   }
 
   const dispatchDriverSignUp = () => {
-    console.log(`in dispatchDriverSignUp)`);
     dispatch({
       type: 'UPDATE_RIDE_WITH_DRIVER',
       payload: {
@@ -69,6 +60,14 @@ function RideDetailsPaper(props) {
         rideID: rideDetails.id
       },
     })
+    //close the modal dialogue
+    setOpenConfirmDialogue(false);
+    //now we have to show the snackbar for 2.5 seconds
+    setSignupSnackbarState(true);
+  }
+
+  const handleCloseSignupSnackbar = () => {
+    setSignupSnackbarState(false);
   }
 
   const handleDeleteRide = () => {
@@ -114,8 +113,31 @@ function RideDetailsPaper(props) {
     return allowCommentsChange;
   }
 
+  const showSignupSnackbar = () => {
+    return (
+      <div>
+        <IconButton
+          size="small"
+          aria-label="close"
+          color="inherit"
+          onClick={handleCloseSignupSnackbar}
+        >
+          <CloseIcon fontSize="small" />
+        </IconButton>
+      </div>
+    )
+  }
+
   return (
     <div>
+      <Snackbar
+        open={signupSnackbarState}
+        autoHideDuration={2500}
+        onClose={handleCloseSignupSnackbar}
+        message="Driver Signup Successful!"
+        action={showSignupSnackbar}
+      />
+      {/* Dialog for adding comments */}
       <Dialog open={openComments} onClose={handleCloseComments}>
         <DialogTitle>Add Comments</DialogTitle>
         <DialogContent>
@@ -136,6 +158,8 @@ function RideDetailsPaper(props) {
           <Button onClick={handleSaveComments}>Save</Button>
         </DialogActions>
       </Dialog>
+
+      {/* Dialogue for driver signup  */}
       <Dialog
         open={openConfirmDialogue}
         onClose={handleCloseConfirmDialogue}
