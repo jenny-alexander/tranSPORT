@@ -19,8 +19,10 @@ import CloseIcon from '@mui/icons-material/Close';
 function RideDetailsPaper(props) {
   const [openComments, setOpenComments] = useState(false); //this is for the modal confirmation 
   const [openConfirmDialogue, setOpenConfirmDialogue] = useState(false);
-  const [signupSnackbarState, setSignupSnackbarState] = useState(false);
+  const [openDeleteDialogue, setOpenDeleteDialogue] = useState(false);
+  const [snackbarState, setSnackbarState] = useState(false);
   const [showUpdateCommentsButton, setShowUpdateCommentsButton] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState('Success!');
   const [returnTripText, setReturnTripText] = useState('');
   const [gameText, setGameText] = useState('');
   const [newComment, setNewComment] = useState('');
@@ -63,19 +65,31 @@ function RideDetailsPaper(props) {
     //close the modal dialogue
     setOpenConfirmDialogue(false);
     //now we have to show the snackbar for 2.5 seconds
-    setSignupSnackbarState(true);
+    setSnackbarMessage('Driver Signup Successful!')
+    setSnackbarState(true);
   }
 
-  const handleCloseSignupSnackbar = () => {
-    setSignupSnackbarState(false);
+  const handleCloseSnackbar = () => {
+    setSnackbarState(false);
   }
 
   const handleDeleteRide = () => {
+    //Show modal for deleting ride
+    setOpenDeleteDialogue(true);
+  }
+
+  const dispatchDeleteRide = () => {
     console.log(`in handleDeleteRide`);
     dispatch({
       type: 'DELETE_RIDE_REQUEST',
       payload: rideDetails.id
     })
+    //close the modal dialogue
+    setOpenDeleteDialogue(false);
+    //now we have to show the snackbar for 2.5 seconds
+    setSnackbarMessage('Ride deleted successfully.')
+    setSnackbarState(true);
+
   }
 
   const handleAddComments = () => {
@@ -94,6 +108,9 @@ function RideDetailsPaper(props) {
       }
     })
     handleCloseComments(false);
+
+    setSnackbarMessage('Comments added!')
+    setSnackbarState(true);
   }
 
   const handleCloseComments = () => {
@@ -102,6 +119,10 @@ function RideDetailsPaper(props) {
 
   const handleCloseConfirmDialogue = () => {
     setOpenConfirmDialogue(false);
+  }
+
+  const handleCloseDeleteDialogue = () => {
+    setOpenDeleteDialogue(false);
   }
 
   const handleDriverRemoval = () => {
@@ -144,14 +165,14 @@ function RideDetailsPaper(props) {
     }
     return allowDeleteRide;
   }
-  const showSignupSnackbar = () => {
+  const showSnackbar = () => {
     return (
       <div>
         <IconButton
           size="small"
           aria-label="close"
           color="inherit"
-          onClick={handleCloseSignupSnackbar}
+          onClick={handleCloseSnackbar}
         >
           <CloseIcon fontSize="small" />
         </IconButton>
@@ -162,11 +183,11 @@ function RideDetailsPaper(props) {
   return (
     <div>
       <Snackbar
-        open={signupSnackbarState}
+        open={snackbarState}
         autoHideDuration={2500}
-        onClose={handleCloseSignupSnackbar}
-        message="Driver Signup Successful!"
-        action={showSignupSnackbar}
+        onClose={handleCloseSnackbar}
+        message={snackbarMessage}
+        action={showSnackbar}
       />
       {/* Dialog for adding comments */}
       <Dialog open={openComments} onClose={handleCloseComments}>
@@ -206,9 +227,31 @@ function RideDetailsPaper(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseConfirmDialogue}>Disagree</Button>
+          <Button onClick={handleCloseConfirmDialogue}>No</Button>
           <Button onClick={dispatchDriverSignUp} autoFocus>
-            Agree
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* Dialogue for deleting ride  */}
+      <Dialog
+        open={openDeleteDialogue}
+        onClose={handleCloseDeleteDialogue}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Delete Ride Request?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Confirm that you want to delete this ride request.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDeleteDialogue}>No</Button>
+          <Button onClick={dispatchDeleteRide} autoFocus>
+            Yes
           </Button>
         </DialogActions>
       </Dialog>
@@ -264,31 +307,36 @@ function RideDetailsPaper(props) {
               </Box>
             </CardContent>
             <CardActions>
-              {showCommentsButton() ?
-                <Button size="small" sx={{ mr: 7, ml: 1 }}
-                  onClick={handleAddComments}>Add Comments
-                </Button>
-                :
-                ''
-              }
-              {showSignupToDriveBtn() ?
-                <Button size="small"
-                  onClick={handleSignUp}>Sign Up to Drive</Button>
-                :
-                ''
-              }
-              {showDriverRemovalBtn() ?
-                <Button size="small"
-                  onClick={handleDriverRemoval}>Withdraw as driver</Button>
-                :
-                ''
-              }
-              {showDeleteRideBtn() ?
-                <Button size="small" sx={{ ml: 10 }}
-                  onClick={handleDeleteRide}>Delete Ride</Button>
-                :
-                ''
-              }
+              <Box sx={{ display: 'flex' }}>
+                {showCommentsButton() ?
+                  <Button size="small" sx={{ ml: 1 }}
+                    sx={{ fontSize: 12, alignItems: 'right' }}
+                    onClick={handleAddComments}>Add Comments
+                  </Button>
+                  :
+                  ''
+                }
+                {showSignupToDriveBtn() ?
+                  <Button size="small"
+                    onClick={handleSignUp}>Sign Up to Drive</Button>
+                  :
+                  ''
+                }
+                {showDriverRemovalBtn() ?
+                  <Button size="small"
+                    onClick={handleDriverRemoval}
+                    sx={{ fontSize: 12, ml: 8, justifyContent: 'right', alignItems: 'right' }}
+                  >Withdraw as driver</Button>
+                  :
+                  ''
+                }
+                {showDeleteRideBtn() ?
+                  <Button size="small" sx={{ ml: 10 }}
+                    onClick={handleDeleteRide}>Delete Ride</Button>
+                  :
+                  ''
+                }
+              </Box>
             </CardActions>
           </Card>
         </Box>

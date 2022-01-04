@@ -26,7 +26,8 @@ function UserProfilePage() {
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
         <Grid item>
           <Button variant="outlined" sx={{ width: '30ch', mt: 2 }}
-            onClick={() => { history.push('/login') }}>Back</Button>
+            // onClick={() => { history.push('/login') }}>Back</Button>
+            onClick={() => { history.goBack() }}>Back</Button>
         </Grid>
       </Box>
     </div>

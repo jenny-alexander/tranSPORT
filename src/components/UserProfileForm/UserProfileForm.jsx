@@ -58,7 +58,6 @@ function UserProfileForm() {
         updatedUser
       }
     })
-
   };
 
   const handleCloseSignupSnackbar = () => {
@@ -110,9 +109,9 @@ function UserProfileForm() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseConfirmDialogue}>Disagree</Button>
+          <Button onClick={handleCloseConfirmDialogue}>No</Button>
           <Button onClick={updateProfile} autoFocus>
-            Agree
+            Yes
           </Button>
         </DialogActions>
       </Dialog>

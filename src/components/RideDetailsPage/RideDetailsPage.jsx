@@ -40,12 +40,13 @@ function RideDetailsPage(props) {
         <Box sx={{
           display: "flex",
           justifyContent: "left",
-          position: "relative",
+          position: "absolute",
           bottom: "0",
           left: "4%"
         }}>
           <Button variant="outlined" sx={{ width: '20ch', m: 1 }}
-            onClick={() => { history.push('/view/allrides') }}>
+            // onClick={() => { history.push('/view/allrides') }}>
+            onClick={() => { history.goBack() }}>
             Back
           </Button>
         </Box>

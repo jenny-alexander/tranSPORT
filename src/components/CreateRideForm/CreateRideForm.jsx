@@ -7,9 +7,11 @@ import Switch from '@mui/material/Switch';
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import ConfirmRideTextField from '../ConfirmRideTextField/ConfirmRideTextField';
 import Typography from '@mui/material/Typography';
+import Snackbar from '@mui/material/Snackbar';
 
 function CreateRidePage(props) {
   const [open, setOpen] = useState(false); //this is for the modal confirmation 
+  const [snackbarState, setSnackbarState] = useState(false);
   const [player, setPlayer] = useState('')
   const [returnTripText, setReturnTripText] = useState('');
   const [gameText, setGameText] = useState('');
@@ -69,6 +71,8 @@ function CreateRidePage(props) {
       },
     });
     setOpen(false);
+
+    setSnackbarState(true);
   }
 
   const handleGameChange = (event) => {
@@ -79,8 +83,35 @@ function CreateRidePage(props) {
     setNewRide({ ...newRide, returnTrip: event.target.checked });
   }
 
+  const handleCloseSnackbar = () => {
+    setSnackbarState(false);
+
+  }
+
+  const showSnackbar = () => {
+    return (
+      <div>
+        <IconButton
+          size="small"
+          aria-label="close"
+          color="inherit"
+          onClick={handleCloseSnackbar}
+        >
+          <CloseIcon fontSize="small" />
+        </IconButton>
+      </div>
+    )
+  }
+
   return (
     <div>
+      <Snackbar
+        open={snackbarState}
+        autoHideDuration={2500}
+        onClose={handleCloseSnackbar}
+        message="Update Successful!"
+        action={showSnackbar}
+      />
       <Dialog open={open}>
         <DialogTitle>
           Confirm new ride details
@@ -112,145 +143,147 @@ function CreateRidePage(props) {
         </DialogActions>
       </Dialog>
       <Container>
-        <Box component="form" onSubmit={createRide}>
-          <Grid
-            container
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            spacing={1}
-          >
-            {/* Textfields containing user input */}
-            <Grid item xs={12}>
-              <TextField
-                disabled
-                label="Player Name"
-                id="playerName"
-                sx={{ m: 1, width: '30ch' }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-                required
-                value={player}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Event Date"
-                type="date"
-                id="pickupDate"
-                sx={{ m: 1, width: '30ch' }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-                required
-                value={newRide.pickupDate}
-                onChange={(event) => setNewRide({ ...newRide, pickupDate: event.target.value })}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Event Time"
-                type="time"
-                id="pickupTime"
-                sx={{ m: 1, width: '30ch' }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-                required
-                value={newRide.pickupTime}
-                onChange={(event) => setNewRide({ ...newRide, pickupTime: event.target.value })}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Pickup Location"
-                id="pickupLocation"
-                sx={{ m: 1, width: '30ch' }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-                required
-                value={newRide.pickupLocation}
-                onChange={(event) => setNewRide({ ...newRide, pickupLocation: event.target.value })}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Dropoff Location"
-                id="dropoffLocation"
-                sx={{ m: 1, width: '30ch' }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-                required
-                value={newRide.dropoffLocation}
-                onChange={(event) => setNewRide({ ...newRide, dropoffLocation: event.target.value })}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Box sx={{
-                display: 'flex', alignItems: 'left', justifyContent: 'left',
-                width: '30ch'
-              }} >
-                <Switch
-                  label="Game"
-                  checked={newRide.game}
-                  onChange={handleGameChange}
-                  inputProps={{ 'aria-label': 'controlled' }}
-                />
-                <Typography sx={{ display: 'flex', alignItems: 'center' }}>Game</Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12}>
-              <Box sx={{
-                display: 'flex', alignItems: 'left', justifyContent: 'left',
-                width: '30ch'
-              }} >
-                <Switch
-                  label="Return Trip"
-                  checked={newRide.returnTrip}
-                  onChange={handleReturnTripChange}
-                  inputProps={{ 'aria-label': 'controlled' }}
-                />
-                <Typography sx={{ display: 'flex', alignItems: 'center' }}>Return Trip</Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                id="comments"
-                label="Comments"
-                multiline
-                rows={4}
-                sx={{ m: 1, width: '30ch', fontSize: 17 }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={(event) => setNewComment(event.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Box sx={{
-                display: "flex",
-                justifyContent: "center",
-                position: "absolute",
-                // bottom: "0", 
-                right: "2%"
-              }}>
-                <Button variant="contained" type="submit" name="submit"
-                  sx={{ width: '20ch', m: 1 }}
-                >
-                  Next
-                </Button>
-              </Box>
-            </Grid>
+        {/* <Box component="form" onSubmit={createRide}> */}
+
+        <Grid
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={1}
+        >
+          {/* Textfields containing user input */}
+          <Grid item xs={12}>
+            <TextField
+              disabled
+              label="Player Name"
+              id="playerName"
+              sx={{ m: 1, width: '30ch' }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="outlined"
+              required
+              value={player}
+            />
           </Grid>
-        </Box>
+          <Grid item xs={12}>
+            <TextField
+              label="Event Date"
+              type="date"
+              id="pickupDate"
+              sx={{ m: 1, width: '30ch' }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="outlined"
+              required
+              value={newRide.pickupDate}
+              onChange={(event) => setNewRide({ ...newRide, pickupDate: event.target.value })}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Event Time"
+              type="time"
+              id="pickupTime"
+              sx={{ m: 1, width: '30ch' }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="outlined"
+              required
+              value={newRide.pickupTime}
+              onChange={(event) => setNewRide({ ...newRide, pickupTime: event.target.value })}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Pickup Location"
+              id="pickupLocation"
+              sx={{ m: 1, width: '30ch' }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="outlined"
+              required
+              value={newRide.pickupLocation}
+              onChange={(event) => setNewRide({ ...newRide, pickupLocation: event.target.value })}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Dropoff Location"
+              id="dropoffLocation"
+              sx={{ m: 1, width: '30ch' }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="outlined"
+              required
+              value={newRide.dropoffLocation}
+              onChange={(event) => setNewRide({ ...newRide, dropoffLocation: event.target.value })}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Box sx={{
+              display: 'flex', alignItems: 'left', justifyContent: 'left',
+              width: '30ch'
+            }} >
+              <Switch
+                label="Game"
+                checked={newRide.game}
+                onChange={handleGameChange}
+                inputProps={{ 'aria-label': 'controlled' }}
+              />
+              <Typography sx={{ display: 'flex', alignItems: 'center' }}>Game</Typography>
+            </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Box sx={{
+              display: 'flex', alignItems: 'left', justifyContent: 'left',
+              width: '30ch'
+            }} >
+              <Switch
+                label="Return Trip"
+                checked={newRide.returnTrip}
+                onChange={handleReturnTripChange}
+                inputProps={{ 'aria-label': 'controlled' }}
+              />
+              <Typography sx={{ display: 'flex', alignItems: 'center' }}>Return Trip</Typography>
+            </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              id="comments"
+              label="Comments"
+              multiline
+              rows={4}
+              sx={{ m: 1, width: '30ch', fontSize: 17 }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={(event) => setNewComment(event.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Box sx={{
+              display: "flex",
+              justifyContent: "center",
+              position: "absolute",
+              // bottom: "0", 
+              right: "2%"
+            }}>
+              <Button variant="contained" name="createRide"
+                sx={{ width: '20ch', m: 1 }}
+                onClick={createRide}
+              >
+                Next
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
+        {/* </Box> */}
       </Container>
     </div >
   );
