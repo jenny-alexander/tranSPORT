@@ -60,6 +60,15 @@ function* fetchMyRides(action) {
   }
 }
 
+function* removeDriverFromRide(action) {
+  console.log(`in removeDriverFromRide with:`, action);
+  try {
+    yield axios.put(`api/ride/remove-driver`, action.payload)
+  } catch (error) {
+    console.log('Removal of driver failed!', error);
+  }
+}
+
 function* updateRideWithDriver(action) {
   try {
     yield axios.put(`api/ride/assign-ride`, action.payload)
@@ -75,6 +84,7 @@ function* ridesSaga() {
   yield takeLatest('FETCH_MY_RIDES', fetchMyRides);
   yield takeLatest('FETCH_RIDE_BY_ID', fetchRideByID);
   yield takeLatest('UPDATE_RIDE_WITH_DRIVER', updateRideWithDriver);
+  yield takeLatest('REMOVE_DRIVER_FROM_RIDE', removeDriverFromRide);
 }
 
 export default ridesSaga;

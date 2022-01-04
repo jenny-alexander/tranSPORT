@@ -131,6 +131,30 @@ router.put('/assign-ride', (req, res) => {
     })
 });
 
+//UPDATE the ride & user_ride tables -> remove driver
+//need ride id & user id
+router.put('/remove-driver', (req, res) => {
+  console.log(`in PUT of remove driver and req.body is:`, req.body);
+  let putQueryString = `UPDATE ride SET driver_id = null
+                            WHERE id = ${req.body.rideID}`;
+  pool.query(putQueryString)
+    .then((result) => {
+      //now delete corresponding record from user_ride table
+      const deleteUserRideQuery = `DELETE FROM user_ride WHERE user_id = ${req.body.userID}
+                                                      AND ride_id = ${req.body.rideID};`;
+      pool.query(deleteUserRideQuery)
+        .then((result) => {
+          res.sendStatus(200);
+        }).catch((error) => {
+          console.log(`remove driver DELETE from user_ride failed. Error is:`, error);
+          res.sendStatus(500);
+        })
+    }).catch((error) => {
+      console.log(`REMOVE driver_id from RIDE table failed. Error is:`, error);
+      res.sendStatus(500);
+    })
+})
+
 //DELETE an existing ride. Using inner join to delete any associated comments from Comment table.
 router.delete('/delete/:id', (req, res) => {
   const deleteQuery = `DELETE from ride WHERE id = ${req.params.id};`;

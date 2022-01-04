@@ -63,13 +63,13 @@ router.post('/logout', (req, res) => {
 //Update the user information
 router.put('/', (req, res) => {
   console.log(`in PUT of user update and req.body is:`, req.body);
-  let postQueryString = `UPDATE "user" SET email = '${manipulateDataForDB(req.body.updatedUser.email)}',
+  let putQueryString = `UPDATE "user" SET email = '${manipulateDataForDB(req.body.updatedUser.email)}',
                                    parent_name = '${manipulateDataForDB(req.body.updatedUser.parent_name)}',
                                    player_name = '${manipulateDataForDB(req.body.updatedUser.player_name)}',
                                   phone_number = '${manipulateDataForDB(req.body.updatedUser.phone_number)}'
                             WHERE id = ${req.body.updatedUser.id}`;
   pool
-    .query(postQueryString)
+    .query(putQueryString)
     .then((results) => {
       res.sendStatus(200);
     }).catch((error) => {
@@ -77,6 +77,8 @@ router.put('/', (req, res) => {
       res.sendStatus(500);
     })
 })
+
+
 
 //TODO:-->>> PUT this in a global helper class instead (keep it DRY)
 const replaceApostrophe = (singleApostropheString) => {

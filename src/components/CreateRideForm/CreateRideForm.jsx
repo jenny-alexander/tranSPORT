@@ -109,7 +109,7 @@ function CreateRidePage(props) {
         open={snackbarState}
         autoHideDuration={2500}
         onClose={handleCloseSnackbar}
-        message="Update Successful!"
+        message="Ride Successfully Created!"
         action={showSnackbar}
       />
       <Dialog open={open}>
