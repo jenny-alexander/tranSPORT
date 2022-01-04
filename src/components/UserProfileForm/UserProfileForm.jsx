@@ -10,12 +10,17 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import {
+  Dialog, DialogTitle, DialogContent,
+  DialogActions, DialogContentText
+} from '@mui/material';
+import Snackbar from '@mui/material/Snackbar';
+
 
 function UserProfileForm() {
-  //const [profileExists, setProfileExists] = useState(false);
-
   const [updatedUser, setUpdatedUser] = useState({})
-
+  const [openConfirmDialogue, setOpenConfirmDialogue] = useState(false);
+  const [signupSnackbarState, setSignupSnackbarState] = useState(false);
   const errors = useSelector((store) => store.errors);
   const user = useSelector(store => store.user);
   const dispatch = useDispatch();

@@ -39,10 +39,10 @@ function RideDetailsPage(props) {
       <Grid item xs={12}>
         <Box sx={{
           display: "flex",
-          justifyContent: "center",
-          position: "absolute",
+          justifyContent: "left",
+          position: "relative",
           bottom: "0",
-          left: "2%"
+          left: "4%"
         }}>
           <Button variant="outlined" sx={{ width: '20ch', m: 1 }}
             onClick={() => { history.push('/view/allrides') }}>

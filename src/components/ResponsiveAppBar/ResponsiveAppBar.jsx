@@ -15,6 +15,7 @@ import GlobalCSS from '../GlobalCSS/GlobalCSS';
 import Grid from '@mui/material/Grid';
 import { useHistory } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Tooltip from '@mui/material/Tooltip';
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -111,9 +112,11 @@ const ResponsiveAppBar = () => {
           {/* ---> TODO: Logo shifts to left when page is too big. */}
           <Box >
             {/* TODO:---> Change color of icon to black */}
-            <IconButton color='primary' onClick={() => { history.push('/profile') }}>
-              <AccountCircleIcon fontSize="large" />
-            </IconButton>
+            <Tooltip title="User Profile">
+              <IconButton color='primary' onClick={() => { history.push('/profile') }}>
+                <AccountCircleIcon fontSize="large" />
+              </IconButton>
+            </Tooltip>
           </Box>
         </Toolbar>
       </Container>

@@ -118,7 +118,7 @@ router.put('/assign-ride', (req, res) => {
       //Now handle the join table user_ride
       const insertUserRideQuery = `INSERT INTO user_ride (user_id, ride_id )
                                    VALUES($1,$2);`;
-      pool.query(insertUserRideQuery, [req.body.userID, req.params.rideID])
+      pool.query(insertUserRideQuery, [req.body.userID, req.body.rideID])
         .then((result) => {
           res.sendStatus(200);
         }).catch((error) => {
