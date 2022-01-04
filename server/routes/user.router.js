@@ -62,6 +62,7 @@ router.post('/logout', (req, res) => {
 
 //Update the user information
 router.put('/', (req, res) => {
+  console.log(`in PUT of user update and req.body is:`, req.body);
   let postQueryString = `UPDATE "user" SET email = '${manipulateDataForDB(req.body.updatedUser.email)}',
                                    parent_name = '${manipulateDataForDB(req.body.updatedUser.parent_name)}',
                                    player_name = '${manipulateDataForDB(req.body.updatedUser.player_name)}',

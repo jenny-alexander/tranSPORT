@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import {
   Dialog, DialogTitle, DialogContent,
   DialogActions, DialogContentText
@@ -20,7 +21,7 @@ import Snackbar from '@mui/material/Snackbar';
 function UserProfileForm() {
   const [updatedUser, setUpdatedUser] = useState({})
   const [openConfirmDialogue, setOpenConfirmDialogue] = useState(false);
-  const [signupSnackbarState, setSignupSnackbarState] = useState(false);
+  const [updateSnackbarState, setUpdateSnackbarState] = useState(false);
   const errors = useSelector((store) => store.errors);
   const user = useSelector(store => store.user);
   const dispatch = useDispatch();
@@ -29,6 +30,13 @@ function UserProfileForm() {
     setUpdatedUser(user)
   }, []);
 
+  const handleUpdateProfile = () => {
+    setOpenConfirmDialogue(true);
+  }
+
+  const handleCloseConfirmDialogue = () => {
+    setOpenConfirmDialogue(false);
+  }
   const updateProfile = (event) => {
     console.log(`in updateProfile with user info:`, updatedUser)
     event.preventDefault();
@@ -39,8 +47,39 @@ function UserProfileForm() {
         updatedUser
       },
     });
+    //close the modal dialogue
+    setOpenConfirmDialogue(false);
+
+    setUpdateSnackbarState(true);
+    //return updated info to screen
+    dispatch({
+      type: 'FETCH_USER',
+      payload: {
+        updatedUser
+      }
+    })
+
   };
 
+  const handleCloseSignupSnackbar = () => {
+    setUpdateSnackbarState(false);
+
+  }
+
+  const showSignupSnackbar = () => {
+    return (
+      <div>
+        <IconButton
+          size="small"
+          aria-label="close"
+          color="inherit"
+          onClick={handleCloseSignupSnackbar}
+        >
+          <CloseIcon fontSize="small" />
+        </IconButton>
+      </div>
+    )
+  }
   return (
     <div>
       {errors.loginMessage && (
@@ -48,8 +87,37 @@ function UserProfileForm() {
           {errors.loginMessage}
         </h3>
       )}
+      <Snackbar
+        open={updateSnackbarState}
+        autoHideDuration={2500}
+        onClose={handleCloseSignupSnackbar}
+        message="Update Successful!"
+        action={showSignupSnackbar}
+      />
+      {/* Dialog for updating profile */}
+      <Dialog
+        open={openConfirmDialogue}
+        onClose={handleCloseConfirmDialogue}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Update profile?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Confirm that you want to update your profile.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseConfirmDialogue}>Disagree</Button>
+          <Button onClick={updateProfile} autoFocus>
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Container>
-        <Box component="form" onSubmit={updateProfile}>
+        <Box component="form" onSubmit={handleUpdateProfile}>
           <Grid
             container
             direction="column"
