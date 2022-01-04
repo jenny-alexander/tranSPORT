@@ -12,8 +12,16 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import Snackbar from '@mui/material/Snackbar';
+import {
+  Dialog, DialogTitle, DialogContent,
+  DialogActions, DialogContentText
+} from '@mui/material';
 
 function RegisterForm() {
+  const [openRegistrationDialogue, setOpenRegistrationDialogue] = useState(false);
+  const [snackbarState, setSnackbarState] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [userProfile, setUserProfile] = useState({
@@ -26,9 +34,26 @@ function RegisterForm() {
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
-  const registerUser = (event) => {
-    event.preventDefault();
+  // const registerUser = (event) => {
+  //   event.preventDefault();
 
+  //   dispatch({
+  //     type: 'REGISTER',
+  //     payload: {
+  //       username: username,
+  //       password: password,
+  //       userProfile: userProfile
+  //     },
+  //   });
+  // };
+
+
+  {/* ---> BEGIN Logic related to driver withdrawal*/ }
+  const handleRegisterUser = () => {
+    //Show modal dialogue to confirm sign up.
+    setOpenRegistrationDialogue(true);
+  }
+  const dispatchRegisterUser = () => {
     dispatch({
       type: 'REGISTER',
       payload: {
@@ -36,8 +61,34 @@ function RegisterForm() {
         password: password,
         userProfile: userProfile
       },
-    });
-  };
+    })
+    //close the modal dialogue
+    setOpenRegistrationDialogue(false);
+    //now we have to show the snackbar for 2.5 seconds
+    setSnackbarMessage('User Registration Successful!')
+    setSnackbarState(true);
+  }
+  const handleCloseRegistrationDialogue = () => {
+    setOpenRegistrationDialogue(false);
+  }
+  {/* ---> END Logic related to driver withdrawal*/ }
+  const showSnackbar = () => {
+    return (
+      <div>
+        <IconButton
+          size="small"
+          aria-label="close"
+          color="inherit"
+          onClick={handleCloseSnackbar}
+        >
+          <CloseIcon fontSize="small" />
+        </IconButton>
+      </div>
+    )
+  }
+  const handleCloseSnackbar = () => {
+    setSnackbarState(false);
+  }
 
   return (
     <div>
@@ -46,8 +97,37 @@ function RegisterForm() {
           {errors.loginMessage}
         </h3>
       )}
+      <Snackbar
+        open={snackbarState}
+        autoHideDuration={2500}
+        onClose={handleCloseSnackbar}
+        message={snackbarMessage}
+        action={showSnackbar}
+      />
+      {/* Dialogue for driver signup  */}
+      <Dialog
+        open={openRegistrationDialogue}
+        onClose={handleCloseRegistrationDialogue}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Register New User?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Confirm that you want to register as a new user.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseRegistrationDialogue}>No</Button>
+          <Button onClick={dispatchRegisterUser} autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Container>
-        <Box component="form" onSubmit={registerUser}>
+        <Box component="form" onSubmit={handleRegisterUser}>
           <Grid
             container
             direction="column"

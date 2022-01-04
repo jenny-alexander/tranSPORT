@@ -22,8 +22,7 @@ function RideDetailsPaper(props) {
   const [openDeleteDialogue, setOpenDeleteDialogue] = useState(false);
   const [openWithdrawDialogue, setOpenWithdrawDialogue] = useState(false);
   const [snackbarState, setSnackbarState] = useState(false);
-  const [showUpdateCommentsButton, setShowUpdateCommentsButton] = useState(false)
-  const [snackbarMessage, setSnackbarMessage] = useState('Success!');
+  const [snackbarMessage, setSnackbarMessage] = useState('');
   const [returnTripText, setReturnTripText] = useState('');
   const [gameText, setGameText] = useState('');
   const [newComment, setNewComment] = useState('');
@@ -40,10 +39,6 @@ function RideDetailsPaper(props) {
       type: 'FETCH_RIDE_BY_ID',
       payload: params.id
     })
-    if (user.id == rideDetails.creator_id ||
-      user.id == rideDetails.driver_id) {
-      setShowUpdateCommentsButton(true);
-    }
     //Changing True/False values from DB to Yes/No
     rideDetails.return_trip ? setReturnTripText('return trip') : setReturnTripText('one way trip');
     rideDetails.game ? setGameText(' game') : setGameText(' practice');
