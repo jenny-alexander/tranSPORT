@@ -38,11 +38,12 @@ const ResponsiveAppBar = () => {
 
   return (
     <AppBar position="sticky"
+
       style={{
-        color: "black",
-        backgroundColor: "#FFFFFF",
+        color: "white",
+        backgroundColor: "#DDDDDD",
         boxShadow: "0px 0px 0px 0px",
-        borderRadius: 5
+        // borderRadius: 1
       }}>
 
       <Container maxWidth="xl">
@@ -63,7 +64,7 @@ const ResponsiveAppBar = () => {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
+
             >
               <MenuIcon />
             </IconButton>
@@ -107,7 +108,7 @@ const ResponsiveAppBar = () => {
 
           {/* ---> TODO: Logo shifts to left when page is too big. */}
           {/* <Box sx={{ flexGrow: 1, mb: 3 }}>
-            <img src='images/logo.png' alt='logo'></img>
+            <img src='images/logo2.png' alt='logo'></img>
           </Box> */}
           {/* ---> TODO: Logo shifts to left when page is too big. */}
           <Box >

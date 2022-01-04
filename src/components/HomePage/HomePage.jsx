@@ -41,7 +41,7 @@ function HomePage(props) {
           direction="column"
           justifyContent="center"
           alignItems="center"
-          spacing={3}>
+          spacing={4}>
           <Grid item sx={12}>
             <Button variant="contained"
               sx={{ width: '30ch', height: '7ch', borderRadius: 7 }}
@@ -61,8 +61,12 @@ function HomePage(props) {
               onClick={() => { history.push('/view/allrides') }}>View All Rides
             </Button>
           </Grid>
+
         </Grid>
       </Container>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+        <img src='images/logo2.png'></img>
+      </Box>
       {/* </ThemeProvider> */}
     </div>
   );

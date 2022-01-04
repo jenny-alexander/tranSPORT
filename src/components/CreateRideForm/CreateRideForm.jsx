@@ -121,6 +121,7 @@ function CreateRidePage(props) {
             <ConfirmRideTextField label={modalValues.label} defaultValue={modalValues.defaultValue} />
           ))}
           <TextField
+            disabled
             autoFocus
             margin="dense"
             id="comments"

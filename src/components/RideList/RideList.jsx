@@ -5,6 +5,7 @@ import { Grid, Typography, Box } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import RideCardContent from '../RideCardContent/RideCardContent';
+import Button from '@mui/material/Button';
 
 function NewRideList(props) {
   const rides = useSelector((store) => store.rides);
@@ -46,7 +47,13 @@ function NewRideList(props) {
             </Grid>
           )
         })}
+        <Grid item sx={12}>
+          <Button variant="outlined" fullWidth
+            sx={{ width: '40ch', height: '5ch', mb: 2 }}
+            onClick={() => { history.goBack() }}>Back to Ride List</Button>
+        </Grid>
       </Grid>
+
     </div >
   );
 }
