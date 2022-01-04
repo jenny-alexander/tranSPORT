@@ -27,6 +27,9 @@ const theme = createTheme({
 function AboutPage() {
   return (
     <div>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+        <img src='images/logo2.png'></img>
+      </Box>
       <h3>This is the about page</h3>
     </div>
 

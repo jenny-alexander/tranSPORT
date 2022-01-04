@@ -106,9 +106,9 @@ const ResponsiveAppBar = () => {
           </Box>
 
           {/* ---> TODO: Logo shifts to left when page is too big. */}
-          <Box sx={{ flexGrow: 1, mb: 3 }}>
+          {/* <Box sx={{ flexGrow: 1, mb: 3 }}>
             <img src='images/logo.png' alt='logo'></img>
-          </Box>
+          </Box> */}
           {/* ---> TODO: Logo shifts to left when page is too big. */}
           <Box >
             {/* TODO:---> Change color of icon to black */}

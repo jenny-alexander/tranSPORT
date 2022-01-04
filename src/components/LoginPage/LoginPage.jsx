@@ -24,7 +24,8 @@ function LoginPage() {
     // (
     <div>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 5 }} >
-        <img src='images/logo2.png'></img></Box>
+        <img src='images/logo2.png'></img>
+      </Box>
       <LoginForm />
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
         <Grid item>

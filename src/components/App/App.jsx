@@ -19,11 +19,22 @@ import ResponsiveAppBar from '../ResponsiveAppBar/ResponsiveAppBar';
 import UserProfilePage from '../UserProfilePage/UserProfilePage';
 import RideDetailsPage from '../RideDetailsPage/RideDetailsPage';
 import MyRideList from '../MyRideList/MyRideList';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 function App() {
   const dispatch = useDispatch();
-
   const user = useSelector(store => store.user);
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#8C92AC"
+      },
+      secondary: {
+        main: "#de2bfa"
+      }
+    },
+  });
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
