@@ -1,0 +1,11 @@
+.title {
+    margin-left: 10px;
+}
+.tech-header, .next-header,
+.thank-you-header {
+    margin-left: 15px; 
+}
+
+.next-details {
+    margin-right: 10px;
+}
