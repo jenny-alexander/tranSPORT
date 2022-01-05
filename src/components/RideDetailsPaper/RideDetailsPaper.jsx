@@ -109,7 +109,6 @@ function RideDetailsPaper(props) {
     setOpenDeleteDialogue(true);
   }
   const dispatchDeleteRide = () => {
-    console.log(`in handleDeleteRide`);
     dispatch({
       type: 'DELETE_RIDE_REQUEST',
       payload: rideDetails.id
@@ -130,11 +129,9 @@ function RideDetailsPaper(props) {
 
   {/* ---> BEGIN Logic related to adding comme nts*/ }
   const handleAddComments = () => {
-    console.log(` in handleAddComments!`);
     setOpenComments(true);
   }
   const handleSaveComments = () => {
-    console.log(`in handleSaveComments`);
     //do stuff with comments
     dispatch({
       type: 'CREATE_RIDE_COMMENT', payload: {

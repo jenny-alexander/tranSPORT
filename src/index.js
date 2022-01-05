@@ -3,10 +3,9 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-
 import store from './redux/store';
-
 import App from './components/App/App';
+
 
 const theme = createTheme({
   palette: {

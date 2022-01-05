@@ -15,9 +15,9 @@ function RideDetailsPage(props) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleSignUp = () => {
-    console.log(`in handleSignUp!`);
-  }
+  // const handleSignUp = () => {
+  //   console.log(`in handleSignUp!`);
+  // }
 
   return (
     <div>

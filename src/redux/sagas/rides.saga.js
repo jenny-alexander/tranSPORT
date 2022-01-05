@@ -12,10 +12,15 @@ function* createRide(action) {
         comment: action.payload.comment
       }
     })
-    console.log(`response.data is:`, response.data);
     //Set the store with the ID so it can be used when displaying ride details
     //of newly created ride.
-    yield put({ type: 'SET_RIDE_DETAILS', payload: response.data })
+    //yield put({ type: 'SET_RIDE_DETAILS', payload: response.data })
+
+    //Store the ride ID in session storage to be used by CreateRideForm and using history.push to 
+    //go to ride details page with ride id in the URL.
+    let myStorage = window.sessionStorage;
+    myStorage.clear();
+    myStorage.setItem('ride_id', response.data.ride_id);
   } catch (error) {
     console.log('Error creating ride.', error);
   }

@@ -15,6 +15,7 @@ function CreateRideForm(props) {
   const [player, setPlayer] = useState('')
   const [returnTripText, setReturnTripText] = useState('');
   const [gameText, setGameText] = useState('');
+  const [newRideID, setNewRideID] = useState(0);
   const [newRide, setNewRide] = useState({
     pickupDate: '',
     pickupTime: '',
@@ -27,6 +28,7 @@ function CreateRideForm(props) {
   const user = useSelector(store => store.user);
   const dispatch = useDispatch();
   const history = useHistory();
+  let myStorage = window.sessionStorage;
   const modalTextfieldValues = [
     { label: 'Player Name', defaultValue: player },
     { label: 'Event Date', defaultValue: newRide.pickupDate },
@@ -72,6 +74,7 @@ function CreateRideForm(props) {
         createdTimestamp: new Date()
       },
     });
+
     setOpen(false);
 
     setSnackbarState(true);
@@ -89,7 +92,6 @@ function CreateRideForm(props) {
 
   const handleCloseSnackbar = () => {
     setSnackbarState(false);
-
   }
 
   function sleep(ms) {
@@ -99,6 +101,8 @@ function CreateRideForm(props) {
   async function delayedNavigation() {
     await sleep(2000);
     history.push('/view/myrides')
+    let rideID = myStorage.getItem('ride_id')
+    history.push(`/ride-details/${rideID}`)
   }
 
   const showSnackbar = () => {
@@ -117,6 +121,7 @@ function CreateRideForm(props) {
   }
 
   return (
+
     <div>
       <Snackbar
         open={snackbarState}
