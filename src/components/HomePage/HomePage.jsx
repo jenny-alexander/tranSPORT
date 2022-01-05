@@ -29,12 +29,16 @@ function HomePage(props) {
     <div>
       <div class='title'>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
-          <Typography sx={{ mb: 5, mt: 5, fontSize: 28 }}>
+          <img src='images/logo2.png'></img>
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+          <Typography sx={{ mb: 5, mt: 1, fontSize: 28 }}>
             What would you like to do?
           </Typography>
         </Box>
       </div>
       {/* <ThemeProvider theme={theme}> */}
+
       <Container>
         <Grid
           container
@@ -64,9 +68,9 @@ function HomePage(props) {
 
         </Grid>
       </Container>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+      {/* <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
         <img src='images/logo2.png'></img>
-      </Box>
+      </Box> */}
       {/* </ThemeProvider> */}
     </div>
   );

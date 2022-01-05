@@ -28,7 +28,7 @@ function RideDetailsPage(props) {
         alignItems="center">
         <Grid item xs={12} >
           <Typography gutterBottom component="div"
-            sx={{ fontSize: 28 }}>
+            sx={{ fontSize: 32, mt: 3 }}>
             Ride Details
           </Typography>
         </Grid>

@@ -9,7 +9,7 @@ import ConfirmRideTextField from '../ConfirmRideTextField/ConfirmRideTextField';
 import Typography from '@mui/material/Typography';
 import Snackbar from '@mui/material/Snackbar';
 
-function CreateRidePage(props) {
+function CreateRideForm(props) {
   const [open, setOpen] = useState(false); //this is for the modal confirmation 
   const [snackbarState, setSnackbarState] = useState(false);
   const [player, setPlayer] = useState('')
@@ -279,7 +279,7 @@ function CreateRidePage(props) {
                 sx={{ width: '20ch', m: 1 }}
                 onClick={createRide}
               >
-                Next
+                Create Ride
               </Button>
             </Box>
           </Grid>
@@ -290,4 +290,4 @@ function CreateRidePage(props) {
   );
 }
 
-export default CreateRidePage;
+export default CreateRideForm;

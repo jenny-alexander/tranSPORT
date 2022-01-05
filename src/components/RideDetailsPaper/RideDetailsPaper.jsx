@@ -346,7 +346,7 @@ function RideDetailsPaper(props) {
             <CardActions>
               <Box sx={{ display: 'flex' }}>
                 {showCommentsButton() ?
-                  <Button size="small" sx={{ ml: 1 }}
+                  <Button variant="contained" size="small" sx={{ ml: 1 }}
                     sx={{ fontSize: 12, alignItems: 'right' }}
                     onClick={handleAddComments}>Add Comments
                   </Button>
@@ -354,13 +354,13 @@ function RideDetailsPaper(props) {
                   ''
                 }
                 {showSignupToDriveBtn() ?
-                  <Button size="small"
+                  <Button variant="contained" size="small"
                     onClick={handleSignUp}>Sign Up to Drive</Button>
                   :
                   ''
                 }
                 {showDriverRemovalBtn() ?
-                  <Button size="small"
+                  <Button variant="contained" size="small"
                     onClick={handleWithdrawDriver}
                     sx={{ fontSize: 12, ml: 8, justifyContent: 'right', alignItems: 'right' }}
                   >Withdraw as driver</Button>
@@ -368,7 +368,7 @@ function RideDetailsPaper(props) {
                   ''
                 }
                 {showDeleteRideBtn() ?
-                  <Button size="small" sx={{ ml: 10 }}
+                  <Button variant="contained" size="small" sx={{ width: '18ch', ml: 10 }}
                     onClick={handleDeleteRide}>Delete Ride</Button>
                   :
                   ''

@@ -52,7 +52,7 @@ function MyRideList(props) {
           )
         })}
         <Grid item sx={12}>
-          <Button variant="outlined" fullWidth
+          <Button variant="contained" fullWidth
             sx={{ width: '40ch', height: '5ch' }}
             onClick={() => { history.goBack() }}>Back to Ride List</Button>
         </Grid>

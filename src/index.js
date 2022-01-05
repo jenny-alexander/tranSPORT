@@ -11,7 +11,8 @@ import App from './components/App/App';
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#000814"
+      // main: "#000814"
+      main: "#333456"
     },
     secondary: {
       main: "#FFF"
