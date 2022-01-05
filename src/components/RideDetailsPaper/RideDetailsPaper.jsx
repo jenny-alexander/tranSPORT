@@ -63,6 +63,11 @@ function RideDetailsPaper(props) {
     //now we have to show the snackbar for 2.5 seconds
     setSnackbarMessage('Driver Signup Successful!')
     setSnackbarState(true);
+
+    dispatch({
+      type: 'FETCH_RIDE_BY_ID',
+      payload: params.id
+    })
   }
   const handleCloseSignupDialogue = () => {
     setOpenSignupDialogue(false);
@@ -87,6 +92,11 @@ function RideDetailsPaper(props) {
     //now we have to show the snackbar for 2.5 seconds
     setSnackbarMessage('Driver Withdrawal Successful!')
     setSnackbarState(true);
+
+    dispatch({
+      type: 'FETCH_RIDE_BY_ID',
+      payload: params.id
+    })
   }
   const handleCloseWithdrawDialogue = () => {
     setOpenDeleteDialogue(false);

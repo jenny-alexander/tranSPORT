@@ -9,7 +9,7 @@ router.get('/view/my-rides/:id', (req, res) => {
                        ON u.id = r.driver_id
                        WHERE r.creator_id = ${req.params.id}
                        OR r.driver_id = ${req.params.id}
-                       ORDER BY event_timestamp desc`;
+                       ORDER BY r.event_timestamp ASC`;
   pool.query(getAllQuery)
     .then((results) => {
       res.send(results.rows)
@@ -24,7 +24,8 @@ router.get('/', (req, res) => {
   const getAllQuery = `SELECT r.*, u.parent_name as driver FROM ride as r
                        LEFT JOIN "user" as u 
                        ON u.id = r.driver_id
-                       ORDER BY event_timestamp desc`;
+                       WHERE r.event_timestamp >= CURRENT_DATE - 1
+                       ORDER BY event_timestamp ASC`;
   pool.query(getAllQuery)
     .then((results) => {
       res.send(results.rows)

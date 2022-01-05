@@ -12,6 +12,7 @@ function* createRide(action) {
         comment: action.payload.comment
       }
     })
+    yield put({ type: 'SET_RIDE_DETAILS', payload: response.data })
   } catch (error) {
     console.log('Error creating ride.', error);
   }
