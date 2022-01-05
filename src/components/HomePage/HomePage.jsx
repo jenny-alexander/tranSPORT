@@ -48,20 +48,20 @@ function HomePage(props) {
           spacing={4}>
           <Grid item sx={12}>
             <Button variant="contained"
-              sx={{ width: '30ch', height: '7ch', borderRadius: 7 }}
+              sx={{ fontWeight: 'bold', width: '30ch', height: '7ch', borderRadius: 7 }}
               onClick={() => { history.push('/create') }}>Create Ride Request</Button>
           </Grid>
           <Grid item sx={12}>
             <Button
               //color="primary"
               variant="contained"
-              sx={{ width: '30ch', height: '7ch', borderRadius: 7 }}
+              sx={{ fontWeight: 'bold', width: '30ch', height: '7ch', borderRadius: 7 }}
               onClick={() => { history.push('/view/myrides') }}>View My Rides
             </Button>
           </Grid>
           <Grid item sx={12}>
             <Button variant="outlined"
-              sx={{ width: '30ch', height: '7ch', borderRadius: 7 }}
+              sx={{ fontWeight: 'bold', width: '30ch', height: '7ch', borderRadius: 7 }}
               onClick={() => { history.push('/view/allrides') }}>View All Rides
             </Button>
           </Grid>

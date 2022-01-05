@@ -49,8 +49,8 @@ function NewRideList(props) {
         })}
         <Grid item sx={12}>
           <Button variant="contained" fullWidth
-            sx={{ width: '40ch', height: '5ch', mb: 2 }}
-            onClick={() => { history.goBack() }}>Back to Ride List</Button>
+            sx={{ fontWeight: 'bold', width: '40ch', height: '5ch', mb: 2 }}
+            onClick={() => { history.goBack() }}>Back to Home Page</Button>
         </Grid>
       </Grid>
 

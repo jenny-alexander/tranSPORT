@@ -8,7 +8,8 @@ router.get('/view/my-rides/:id', (req, res) => {
                        LEFT JOIN "user" as u 
                        ON u.id = r.driver_id
                        WHERE r.creator_id = ${req.params.id}
-                       OR r.driver_id = ${req.params.id}`;
+                       OR r.driver_id = ${req.params.id}
+                       ORDER BY event_timestamp desc`;
   pool.query(getAllQuery)
     .then((results) => {
       res.send(results.rows)
@@ -22,7 +23,8 @@ router.get('/view/my-rides/:id', (req, res) => {
 router.get('/', (req, res) => {
   const getAllQuery = `SELECT r.*, u.parent_name as driver FROM ride as r
                        LEFT JOIN "user" as u 
-                       ON u.id = r.driver_id`;
+                       ON u.id = r.driver_id
+                       ORDER BY event_timestamp desc`;
   pool.query(getAllQuery)
     .then((results) => {
       res.send(results.rows)
@@ -50,8 +52,9 @@ router.get('/:rideID', (req, res) => {
 // POST a new ride
 router.post('/create', (req, res) => {
   const insertRideQuery = `INSERT INTO ride (pickup_location, dropoff_location, creator_id,
-                                                player_name, event_timestamp, game, return_trip)
-                       VALUES ($1,$2,$3,$4,$5,$6,$7)
+                                             player_name, event_timestamp, game, return_trip,
+                                             created_timestamp)
+                       VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
                        RETURNING "id"`;
   //--->TODO: Add the manipulateDataForDB into a global HELPER class
   let values = [manipulateDataForDB(req.body.ride.pickupLocation),
@@ -60,7 +63,8 @@ router.post('/create', (req, res) => {
   manipulateDataForDB(req.body.player),
   manipulateDataForDB(req.body.eventTimestamp),
   manipulateDataForDB(req.body.ride.game),
-  manipulateDataForDB(req.body.ride.returnTrip)];
+  manipulateDataForDB(req.body.ride.returnTrip),
+  manipulateDataForDB(req.body.createdTimestamp)];
 
   // CREATE the new ride
   pool.query(insertRideQuery, values)

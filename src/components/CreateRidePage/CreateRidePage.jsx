@@ -38,7 +38,7 @@ function CreateRidePage(props) {
             // bottom: "0", 
             left: "2%"
           }}>
-            <Button variant="outlined" sx={{ width: '20ch', m: 1 }}
+            <Button variant="outlined" sx={{ fontWeight: 'bold', width: '20ch', m: 1 }}
               onClick={() => { history.push('/home') }}>
               Back
             </Button>

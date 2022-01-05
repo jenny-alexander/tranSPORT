@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import {
   Dialog, DialogTitle, DialogContent,
-  DialogActions, DialogContentText
+  DialogActions, DialogContentText, StyledEngineProvider
 } from '@mui/material';
 import { Card, CardContent, CardActions } from '@mui/material';
 import Typography from '@mui/material/Typography';
@@ -109,7 +109,10 @@ function RideDetailsPaper(props) {
     //now we have to show the snackbar for 2.5 seconds
     setSnackbarMessage('Ride deleted successfully.')
     setSnackbarState(true);
+
+    delayedNavigation();
   }
+
   const handleCloseDeleteDialogue = () => {
     setOpenDeleteDialogue(false);
   }
@@ -177,6 +180,17 @@ function RideDetailsPaper(props) {
   }
   {/* <--- END Logic related to button rendering*/ }
 
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async function delayedNavigation() {
+    console.log(`in delayedNavigation`)
+    await sleep(2000);
+    console.log(`after delayedNavigation`)
+    history.goBack();
+  }
+
   const showSnackbar = () => {
     return (
       <div>
@@ -199,7 +213,7 @@ function RideDetailsPaper(props) {
     <div>
       <Snackbar
         open={snackbarState}
-        autoHideDuration={2500}
+        autoHideDuration={2000}
         onClose={handleCloseSnackbar}
         message={snackbarMessage}
         action={showSnackbar}
@@ -347,7 +361,7 @@ function RideDetailsPaper(props) {
               <Box sx={{ display: 'flex' }}>
                 {showCommentsButton() ?
                   <Button variant="contained" size="small" sx={{ ml: 1 }}
-                    sx={{ fontSize: 12, alignItems: 'right' }}
+                    sx={{ fontWeight: 'bold', alignItems: 'right' }}
                     onClick={handleAddComments}>Add Comments
                   </Button>
                   :
@@ -355,6 +369,7 @@ function RideDetailsPaper(props) {
                 }
                 {showSignupToDriveBtn() ?
                   <Button variant="contained" size="small"
+                    sx={{ fontWeight: 'bold' }}
                     onClick={handleSignUp}>Sign Up to Drive</Button>
                   :
                   ''
@@ -362,13 +377,14 @@ function RideDetailsPaper(props) {
                 {showDriverRemovalBtn() ?
                   <Button variant="contained" size="small"
                     onClick={handleWithdrawDriver}
-                    sx={{ fontSize: 12, ml: 8, justifyContent: 'right', alignItems: 'right' }}
+                    sx={{ fontWeight: 'bold', ml: 8, justifyContent: 'right', alignItems: 'right' }}
                   >Withdraw as driver</Button>
                   :
                   ''
                 }
                 {showDeleteRideBtn() ?
-                  <Button variant="contained" size="small" sx={{ width: '18ch', ml: 10 }}
+                  <Button variant="contained" size="small"
+                    sx={{ fontWeight: 'bold', width: '18ch', ml: 10 }}
                     onClick={handleDeleteRide}>Delete Ride</Button>
                   :
                   ''

@@ -26,6 +26,7 @@ function CreateRideForm(props) {
   const [newComment, setNewComment] = useState('');
   const user = useSelector(store => store.user);
   const dispatch = useDispatch();
+  const history = useHistory();
   const modalTextfieldValues = [
     { label: 'Player Name', defaultValue: player },
     { label: 'Event Date', defaultValue: newRide.pickupDate },
@@ -67,12 +68,15 @@ function CreateRideForm(props) {
         player: user.player_name,
         creatorId: user.id,
         eventTimestamp: rideTimestamp,
-        comment: newComment
+        comment: newComment,
+        createdTimestamp: new Date()
       },
     });
     setOpen(false);
 
     setSnackbarState(true);
+
+    delayedNavigation();
   }
 
   const handleGameChange = (event) => {
@@ -86,6 +90,17 @@ function CreateRideForm(props) {
   const handleCloseSnackbar = () => {
     setSnackbarState(false);
 
+  }
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async function delayedNavigation() {
+    console.log(`in delayedNavigation`)
+    await sleep(2000);
+    console.log(`after delayedNavigation`)
+    history.push('/view/myrides')
   }
 
   const showSnackbar = () => {
@@ -107,7 +122,7 @@ function CreateRideForm(props) {
     <div>
       <Snackbar
         open={snackbarState}
-        autoHideDuration={2500}
+        autoHideDuration={2000}
         onClose={handleCloseSnackbar}
         message="Ride Successfully Created!"
         action={showSnackbar}
@@ -276,7 +291,7 @@ function CreateRideForm(props) {
               right: "2%"
             }}>
               <Button variant="contained" name="createRide"
-                sx={{ width: '20ch', m: 1 }}
+                sx={{ fontWeight: 'bold', width: '20ch', m: 1 }}
                 onClick={createRide}
               >
                 Create Ride

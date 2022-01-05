@@ -17,7 +17,7 @@ function RideCardContent(props) {
           justifyContent="center"
           alignItems="center"
         >
-          <Grid item xs={9}>
+          <Grid item xs={8} sx={{ ml: 1 }}>
             <Typography sx={{ fontSize: '22px', fontWeight: 600 }} >
               {new Date(props.ride.event_timestamp).toLocaleDateString()}
             </Typography>
@@ -36,7 +36,7 @@ function RideCardContent(props) {
               {props.ride.player_name}
             </Typography>
           </Grid>
-          <Grid item xs={3} sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left' }}>
+          <Grid item xs={2} sx={{ mr: 1, display: 'flex', alignItems: 'left', justifyContent: 'left' }}>
             {props.ride.ride_status === 'Needs Driver!' ?
               <HailIcon sx={{ fontSize: 50 }} /> :
               <DirectionsCarIcon sx={{ fontSize: 40 }} />

@@ -11,7 +11,6 @@ import App from './components/App/App';
 const theme = createTheme({
   palette: {
     primary: {
-      // main: "#000814"
       main: "#333456"
     },
     secondary: {
@@ -24,6 +23,11 @@ const theme = createTheme({
       disabled: "#323232"
     }
   },
+  typography: {
+    fontFamily: [
+      'Nunito'
+    ]
+  }
 
 });
 

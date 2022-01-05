@@ -222,7 +222,7 @@ function RegisterForm() {
             </Grid>
             <Grid item sx={12}>
               <Button variant="contained" type="submit" name="submit" fullWidth
-                sx={{ width: '30ch' }}>Register</Button>
+                sx={{ fontWeight: 'bold', width: '30ch' }}>Register</Button>
             </Grid>
           </Grid>
         </Box>

@@ -48,16 +48,7 @@ const ResponsiveAppBar = () => {
 
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-          >
-            LOGO
-          </Typography>
-          {/* TODO: ---> Menu icon turns to 'LOGO' when page is wide */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: 'flex' }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -83,7 +74,7 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: 'block',
               }}
             >
               <Link className={globalClasses.link} to="/home">

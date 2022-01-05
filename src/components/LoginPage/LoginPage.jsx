@@ -29,7 +29,7 @@ function LoginPage() {
       <LoginForm />
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
         <Grid item>
-          <Button variant="outlined" sx={{ width: '30ch', mt: 1 }}
+          <Button variant="outlined" sx={{ fontWeight: 'bold', width: '30ch', mt: 1 }}
             onClick={() => { history.push('/registration') }}>No account? Sign Up!</Button>
         </Grid>
       </Box>
