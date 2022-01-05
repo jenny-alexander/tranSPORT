@@ -19,7 +19,7 @@ function MyRideList(props) {
   }, []);
 
   const handleOnClick = (ride) => {
-    console.log(`in handleOnClick`)
+    console.log(`in handleOnClick and ride object is:`, ride)
     history.push(`/ride-details/${ride.id}`)
   }
 

@@ -12,6 +12,9 @@ function* createRide(action) {
         comment: action.payload.comment
       }
     })
+    console.log(`response.data is:`, response.data);
+    //Set the store with the ID so it can be used when displaying ride details
+    //of newly created ride.
     yield put({ type: 'SET_RIDE_DETAILS', payload: response.data })
   } catch (error) {
     console.log('Error creating ride.', error);
@@ -26,7 +29,6 @@ function* deleteRideRequest(action) {
   }
 }
 
-// worker Saga: will be fired on "FETCH_ALL_RIDES" actions
 function* fetchAllRides() {
   try {
     yield put({ type: 'UNSET_RIDES' });
@@ -38,7 +40,6 @@ function* fetchAllRides() {
   }
 }
 
-// worker Saga: will be fired on "FETCH_ALL_RIDES" actions
 function* fetchRideByID(action) {
   try {
     yield put({ type: 'UNSET_RIDE_DETAILS' });
@@ -49,7 +50,6 @@ function* fetchRideByID(action) {
   }
 }
 
-// worker Saga: will be fired on "FETCH_ALL_RIDES" actions
 function* fetchMyRides(action) {
   //get all of the rides from the db
   try {

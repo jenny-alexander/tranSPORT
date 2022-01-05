@@ -41,7 +41,7 @@ function RideDetailsPaper(props) {
     })
     //Changing True/False values from DB to Yes/No
     rideDetails.return_trip ? setReturnTripText('return trip') : setReturnTripText('one way trip');
-    rideDetails.game ? setGameText(' game') : setGameText(' practice');
+    // rideDetails.game ? setGameText(' game') : setGameText(' practice');
     dispatch({ type: 'FETCH_RIDE_COMMENTS', payload: params.id });
   }, [params.id]);
 
@@ -342,9 +342,10 @@ function RideDetailsPaper(props) {
               </Box>
               <Divider />
               <Box sx={{ mt: 2 }}>
+
                 <Typography >
                   Pickup {rideDetails.player_name} on {new Date(rideDetails.event_timestamp).toLocaleDateString()} for
-                  {gameText} at {new Date(rideDetails.event_timestamp).toLocaleTimeString(`en-US`, options)}.
+                  {rideDetails.game ? ' game' : ' practice'} at {new Date(rideDetails.event_timestamp).toLocaleTimeString(`en-US`, options)}.
                 </Typography>
               </Box>
               <Box sx={{ mt: 1, mb: 1 }}>

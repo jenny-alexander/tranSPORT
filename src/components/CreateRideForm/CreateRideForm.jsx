@@ -25,7 +25,6 @@ function CreateRideForm(props) {
   });
   const [newComment, setNewComment] = useState('');
   const user = useSelector(store => store.user);
-  const rideDetails = useSelector(store => store.rideDetails);
   const dispatch = useDispatch();
   const history = useHistory();
   const modalTextfieldValues = [
@@ -98,14 +97,8 @@ function CreateRideForm(props) {
   }
 
   async function delayedNavigation() {
-    console.log(`in delayedNavigation`)
     await sleep(2000);
-    console.log(`after delayedNavigation`)
-    //history.push('/view/myrides')
-    //asking to get details from the store
-    console.log(`rideDetails store has:`, rideDetails);
-    const newRideID = rideDetails.id;
-    history.push(`/ride-details/${newRideID}`)
+    history.push('/view/myrides')
   }
 
   const showSnackbar = () => {
