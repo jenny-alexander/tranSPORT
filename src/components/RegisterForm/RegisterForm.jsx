@@ -15,7 +15,7 @@ import Grid from '@mui/material/Grid';
 import Snackbar from '@mui/material/Snackbar';
 import {
   Dialog, DialogTitle, DialogContent,
-  DialogActions, DialogContentText
+  DialogActions, DialogContentText, getModalUtilityClass, getImageListItemBarUtilityClass
 } from '@mui/material';
 
 function RegisterForm() {
@@ -34,21 +34,7 @@ function RegisterForm() {
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
-  // const registerUser = (event) => {
-  //   event.preventDefault();
-
-  //   dispatch({
-  //     type: 'REGISTER',
-  //     payload: {
-  //       username: username,
-  //       password: password,
-  //       userProfile: userProfile
-  //     },
-  //   });
-  // };
-
-
-  {/* ---> BEGIN Logic related to driver withdrawal*/ }
+  {/* ---> BEGIN Logic related to user registration*/ }
   const handleRegisterUser = () => {
     //Show modal dialogue to confirm sign up.
     setOpenRegistrationDialogue(true);
@@ -88,6 +74,19 @@ function RegisterForm() {
   }
   const handleCloseSnackbar = () => {
     setSnackbarState(false);
+  }
+
+  const setDefaultValues = () => {
+    console.log(`in setDefaultValues`)
+    setUsername('jennifer');
+    setPassword('jennifer');
+    setUserProfile({
+      ...userProfile,
+      parentName: 'Jennifer Alexander',
+      email: 'jennifer.l.alexander1979@gmail.com',
+      phoneNumber: '612-555-2188',
+      playerName: 'Benjamin Cook'
+    })
   }
 
   return (
@@ -141,12 +140,15 @@ function RegisterForm() {
                 id="username"
                 sx={{ m: 1, width: '30ch' }}
                 InputProps={{
-                  startAdornment: <InputAdornment position="start"><AccountCircle /></InputAdornment>,
+                  startAdornment: <InputAdornment position="start">
+                    <AccountCircle />
+                  </InputAdornment>,
                 }}
                 variant="standard"
                 required
                 value={username}
                 onChange={(event) => setUsername(event.target.value)}
+                onClick={setDefaultValues}
               />
             </Grid>
             <Grid item sx={12}>
