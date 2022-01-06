@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+
 function* createRide(action) {
   try {
     const response = yield axios.post('/api/ride/create', action.payload);
@@ -12,15 +13,17 @@ function* createRide(action) {
         comment: action.payload.comment
       }
     })
-    //Set the store with the ID so it can be used when displaying ride details
-    //of newly created ride.
-    //yield put({ type: 'SET_RIDE_DETAILS', payload: response.data })
-
     //Store the ride ID in session storage to be used by CreateRideForm and using history.push to 
     //go to ride details page with ride id in the URL.
-    let myStorage = window.sessionStorage;
-    myStorage.clear();
-    myStorage.setItem('ride_id', response.data.ride_id);
+    // myStorage.clear();
+    // myStorage.setItem('ride_id', response.data.ride_id);
+    console.log(`about to store ride id with response:`, response.data);
+    yield put({
+      type: 'UPDATE_SESSION_STORAGE', payload: {
+        key: 'ride_id',
+        value: response.data.ride_id
+      }
+    });
   } catch (error) {
     console.log('Error creating ride.', error);
   }
@@ -67,7 +70,6 @@ function* fetchMyRides(action) {
 }
 
 function* removeDriverFromRide(action) {
-  console.log(`in removeDriverFromRide with:`, action);
   try {
     yield axios.put(`api/ride/remove-driver`, action.payload)
   } catch (error) {
@@ -81,6 +83,18 @@ function* updateRideWithDriver(action) {
   } catch (error) {
     console.log(`Ride UPDATE request failed.`);
   }
+  yield put({
+    type: 'UPDATE_SESSION_STORAGE', payload: {
+      key: 'ride_id',
+      value: action.payload.rideID
+    }
+  });
+}
+
+function* updateSessionStorage(action) {
+  let myStorage = window.sessionStorage;
+  myStorage.clear();
+  myStorage.setItem(action.payload.key, action.payload.value);
 }
 
 function* ridesSaga() {
@@ -91,6 +105,8 @@ function* ridesSaga() {
   yield takeLatest('FETCH_RIDE_BY_ID', fetchRideByID);
   yield takeLatest('UPDATE_RIDE_WITH_DRIVER', updateRideWithDriver);
   yield takeLatest('REMOVE_DRIVER_FROM_RIDE', removeDriverFromRide);
+  yield takeLatest('UPDATE_SESSION_STORAGE', updateSessionStorage);
+
 }
 
 export default ridesSaga;

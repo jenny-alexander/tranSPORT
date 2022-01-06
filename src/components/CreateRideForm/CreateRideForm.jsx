@@ -163,7 +163,6 @@ function CreateRideForm(props) {
       </Dialog>
       <Container>
         {/* <Box component="form" onSubmit={createRide}> */}
-
         <Grid
           container
           direction="column"

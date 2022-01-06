@@ -33,6 +33,7 @@ function RideDetailsPaper(props) {
   const dispatch = useDispatch();
   const history = useHistory();
   const options = { hour: "2-digit", minute: "2-digit" };
+  let myStorage = window.sessionStorage;
 
   useEffect(() => {
     dispatch({
@@ -55,7 +56,8 @@ function RideDetailsPaper(props) {
       type: 'UPDATE_RIDE_WITH_DRIVER',
       payload: {
         userID: user.id,
-        rideID: rideDetails.id
+        rideID: rideDetails.id,
+        driver_name: user.parent_name
       },
     })
     //close the modal dialogue
@@ -68,6 +70,9 @@ function RideDetailsPaper(props) {
       type: 'FETCH_RIDE_BY_ID',
       payload: params.id
     })
+    let rideID = myStorage.getItem('ride_id')
+
+    history.push(`/ride-details/${rideID}`)
   }
   const handleCloseSignupDialogue = () => {
     setOpenSignupDialogue(false);
@@ -97,6 +102,7 @@ function RideDetailsPaper(props) {
       type: 'FETCH_RIDE_BY_ID',
       payload: params.id
     })
+
   }
   const handleCloseWithdrawDialogue = () => {
     setOpenDeleteDialogue(false);
@@ -328,6 +334,7 @@ function RideDetailsPaper(props) {
             },
           }}
         >
+          {/* <h3>{JSON.stringify(rideDetails)}</h3> */}
           <Card
             elevation={1}
             sx={{ m: 1 }} >
