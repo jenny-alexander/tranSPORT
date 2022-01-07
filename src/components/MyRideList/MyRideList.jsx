@@ -19,6 +19,9 @@ function MyRideList(props) {
   }, []);
 
   const handleOnClick = (ride) => {
+    let myStorage = window.sessionStorage;
+    myStorage.removeItem('last_page_visited');
+    myStorage.setItem('last_page_visited', '/view/myrides');
     history.push(`/ride-details/${ride.id}`)
   }
 

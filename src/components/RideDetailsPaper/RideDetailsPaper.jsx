@@ -30,12 +30,16 @@ function RideDetailsPaper(props) {
   const rideDetails = useSelector(store => store.rideDetails);
   const params = useParams();
   const user = useSelector(store => store.user);
+  let lastPageVisited = '';
   const dispatch = useDispatch();
   const history = useHistory();
   const options = { hour: "2-digit", minute: "2-digit" };
   let myStorage = window.sessionStorage;
 
   useEffect(() => {
+    //Setting session storage with ride id to be used when user signs up
+    //to be the driver or withdraws as the driver.
+    myStorage.setItem('ride_id', params.id)
     dispatch({
       type: 'FETCH_RIDE_BY_ID',
       payload: params.id
@@ -70,9 +74,9 @@ function RideDetailsPaper(props) {
       type: 'FETCH_RIDE_BY_ID',
       payload: params.id
     })
-    let rideID = myStorage.getItem('ride_id')
 
-    history.push(`/ride-details/${rideID}`)
+    //reload the page with updated driver
+    history.push(`/ride-details/${myStorage.getItem('ride_id')}`)
   }
   const handleCloseSignupDialogue = () => {
     setOpenSignupDialogue(false);
@@ -102,7 +106,8 @@ function RideDetailsPaper(props) {
       type: 'FETCH_RIDE_BY_ID',
       payload: params.id
     })
-
+    //reload the page with udpated driver
+    history.push(`/ride-details/${myStorage.getItem('ride_id')}`)
   }
   const handleCloseWithdrawDialogue = () => {
     setOpenDeleteDialogue(false);

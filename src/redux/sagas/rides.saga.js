@@ -49,6 +49,7 @@ function* fetchAllRides() {
 }
 
 function* fetchRideByID(action) {
+  console.log(`in fetchRideByID saga with action:`, action)
   try {
     yield put({ type: 'UNSET_RIDE_DETAILS' });
     const response = yield axios.get(`/api/ride/${action.payload}`);
@@ -75,27 +76,34 @@ function* removeDriverFromRide(action) {
   } catch (error) {
     console.log('Removal of driver failed!', error);
   }
+  yield put({
+    type: 'UPDATE_SESSION_STORAGE', payload: {
+      key: 'driver_name',
+      value: ''
+    }
+  });
 }
 
 function* updateRideWithDriver(action) {
+  console.log(`action.payload is:`, action.payload)
   try {
     yield axios.put(`api/ride/assign-ride`, action.payload)
   } catch (error) {
     console.log(`Ride UPDATE request failed.`);
   }
-  yield put({
-    type: 'UPDATE_SESSION_STORAGE', payload: {
-      key: 'ride_id',
-      value: action.payload.rideID
-    }
-  });
+  // yield put({
+  //   type: 'UPDATE_SESSION_STORAGE', payload: {
+  //     key: 'ride_id',
+  //     value: action.payload.rideID
+  //   }
+  // });
 }
 
-function* updateSessionStorage(action) {
-  let myStorage = window.sessionStorage;
-  myStorage.clear();
-  myStorage.setItem(action.payload.key, action.payload.value);
-}
+// function* updateSessionStorage(action) {
+//   let myStorage = window.sessionStorage;
+//   myStorage.removeItem(action.payload.key);
+//   myStorage.setItem(action.payload.key, action.payload.value);
+// }
 
 function* ridesSaga() {
   yield takeLatest('CREATE_RIDE', createRide)
@@ -105,7 +113,7 @@ function* ridesSaga() {
   yield takeLatest('FETCH_RIDE_BY_ID', fetchRideByID);
   yield takeLatest('UPDATE_RIDE_WITH_DRIVER', updateRideWithDriver);
   yield takeLatest('REMOVE_DRIVER_FROM_RIDE', removeDriverFromRide);
-  yield takeLatest('UPDATE_SESSION_STORAGE', updateSessionStorage);
+  //yield takeLatest('UPDATE_SESSION_STORAGE', updateSessionStorage);
 
 }
 

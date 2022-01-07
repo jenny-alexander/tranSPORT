@@ -14,10 +14,15 @@ function RideDetailsPage(props) {
   let ride;
   const dispatch = useDispatch();
   const history = useHistory();
+  let myStorage = window.sessionStorage;
+  let lastPageVisited;
 
   // const handleSignUp = () => {
   //   console.log(`in handleSignUp!`);
   // }
+  useEffect(() => {
+    lastPageVisited = myStorage.getItem('last_page_visited');
+  }, []);
 
   return (
     <div>
@@ -46,7 +51,9 @@ function RideDetailsPage(props) {
         }}>
           <Button variant="outlined" sx={{ width: '20ch', m: 1 }}
             // onClick={() => { history.push('/view/allrides') }}>
-            onClick={() => { history.goBack() }}>
+            // onClick={() => { history.goBack() }}>
+            onClick={() => { history.push(lastPageVisited) }}>
+
             Back
           </Button>
         </Box>
