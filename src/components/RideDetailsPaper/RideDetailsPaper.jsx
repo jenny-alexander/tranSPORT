@@ -307,7 +307,7 @@ function RideDetailsPaper(props) {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Signup to driver?"}
+          {"Signup to drive?"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">

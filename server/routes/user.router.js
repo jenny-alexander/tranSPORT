@@ -16,15 +16,11 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 //Check that the user's email exists in the team table. This means they are ok
 //to use the app as a parent of a player on the team.
 router.get('/check-email/:email', (req, res) => {
-  console.log(`in check email route with req =`, req.params.email);
   const getEmailQuery = `SELECT * FROM team where parent_email = '${req.params.email}';`;
   pool.query(getEmailQuery)
     .then((results) => {
-      console.log(`results are:`, results.rows)
       if (results.rows.length == 0) {
-        console.log(`no results found`)
         throw 'Parent email not found in team table.'
-
       }
       else {
         res.sendStatus(200);

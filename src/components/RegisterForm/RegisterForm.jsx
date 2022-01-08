@@ -57,7 +57,6 @@ function RegisterForm() {
       },
     })
     dispatch({ type: 'FETCH_USER' });
-    console.log(`user id is:`, user.id)
     if (user.id) {
       //close the modal dialogue
       setOpenRegistrationDialogue(false);
