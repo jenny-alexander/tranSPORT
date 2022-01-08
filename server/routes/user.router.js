@@ -16,13 +16,22 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 //Check that the user's email exists in the team table. This means they are ok
 //to use the app as a parent of a player on the team.
 router.get('/check-email/:email', (req, res) => {
+  console.log(`in check email route with req =`, req.params.email);
   const getEmailQuery = `SELECT * FROM team where parent_email = '${req.params.email}';`;
   pool.query(getEmailQuery)
     .then((results) => {
-      res.send(results.rows)
+      console.log(`results are:`, results.rows)
+      if (results.rows.length == 0) {
+        console.log(`no results found`)
+        throw 'Parent email not found in team table.'
+
+      }
+      else {
+        res.sendStatus(200);
+      }
     }).catch((error) => {
       console.log(`Error with email validation!`, error);
-      res.sendStatus(500);
+      res.sendStatus(403);
     })
 })
 
@@ -62,7 +71,6 @@ router.post('/logout', (req, res) => {
 
 //Update the user information
 router.put('/', (req, res) => {
-  console.log(`in PUT of user update and req.body is:`, req.body);
   let putQueryString = `UPDATE "user" SET email = '${manipulateDataForDB(req.body.updatedUser.email)}',
                                    parent_name = '${manipulateDataForDB(req.body.updatedUser.parent_name)}',
                                    player_name = '${manipulateDataForDB(req.body.updatedUser.player_name)}',

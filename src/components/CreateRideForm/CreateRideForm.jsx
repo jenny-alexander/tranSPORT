@@ -100,9 +100,9 @@ function CreateRideForm(props) {
 
   async function delayedNavigation() {
     await sleep(2000);
-    history.push('/view/myrides')
-    let rideID = myStorage.getItem('ride_id')
-    history.push(`/ride-details/${rideID}`)
+    history.push('/view/myrides') //bring user back to list
+    //let rideID = myStorage.getItem('ride_id')
+    //history.push(`/ride-details/${rideID}`)
   }
 
   const showSnackbar = () => {

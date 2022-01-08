@@ -17,6 +17,7 @@ import {
   Dialog, DialogTitle, DialogContent,
   DialogActions, DialogContentText, getModalUtilityClass, getImageListItemBarUtilityClass
 } from '@mui/material';
+import './RegisterForm.css';
 
 function RegisterForm() {
   const [openRegistrationDialogue, setOpenRegistrationDialogue] = useState(false);
@@ -32,14 +33,21 @@ function RegisterForm() {
   });
 
   const errors = useSelector((store) => store.errors);
+  const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
   {/* ---> BEGIN Logic related to user registration*/ }
   const handleRegisterUser = () => {
-    //Show modal dialogue to confirm sign up.
-    setOpenRegistrationDialogue(true);
+    if (username && password && userProfile) {
+      //Show modal dialogue to confirm sign up.
+      setOpenRegistrationDialogue(true);
+    } else {
+      dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
+    }
   }
+
   const dispatchRegisterUser = () => {
+
     dispatch({
       type: 'REGISTER',
       payload: {
@@ -48,16 +56,24 @@ function RegisterForm() {
         userProfile: userProfile
       },
     })
-    //close the modal dialogue
-    setOpenRegistrationDialogue(false);
-    //now we have to show the snackbar for 2.5 seconds
-    setSnackbarMessage('User Registration Successful!')
-    setSnackbarState(true);
+    dispatch({ type: 'FETCH_USER' });
+    console.log(`user id is:`, user.id)
+    if (user.id) {
+      //close the modal dialogue
+      setOpenRegistrationDialogue(false);
+      //now we have to show the snackbar for 2.5 seconds
+      setSnackbarMessage('User Registration Successful!')
+      setSnackbarState(true);
+    } else {
+      setOpenRegistrationDialogue(false);
+    }
+
   }
+
   const handleCloseRegistrationDialogue = () => {
     setOpenRegistrationDialogue(false);
   }
-  {/* ---> END Logic related to driver withdrawal*/ }
+
   const showSnackbar = () => {
     return (
       <div>
@@ -77,23 +93,22 @@ function RegisterForm() {
   }
 
   const setDefaultValues = () => {
-    console.log(`in setDefaultValues`)
     setUsername('jennifer');
     setPassword('jennifer');
     setUserProfile({
       ...userProfile,
       parentName: 'Jennifer Alexander',
-      email: 'jennifer.l.alexander1979@gmail.com',
+      email: 'jenny_alexander@icloud.com',
       phoneNumber: '612-555-2188',
-      playerName: 'Benjamin Cook'
+      playerName: 'Stephen Stills'
     })
   }
 
   return (
     <div>
-      {errors.loginMessage && (
+      {errors.registrationMessage && (
         <h3 className="alert" role="alert">
-          {errors.loginMessage}
+          {errors.registrationMessage}
         </h3>
       )}
       <Snackbar
@@ -126,7 +141,7 @@ function RegisterForm() {
         </DialogActions>
       </Dialog>
       <Container>
-        <Box component="form" onSubmit={handleRegisterUser}>
+        <Box>
           <Grid
             container
             direction="column"
@@ -223,8 +238,9 @@ function RegisterForm() {
               />
             </Grid>
             <Grid item sx={12}>
-              <Button variant="contained" type="submit" name="submit" fullWidth
-                sx={{ fontWeight: 'bold', width: '30ch' }}>Register</Button>
+              <Button variant="contained" fullWidth
+                sx={{ fontWeight: 'bold', width: '30ch' }}
+                onClick={handleRegisterUser}>Register</Button>
             </Grid>
           </Grid>
         </Box>

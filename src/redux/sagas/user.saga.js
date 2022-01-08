@@ -26,7 +26,6 @@ function* fetchUser() {
 
 function* updateUser(action) {
   try {
-    console.log(`updateUser and action is:`, action);
     yield axios.put('/api/user', action.payload);
 
     //now we need to send the updated user back to the app

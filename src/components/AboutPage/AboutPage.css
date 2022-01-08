@@ -2,10 +2,9 @@
     margin-left: 10px;
 }
 .tech-header, .next-header,
-.thank-you-header {
+.thank-you-header, .app-description {
     margin-left: 15px; 
 }
-
-.next-details {
+.next-details, .app-description {
     margin-right: 10px;
 }

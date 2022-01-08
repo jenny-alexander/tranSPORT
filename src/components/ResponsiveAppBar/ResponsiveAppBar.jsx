@@ -10,7 +10,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
-import './ResponsiveAppBar.css';
 import GlobalCSS from '../GlobalCSS/GlobalCSS';
 import Grid from '@mui/material/Grid';
 import { useHistory } from 'react-router-dom';

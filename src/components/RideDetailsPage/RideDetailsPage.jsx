@@ -17,9 +17,6 @@ function RideDetailsPage(props) {
   let myStorage = window.sessionStorage;
   let lastPageVisited;
 
-  // const handleSignUp = () => {
-  //   console.log(`in handleSignUp!`);
-  // }
   useEffect(() => {
     lastPageVisited = myStorage.getItem('last_page_visited');
   }, []);

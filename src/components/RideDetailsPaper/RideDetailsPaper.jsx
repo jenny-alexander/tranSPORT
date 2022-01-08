@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import emailjs from 'emailjs-com';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -35,6 +36,11 @@ function RideDetailsPaper(props) {
   const history = useHistory();
   const options = { hour: "2-digit", minute: "2-digit" };
   let myStorage = window.sessionStorage;
+  let emailTemplateParams;
+  const DRIVER_SIGNUP = 'signup';
+  const WITHDRAW_DRIVER = 'withdraw';
+  // const DRIVER_NEEDED = 'Needs Driver!';
+  // const DRIVER_ASSIGNED = 'Assigned Driver'
 
   useEffect(() => {
     //Setting session storage with ride id to be used when user signs up
@@ -49,6 +55,15 @@ function RideDetailsPaper(props) {
     // rideDetails.game ? setGameText(' game') : setGameText(' practice');
     dispatch({ type: 'FETCH_RIDE_COMMENTS', payload: params.id });
   }, [params.id]);
+
+  const sendEmailWithParams = (params) => {
+    emailjs.send('service_p91n93t', 'template_coydgje', params, 'user_gfwvdLdSZBDHPQhbMw1bz')
+      .then((result) => {
+        console.log(result.text);
+      }, (error) => {
+        console.log(error.text);
+      });
+  }
 
   {/* ---> BEGIN Logic related to driver signup*/ }
   const handleSignUp = () => {
@@ -66,6 +81,7 @@ function RideDetailsPaper(props) {
     })
     //close the modal dialogue
     setOpenSignupDialogue(false);
+
     //now we have to show the snackbar for 2.5 seconds
     setSnackbarMessage('Driver Signup Successful!')
     setSnackbarState(true);
@@ -77,13 +93,15 @@ function RideDetailsPaper(props) {
 
     //reload the page with updated driver
     history.push(`/ride-details/${myStorage.getItem('ride_id')}`)
+    let driver_name = myStorage.getItem('driver_name');
+
+    // formatEmail(DRIVER_SIGNUP);
+    // sendEmailWithParams(emailTemplateParams);
   }
   const handleCloseSignupDialogue = () => {
     setOpenSignupDialogue(false);
   }
-  {/* ---> END Logic related to driver signup*/ }
 
-  {/* ---> BEGIN Logic related to driver withdrawal*/ }
   const handleWithdrawDriver = () => {
     //Show modal dialogue to confirm sign up.
     setOpenWithdrawDialogue(true);
@@ -106,15 +124,45 @@ function RideDetailsPaper(props) {
       type: 'FETCH_RIDE_BY_ID',
       payload: params.id
     })
-    //reload the page with udpated driver
+    //reload the page with updated driver
     history.push(`/ride-details/${myStorage.getItem('ride_id')}`)
+    let driver_name = myStorage.getItem('driver_name');
+
+    // formatEmail(WITHDRAW_DRIVER);
+    // sendEmailWithParams(emailTemplateParams);
+
+  }
+  const formatEmail = (type) => {
+    switch (type) {
+      case WITHDRAW_DRIVER:
+        emailTemplateParams = {
+          subject: 'A driver has withdrawn from your ride!',
+          to_name: user.parent_name,
+          from_name: 'tranSPORT Rideshare App',
+          message: `${driver_name} has WITHDRAWN as driver for your ride on 
+                    ${new Date(rideDetails.event_timestamp).toLocaleDateString()} at 
+                    ${new Date(rideDetails.event_timestamp).toLocaleTimeString(`en-US`, options)}.\n
+                        
+                    Do not reply to this message.`
+        };
+      case DRIVER_SIGNUP:
+        emailTemplateParams = {
+          subject: 'A driver has signed up for your ride!',
+          to_name: user.parent_name,
+          from_name: 'tranSPORT Rideshare App',
+          message: `${driver_name} has signed up to be a driver for your ride on 
+                    ${new Date(rideDetails.event_timestamp).toLocaleDateString()} at 
+                    ${new Date(rideDetails.event_timestamp).toLocaleTimeString(`en-US`, options)}.\n
+                        
+                    Do not reply to this message.`
+        };
+    }
+
   }
   const handleCloseWithdrawDialogue = () => {
     setOpenDeleteDialogue(false);
   }
-  {/* ---> END Logic related to driver withdrawal*/ }
 
-  {/* ---> BEGIN Logic related to deleting ride*/ }
   const handleDeleteRide = () => {
     //Show modal for deleting ride
     setOpenDeleteDialogue(true);
@@ -136,9 +184,7 @@ function RideDetailsPaper(props) {
   const handleCloseDeleteDialogue = () => {
     setOpenDeleteDialogue(false);
   }
-  {/* ---> END Logic related to deleting ride*/ }
 
-  {/* ---> BEGIN Logic related to adding comme nts*/ }
   const handleAddComments = () => {
     setOpenComments(true);
   }
@@ -158,9 +204,7 @@ function RideDetailsPaper(props) {
   const handleCloseComments = () => {
     setOpenComments(false);
   };
-  {/* ---> END Logic related to adding comme nts*/ }
 
-  {/* ---> BEGIN Logic related to button rendering*/ }
   const showCommentsButton = () => {
     let allowCommentsChange = false;
     if (user.id == rideDetails.creator_id ||
@@ -196,16 +240,13 @@ function RideDetailsPaper(props) {
     }
     return allowDeleteRide;
   }
-  {/* <--- END Logic related to button rendering*/ }
 
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   async function delayedNavigation() {
-    console.log(`in delayedNavigation`)
-    await sleep(2000);
-    console.log(`after delayedNavigation`)
+    await sleep(3000);
     history.goBack();
   }
 
@@ -231,7 +272,7 @@ function RideDetailsPaper(props) {
     <div>
       <Snackbar
         open={snackbarState}
-        autoHideDuration={2000}
+        autoHideDuration={3000}
         onClose={handleCloseSnackbar}
         message={snackbarMessage}
         action={showSnackbar}
@@ -339,7 +380,6 @@ function RideDetailsPaper(props) {
             },
           }}
         >
-          {/* <h3>{JSON.stringify(rideDetails)}</h3> */}
           <Card
             elevation={1}
             sx={{ m: 1 }} >

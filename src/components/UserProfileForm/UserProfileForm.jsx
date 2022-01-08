@@ -38,7 +38,6 @@ function UserProfileForm() {
     setOpenConfirmDialogue(false);
   }
   const updateProfile = (event) => {
-    console.log(`in updateProfile with user info:`, updatedUser)
     event.preventDefault();
 
     dispatch({

@@ -17,31 +17,30 @@ import Typography from '@mui/material/Typography';
 function AboutPage() {
   return (
     <div>
-      {/* <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
-        <img src='images/logo2.png'></img>
-      </Box> */}
       <h2 className="title">About tranSPORT</h2>
+      <p className="app-description">tranSPORT is an application that simplifies the way caregivers share carpooling
+        duties. Specifically, sports-centered carpooling duties. Currently, caregivers send carpool requests
+        through various apps like Google chat, iMessage, GroupMe and email. These applications are already
+        used for so many things that it can be hard to know when an important request is made. Using tranSPORT
+        as the go-to application for sports carpooling families means that caregivers can easily access ride
+        sharing information in one central location.
+      </p>
       <h3 className="tech-header">Technology Used:</h3>
       <ul>
-        <li>HTML/JS</li>
+        <li>HTML</li>
+        <li>JavaScript</li>
         <li>React</li>
-        <li>Redux-Saga</li>
-        <li>Express.js and Node.js</li>
-        <li>Material-UI</li>
+        <li>Redux</li>
+        <li>redux-saga</li>
+        <li>Node.js</li>
+        <li>Express.js</li>
+        <li>Axios</li>
         <li>PostgreSQL</li>
-        <li>emailJS</li>
-        <li>Google MAPS Places API</li>
+        <li>Material-UI</li>
       </ul>
       <h3 className="next-header">Next Steps:</h3>
       <div className="next-details">
         <ul>
-          <li>Implement email functionality whereby users will receive an email if:
-            <ul>
-              <li>someone signs up to be a driver for their ride.</li>
-              <li>comments are added to a ride they are involved in.</li>
-              <li>a driver withdraws from a ride.</li>
-            </ul>
-          </li>
           <li>Implement Google Maps Places Autocomplete functionality when a user enters a location
             when creating a new ride request.
           </li>
