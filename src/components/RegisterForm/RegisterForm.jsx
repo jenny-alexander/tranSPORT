@@ -99,7 +99,7 @@ function RegisterForm() {
       parentName: 'Jennifer Alexander',
       email: 'jenny_alexander@icloud.com',
       phoneNumber: '612-555-2188',
-      playerName: 'Stephen Stills'
+      playerName: 'Ben Cook'
     })
   }
 

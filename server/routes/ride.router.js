@@ -138,7 +138,8 @@ router.put('/assign-ride', (req, res) => {
 //UPDATE the ride & user_ride tables -> remove driver
 //need ride id & user id
 router.put('/remove-driver', (req, res) => {
-  let putQueryString = `UPDATE ride SET driver_id = null
+  let putQueryString = `UPDATE ride SET driver_id = null,
+                            ride_status = 'Needs Driver!'
                             WHERE id = ${req.body.rideID}`;
   pool.query(putQueryString)
     .then((result) => {

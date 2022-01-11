@@ -6,6 +6,7 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
 
 const options = { hour: "2-digit", minute: "2-digit" };
+const DRIVER_NEEDED = 'Needs Driver!';
 
 function RideCardContent(props) {
   return (
@@ -37,7 +38,7 @@ function RideCardContent(props) {
             </Typography>
           </Grid>
           <Grid item xs={2} sx={{ mr: 1, display: 'flex', alignItems: 'left', justifyContent: 'left' }}>
-            {props.ride.ride_status === 'Needs Driver!' ?
+            {props.ride.ride_status === DRIVER_NEEDED ?
               <HailIcon sx={{ fontSize: 50 }} /> :
               <DirectionsCarIcon sx={{ fontSize: 40 }} />
             }

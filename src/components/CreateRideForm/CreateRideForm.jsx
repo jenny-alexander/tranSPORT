@@ -34,7 +34,7 @@ function CreateRideForm(props) {
     { label: 'Event Date', defaultValue: newRide.pickupDate },
     { label: 'Event Time', defaultValue: newRide.pickupTime },
     { label: 'Pickup Location', defaultValue: newRide.pickupLocation },
-    { label: 'Dropoff Location', defaultValue: newRide.pickupLocation },
+    { label: 'Dropoff Location', defaultValue: newRide.dropoffLocation },
     { label: 'Game', defaultValue: gameText },
     { label: 'Return Trip', defaultValue: returnTripText }
   ]

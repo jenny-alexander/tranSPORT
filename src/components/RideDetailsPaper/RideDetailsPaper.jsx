@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 import emailjs from 'emailjs-com';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -34,6 +34,7 @@ function RideDetailsPaper(props) {
   let lastPageVisited = '';
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
   const options = { hour: "2-digit", minute: "2-digit" };
   let myStorage = window.sessionStorage;
   let emailTemplateParams;
@@ -68,9 +69,11 @@ function RideDetailsPaper(props) {
   {/* ---> BEGIN Logic related to driver signup*/ }
   const handleSignUp = () => {
     //Show modal dialogue to confirm sign up.
+    myStorage.removeItem('driver_name');
     setOpenSignupDialogue(true);
   }
   const dispatchDriverSignUp = () => {
+
     dispatch({
       type: 'UPDATE_RIDE_WITH_DRIVER',
       payload: {
@@ -86,14 +89,19 @@ function RideDetailsPaper(props) {
     setSnackbarMessage('Driver Signup Successful!')
     setSnackbarState(true);
 
+    //reload the page with updated driver
+    let ride_id = myStorage.getItem('ride_id');
+    console.log(`ride_id from storage is:`, ride_id);
+
     dispatch({
       type: 'FETCH_RIDE_BY_ID',
       payload: params.id
     })
 
-    //reload the page with updated driver
-    history.push(`/ride-details/${myStorage.getItem('ride_id')}`)
-    let driver_name = myStorage.getItem('driver_name');
+    //history.push(`/ride-details/${ride_id}`)
+
+    history.push(location.pathname);
+    //let driver_name = myStorage.getItem('driver_name');
 
     // formatEmail(DRIVER_SIGNUP);
     // sendEmailWithParams(emailTemplateParams);
@@ -125,8 +133,13 @@ function RideDetailsPaper(props) {
       payload: params.id
     })
     //reload the page with updated driver
-    history.push(`/ride-details/${myStorage.getItem('ride_id')}`)
-    let driver_name = myStorage.getItem('driver_name');
+    let ride_id = myStorage.getItem('ride_id');
+    console.log(`ride_id from storage is:`, ride_id);
+
+
+    history.push(location.pathname);
+    //history.push(`/ride-details/${ride_id}`)
+
 
     // formatEmail(WITHDRAW_DRIVER);
     // sendEmailWithParams(emailTemplateParams);
@@ -387,6 +400,7 @@ function RideDetailsPaper(props) {
               <Box sx={{ my: 2 }}>
                 <Typography variant="h6">
                   {rideDetails.driver ? `Driver is ${rideDetails.driver}` : 'Driver needed!'}
+                  {/* {handleDriver} */}
                 </Typography>
               </Box>
               <Divider />

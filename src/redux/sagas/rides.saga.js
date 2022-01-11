@@ -49,6 +49,7 @@ function* fetchRideByID(action) {
   try {
     yield put({ type: 'UNSET_RIDE_DETAILS' });
     const response = yield axios.get(`/api/ride/${action.payload}`);
+    console.log(`fetchRideByID is:`, response.data[0]);
     yield put({ type: 'SET_RIDE_DETAILS', payload: response.data[0] });
   } catch (error) {
     console.log('Ride GET RIDE BY ID request failed', error);
