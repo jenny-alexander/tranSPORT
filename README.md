@@ -1,6 +1,6 @@
 # *tran*SPORT
 
-<img src="./public/images/logo_original.png" align="center"
+<img src="./public/images/logo_original.png" align="right"
      alt="tranSPORT logo by Jennifer Alexander" width="125" height="125">
 
 ## Description
@@ -30,21 +30,25 @@ In order to get the application up and running, do the following:
 
 1. Download code locally from GitHub (fork & clone).
 
-2. Open a terminal from the project location and type 'npm install'. This will install all of the necessary dependencies that the app needs to function properly.
+2. Open a terminal from the project location and type ***npm install***. This will install all of the necessary dependencies that the app needs to function properly.
 3. Create the database and corresponding table:
 
-* Using your favorite relational database client (I use Postico(<https://eggerapps.at/postico/>), go to the area/tab that allows you to run a query. Run the first query found in the *data.sql* file. This will create the transport database.
+* Using your favorite relational database client (I use Postico(<https://eggerapps.at/postico/>), go to the area/tab that allows you to run a query. Run the first query found in the *database.sql* file. This will create the transport database.
 
-* Then, within the transport database, run the remaining queries found in the *data.sql* file. This will create all of the database tables used by the tranpsport application.
+* Then, within the transport database, run the remaining queries found in the *database.sql* file. This will create all of the database tables used by the tranpsport application.
+
+* **IMPORTANT** Make sure to add your email to the team table as this acts as a security layer to ensure that only team members can register and use the application.
 
 4. Launch the application locally.
 
-* Go back to your terminal and type 'npm start server'. This will start a local server on port 5000.
-* Open another terminal session (still at your project location) and type 'npm start client'. This will start the tranSPORT application on port 3000.
+* Go back to your terminal and type ***npm start server***. This will start a local server on port 5000.
+* Open another terminal session (still at your project location) and type ***npm start client***. This will start the tranSPORT application on port 3000.
 
 ## How-to-use *tran*SPORT
 
 ### Create a new Ride Request
+
+![*tranSPORT* application](/public/images/create_ride.gif)
 
 1. From the main page, click on the 'Create Ride Request' button.
 
@@ -53,6 +57,8 @@ In order to get the application up and running, do the following:
 3. Once the rider request is successfully created, you will automatically be brought back to the 'My Rides' screen which displays the rides that you created or the rides that you signed up for.
 
 ### Sign up to be a driver for a ride request
+
+![*tranSPORT* application](/public/images/driver_signup.gif)
 
 1. From the main page, click on the 'All Rides' button. You will be brought to a list of rides in the system. Note: Rides that were created more than 1 day ago will not be shown as they are no longer relevant.
 
