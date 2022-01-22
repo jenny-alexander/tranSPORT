@@ -21,8 +21,7 @@ As a project goal, the fullstack application should demonstrate the CRUD princip
 
 ## *tran*SPORT application demo
 
-(Coming soon!)
-<!-- ![*tranSPORT* application](/public/images/redux-feedback-form.gif) -->
+(See below in 'how-to' instructions)
 
 ## Installation
 
@@ -43,6 +42,9 @@ In order to get the application up and running, do the following:
 
 * Go back to your terminal and type ***npm start server***. This will start a local server on port 5000.
 * Open another terminal session (still at your project location) and type ***npm start client***. This will start the tranSPORT application on port 3000.
+
+5. The application is meant to be more of a mobile-first application. In order to get a true feel for the application, do the following within Chrome:
+* Go to View->Developer->Developer Tools->Toggle device toolbar->Choose mobile device like iPhone 12 Pro.
 
 ## How-to-use *tran*SPORT
 
