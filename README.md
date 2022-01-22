@@ -42,7 +42,7 @@ In order to get the application up and running, do the following:
 * Go back to your terminal and type 'npm start server'. This will start a local server on port 5000.
 * Open another terminal session (still at your project location) and type 'npm start client'. This will start the tranSPORT application on port 3000.
 
-## How-to-use the *tran*SPORT
+## How-to-use *tran*SPORT
 
 ### Create a new Ride Request
 
