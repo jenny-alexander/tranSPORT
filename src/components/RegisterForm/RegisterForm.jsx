@@ -97,9 +97,9 @@ function RegisterForm() {
     setUserProfile({
       ...userProfile,
       parentName: 'Jennifer Alexander',
-      email: 'jenny_alexander@icloud.com',
-      phoneNumber: '612-555-2188',
-      playerName: 'Ben Cook'
+      email: 'jennifer@gmail.com',
+      phoneNumber: '123-456-7890',
+      playerName: 'Mike Harris'
     })
   }
 
