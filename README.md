@@ -1,6 +1,6 @@
 # *tran*SPORT
 
-<img src="./public/images/logo2.png" align="center"
+<img src="./public/images/logo_original.png" align="center"
      alt="Size Limit logo by Anton Lovchikov" width="125" height="125">
 
 ## Description
