@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { Box, Grid } from '@mui/material';
 import UserProfileForm from '../UserProfileForm/UserProfileForm';
 
-function UserProfilePage() {
+function UserProfilePage(props) {
   const history = useHistory();
 
   return (

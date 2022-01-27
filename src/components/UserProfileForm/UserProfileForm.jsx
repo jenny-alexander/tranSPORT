@@ -22,6 +22,7 @@ function UserProfileForm() {
   const [updatedUser, setUpdatedUser] = useState({})
   const [openConfirmDialogue, setOpenConfirmDialogue] = useState(false);
   const [updateSnackbarState, setUpdateSnackbarState] = useState(false);
+  const [allowEditing, setAllowEditing] = useState(false);
   const errors = useSelector((store) => store.errors);
   const user = useSelector(store => store.user);
   const dispatch = useDispatch();
@@ -29,6 +30,10 @@ function UserProfileForm() {
   useEffect(() => {
     setUpdatedUser(user)
   }, []);
+
+  const openFieldsForEditing = () => {
+    setAllowEditing(true);
+  }
 
   const handleUpdateProfile = () => {
     setOpenConfirmDialogue(true);
@@ -50,6 +55,9 @@ function UserProfileForm() {
     setOpenConfirmDialogue(false);
 
     setUpdateSnackbarState(true);
+
+    setAllowEditing(false);
+
     //return updated info to screen
     dispatch({
       type: 'FETCH_USER',
@@ -124,6 +132,7 @@ function UserProfileForm() {
             spacing={3}>
             <Grid item xs={12}>
               <TextField
+                disabled={!allowEditing}
                 label="Parent Name"
                 id="parentName"
                 sx={{ m: 1, width: '30ch' }}
@@ -138,6 +147,7 @@ function UserProfileForm() {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                disabled={!allowEditing}
                 label="Email"
                 id="email"
                 sx={{ m: 1, width: '30ch' }}
@@ -152,6 +162,7 @@ function UserProfileForm() {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                disabled={!allowEditing}
                 label="Contact Number"
                 id="contactNumber"
                 sx={{ m: 1, width: '30ch' }}
@@ -166,6 +177,7 @@ function UserProfileForm() {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                disabled={!allowEditing}
                 label="Player Name"
                 id="playerName"
                 sx={{ m: 1, width: '30ch' }}
@@ -179,11 +191,19 @@ function UserProfileForm() {
               />
             </Grid>
             <Grid item sx={12}>
-              <Button variant="contained" fullWidth
-                sx={{ width: '35ch' }}
-                onClick={handleUpdateProfile}>
-                Update Profile
-              </Button>
+              {allowEditing ?
+                <Button variant="contained" fullWidth
+                  sx={{ width: '35ch' }}
+                  onClick={handleUpdateProfile}>
+                  Save Changes
+                </Button>
+                :
+                <Button variant="contained" fullWidth
+                  sx={{ width: '35ch' }}
+                  onClick={openFieldsForEditing}>
+                  Update Profile
+                </Button>
+              }
             </Grid>
           </Grid>
         </Box>

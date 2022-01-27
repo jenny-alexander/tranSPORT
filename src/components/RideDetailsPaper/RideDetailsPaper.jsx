@@ -47,6 +47,7 @@ function RideDetailsPaper(props) {
     rideDetails.return_trip ? setReturnTripText('return trip') : setReturnTripText('one way trip');
     dispatch({ type: 'FETCH_RIDE_COMMENTS', payload: params.id });
 
+    setDriver(rideDetails.driver);
   }, []);
 
   const sendEmailWithParams = (params) => {
@@ -199,7 +200,7 @@ function RideDetailsPaper(props) {
   const showSignupToDriveBtn = () => {
     let allowDriverSignup = false;
 
-    if (rideDetails.driver_id === null) {
+    if (typeof driver == "undefined") {
       if (rideDetails.creator_id != user.id) {
         allowDriverSignup = true;
       }
@@ -248,6 +249,25 @@ function RideDetailsPaper(props) {
   }
   const handleCloseSnackbar = () => {
     setSnackbarState(false);
+  }
+
+  function Driver(props) {
+    console.log(`driver from component is:`, driver);
+    console.log(`driver from rideDetails is:`, rideDetails.driver);
+    let driverText = `Driver Needed!`;
+    if (rideDetails.driver !== null) {
+      console.log(`in 2nd if`)
+      setDriver(rideDetails.driver)
+      driverText = `Assigned Driver is: ${driver}`;
+    } else {
+      if (typeof driver != "undefined") {
+        driverText = `Assigned Driver is: ${driver}`;
+      }
+    }
+
+    return (
+      <h4>{driverText}</h4>
+    )
   }
 
   return (
@@ -366,14 +386,9 @@ function RideDetailsPaper(props) {
             elevation={1}
             sx={{ m: 1 }} >
             <CardContent >
-              <Box sx={{ my: 2 }}>
-                <Typography variant="h6">
-                  {driver ? `Driver is ${driver}` : 'Driver needed!'}
-                </Typography>
-              </Box>
+              <Driver />
               <Divider />
               <Box sx={{ mt: 2 }}>
-
                 <Typography >
                   Pickup {rideDetails.player_name} on {new Date(rideDetails.event_timestamp).toLocaleDateString()} for
                   {rideDetails.game ? ' game' : ' practice'} at {new Date(rideDetails.event_timestamp).toLocaleTimeString(`en-US`, options)}.
