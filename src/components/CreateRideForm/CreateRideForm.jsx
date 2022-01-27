@@ -284,22 +284,17 @@ function CreateRideForm(props) {
               onChange={(event) => setNewComment(event.target.value)}
             />
           </Grid>
-          <Grid item xs={12}>
-            <Box sx={{
-              display: "flex",
-              justifyContent: "center",
-              position: "absolute",
-              // bottom: "0", 
-              right: "2%"
-            }}>
+
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+            <Grid item>
               <Button variant="contained" name="createRide"
-                sx={{ fontWeight: 'bold', width: '20ch', m: 1 }}
+                sx={{ fontWeight: 'bold', width: '35ch', m: 1 }}
                 onClick={createRide}
               >
                 Create Ride
               </Button>
-            </Box>
-          </Grid>
+            </Grid>
+          </Box>
         </Grid>
         {/* </Box> */}
       </Container>

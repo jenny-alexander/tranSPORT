@@ -180,7 +180,7 @@ function UserProfileForm() {
             </Grid>
             <Grid item sx={12}>
               <Button variant="contained" fullWidth
-                sx={{ width: '30ch' }}
+                sx={{ width: '35ch' }}
                 onClick={handleUpdateProfile}>
                 Update Profile
               </Button>

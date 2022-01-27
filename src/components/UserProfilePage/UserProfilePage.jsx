@@ -25,7 +25,7 @@ function UserProfilePage() {
       <UserProfileForm />
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
         <Grid item>
-          <Button variant="outlined" sx={{ width: '30ch', mt: 2 }}
+          <Button variant="outlined" sx={{ width: '35ch', mt: 2 }}
             // onClick={() => { history.push('/login') }}>Back</Button>
             onClick={() => { history.goBack() }}>Back</Button>
         </Grid>

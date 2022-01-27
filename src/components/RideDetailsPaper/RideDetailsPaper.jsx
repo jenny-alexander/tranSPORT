@@ -27,35 +27,27 @@ function RideDetailsPaper(props) {
   const [returnTripText, setReturnTripText] = useState('');
   const [gameText, setGameText] = useState('');
   const [newComment, setNewComment] = useState('');
+  const [driver, setDriver] = useState('');
   const rideComments = useSelector(store => store.comment)
   const rideDetails = useSelector(store => store.rideDetails);
   const params = useParams();
   const user = useSelector(store => store.user);
-  let lastPageVisited = '';
   const dispatch = useDispatch();
   const history = useHistory();
-  const location = useLocation();
   const options = { hour: "2-digit", minute: "2-digit" };
-  let myStorage = window.sessionStorage;
-  let emailTemplateParams;
   const DRIVER_SIGNUP = 'signup';
   const WITHDRAW_DRIVER = 'withdraw';
-  // const DRIVER_NEEDED = 'Needs Driver!';
-  // const DRIVER_ASSIGNED = 'Assigned Driver'
 
   useEffect(() => {
-    //Setting session storage with ride id to be used when user signs up
-    //to be the driver or withdraws as the driver.
-    myStorage.setItem('ride_id', params.id)
     dispatch({
       type: 'FETCH_RIDE_BY_ID',
       payload: params.id
     })
     //Changing True/False values from DB to Yes/No
     rideDetails.return_trip ? setReturnTripText('return trip') : setReturnTripText('one way trip');
-    // rideDetails.game ? setGameText(' game') : setGameText(' practice');
     dispatch({ type: 'FETCH_RIDE_COMMENTS', payload: params.id });
-  }, [params.id]);
+
+  }, []);
 
   const sendEmailWithParams = (params) => {
     emailjs.send('service_p91n93t', 'template_coydgje', params, 'user_gfwvdLdSZBDHPQhbMw1bz')
@@ -69,7 +61,6 @@ function RideDetailsPaper(props) {
   {/* ---> BEGIN Logic related to driver signup*/ }
   const handleSignUp = () => {
     //Show modal dialogue to confirm sign up.
-    myStorage.removeItem('driver_name');
     setOpenSignupDialogue(true);
   }
   const dispatchDriverSignUp = () => {
@@ -82,6 +73,7 @@ function RideDetailsPaper(props) {
         driver_name: user.parent_name
       },
     })
+    setDriver(user.parent_name);
     //close the modal dialogue
     setOpenSignupDialogue(false);
 
@@ -89,22 +81,10 @@ function RideDetailsPaper(props) {
     setSnackbarMessage('Driver Signup Successful!')
     setSnackbarState(true);
 
-    //reload the page with updated driver
-    let ride_id = myStorage.getItem('ride_id');
-    console.log(`ride_id from storage is:`, ride_id);
-
     dispatch({
       type: 'FETCH_RIDE_BY_ID',
       payload: params.id
     })
-
-    //history.push(`/ride-details/${ride_id}`)
-
-    history.push(location.pathname);
-    //let driver_name = myStorage.getItem('driver_name');
-
-    // formatEmail(DRIVER_SIGNUP);
-    // sendEmailWithParams(emailTemplateParams);
   }
   const handleCloseSignupDialogue = () => {
     setOpenSignupDialogue(false);
@@ -122,6 +102,7 @@ function RideDetailsPaper(props) {
         rideID: rideDetails.id
       },
     })
+    setDriver('');
     //close the modal dialogue
     setOpenWithdrawDialogue(false);
     //now we have to show the snackbar for 2.5 seconds
@@ -132,17 +113,6 @@ function RideDetailsPaper(props) {
       type: 'FETCH_RIDE_BY_ID',
       payload: params.id
     })
-    //reload the page with updated driver
-    let ride_id = myStorage.getItem('ride_id');
-    console.log(`ride_id from storage is:`, ride_id);
-
-
-    history.push(location.pathname);
-    //history.push(`/ride-details/${ride_id}`)
-
-
-    // formatEmail(WITHDRAW_DRIVER);
-    // sendEmailWithParams(emailTemplateParams);
 
   }
   const formatEmail = (type) => {
@@ -202,7 +172,6 @@ function RideDetailsPaper(props) {
     setOpenComments(true);
   }
   const handleSaveComments = () => {
-    //do stuff with comments
     dispatch({
       type: 'CREATE_RIDE_COMMENT', payload: {
         rideID: rideDetails.id,
@@ -399,8 +368,7 @@ function RideDetailsPaper(props) {
             <CardContent >
               <Box sx={{ my: 2 }}>
                 <Typography variant="h6">
-                  {rideDetails.driver ? `Driver is ${rideDetails.driver}` : 'Driver needed!'}
-                  {/* {handleDriver} */}
+                  {driver ? `Driver is ${driver}` : 'Driver needed!'}
                 </Typography>
               </Box>
               <Divider />

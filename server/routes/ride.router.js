@@ -23,8 +23,7 @@ router.get('/view/my-rides/:id', (req, res) => {
 router.get('/', (req, res) => {
   const getAllQuery = `SELECT r.*, u.parent_name as driver FROM ride as r
                        LEFT JOIN "user" as u 
-                       ON u.id = r.driver_id
-                       WHERE r.event_timestamp >= CURRENT_DATE - 1
+                       ON u.id = r.driver_id                       
                        ORDER BY event_timestamp ASC`;
   pool.query(getAllQuery)
     .then((results) => {

@@ -29,21 +29,14 @@ function CreateRidePage(props) {
       </Grid>
       <Container>
         <CreateRideForm />
-
-        <Grid item xs={12}>
-          <Box sx={{
-            display: "flex",
-            justifyContent: "center",
-            position: "absolute",
-            // bottom: "0", 
-            left: "2%"
-          }}>
-            <Button variant="outlined" sx={{ fontWeight: 'bold', width: '20ch', m: 1 }}
-              onClick={() => { history.push('/home') }}>
-              Back
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+          <Grid item>
+            <Button variant="outlined" sx={{ width: '35ch', mt: 1 }}
+              // onClick={() => { history.push('/login') }}>Back</Button>
+              onClick={() => { history.push('/home') }}>Back
             </Button>
-          </Box>
-        </Grid>
+          </Grid>
+        </Box>
       </Container>
     </div >
   );

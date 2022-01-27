@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Button from '@mui/material/Button';
@@ -11,7 +11,6 @@ import RideDetailsPaper from '../RideDetailsPaper/RideDetailsPaper';
 function RideDetailsPage(props) {
   const user = useSelector(store => store.user);
   const rides = useSelector(store => store.rides);
-  let ride;
   const dispatch = useDispatch();
   const history = useHistory();
   let myStorage = window.sessionStorage;
@@ -38,23 +37,14 @@ function RideDetailsPage(props) {
       <Container>
         <RideDetailsPaper />
       </Container>
-      <Grid item xs={12}>
-        <Box sx={{
-          display: "flex",
-          justifyContent: "left",
-          position: "absolute",
-          bottom: "0",
-          left: "4%"
-        }}>
-          <Button variant="outlined" sx={{ width: '20ch', m: 1 }}
-            // onClick={() => { history.push('/view/allrides') }}>
-            // onClick={() => { history.goBack() }}>
-            onClick={() => { history.push(lastPageVisited) }}>
-
-            Back
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+        <Grid item>
+          <Button variant="outlined" sx={{ width: '40ch', mt: 1 }}
+            // onClick={() => { history.push('/login') }}>Back</Button>
+            onClick={() => { history.push(lastPageVisited) }}>Back To List
           </Button>
-        </Box>
-      </Grid>
+        </Grid>
+      </Box>
     </div >
   );
 }
