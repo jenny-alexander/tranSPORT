@@ -39,8 +39,7 @@ function RideDetailsPage(props) {
       </Container>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
         <Grid item>
-          <Button variant="outlined" sx={{ width: '40ch', mt: 1 }}
-            // onClick={() => { history.push('/login') }}>Back</Button>
+          <Button variant="contained" sx={{ fontWeight: 'bold', width: '40ch', mt: 1 }}
             onClick={() => { history.push(lastPageVisited) }}>Back To List
           </Button>
         </Grid>

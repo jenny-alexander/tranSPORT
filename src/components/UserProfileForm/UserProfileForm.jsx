@@ -99,6 +99,7 @@ function UserProfileForm() {
         onClose={handleCloseSignupSnackbar}
         message="Update Successful!"
         action={showSignupSnackbar}
+        anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
       />
       {/* Dialog for updating profile */}
       <Dialog

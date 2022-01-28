@@ -116,6 +116,7 @@ function RegisterForm() {
         onClose={handleCloseSnackbar}
         message={snackbarMessage}
         action={showSnackbar}
+        anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
       />
       {/* Dialogue for driver signup  */}
       <Dialog

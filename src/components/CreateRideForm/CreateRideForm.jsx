@@ -129,6 +129,7 @@ function CreateRideForm(props) {
         onClose={handleCloseSnackbar}
         message="Ride Successfully Created!"
         action={showSnackbar}
+        anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
       />
       <Dialog open={open}>
         <DialogTitle>
