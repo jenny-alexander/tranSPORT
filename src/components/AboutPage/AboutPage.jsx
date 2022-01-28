@@ -46,11 +46,6 @@ function AboutPage() {
           </li>
         </ul>
       </div>
-      <h3 className="thank-you-header">Thank You:</h3>
-      <ul>
-        <li>Ionian cohort members and Dev</li>
-        <li>Husband and kids</li>
-      </ul>
     </div>
 
 

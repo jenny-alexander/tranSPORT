@@ -252,19 +252,16 @@ function RideDetailsPaper(props) {
   }
 
   function Driver(props) {
-    console.log(`driver from component is:`, driver);
-    console.log(`driver from rideDetails is:`, rideDetails.driver);
     let driverText = `Driver Needed!`;
+    const ASSIGNED_DRIVER = `Assigned Driver is: `;
     if (rideDetails.driver !== null) {
-      console.log(`in 2nd if`)
       setDriver(rideDetails.driver)
-      driverText = `Assigned Driver is: ${driver}`;
+      driverText = ASSIGNED_DRIVER + driver;
     } else {
       if (typeof driver != "undefined") {
-        driverText = `Assigned Driver is: ${driver}`;
+        driverText = ASSIGNED_DRIVER + driver;
       }
     }
-
     return (
       <h4>{driverText}</h4>
     )
@@ -278,6 +275,7 @@ function RideDetailsPaper(props) {
         onClose={handleCloseSnackbar}
         message={snackbarMessage}
         action={showSnackbar}
+        anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
       />
       {/* Dialog for adding comments */}
       <Dialog open={openComments} onClose={handleCloseComments}>
@@ -426,7 +424,7 @@ function RideDetailsPaper(props) {
                 }
                 {showSignupToDriveBtn() ?
                   <Button variant="contained" size="small"
-                    sx={{ fontWeight: 'bold' }}
+                    sx={{ fontWeight: 'bold', justifyContent: 'right', alignItems: 'right' }}
                     onClick={handleSignUp}>Sign Up to Drive</Button>
                   :
                   ''

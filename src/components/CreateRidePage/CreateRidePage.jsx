@@ -33,7 +33,7 @@ function CreateRidePage(props) {
           <Grid item>
             <Button variant="outlined" sx={{ width: '35ch', mt: 1 }}
               // onClick={() => { history.push('/login') }}>Back</Button>
-              onClick={() => { history.push('/home') }}>Back
+              onClick={() => { history.push('/home') }}>Cancel
             </Button>
           </Grid>
         </Box>
