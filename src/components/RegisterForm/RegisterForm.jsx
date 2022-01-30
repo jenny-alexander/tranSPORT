@@ -163,7 +163,6 @@ function RegisterForm() {
                 required
                 value={username}
                 onChange={(event) => setUsername(event.target.value)}
-                onClick={setDefaultValues}
               />
             </Grid>
             <Grid item sx={12}>
