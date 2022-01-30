@@ -1,7 +1,6 @@
 # *tran*SPORT
 
-<img src="./public/images/logo_original.png" align="right"
-     alt="tranSPORT logo by Jennifer Alexander" width="125" height="125">
+## Run application from here -->> (<https://calm-fjord-73093.herokuapp.com>)
 
 ## Description
 
@@ -18,10 +17,6 @@ As a project goal, the fullstack application should demonstrate the CRUD princip
 *All of the CRUD actions take place against a PostgreSQL database.*
 
 **UI:** The application was styled using Material UI components.
-
-## *tran*SPORT application demo
-
-(See below in 'how-to' instructions)
 
 ## Installation
 
