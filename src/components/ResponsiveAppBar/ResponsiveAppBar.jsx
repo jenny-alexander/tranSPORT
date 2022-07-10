@@ -49,14 +49,15 @@ const ResponsiveAppBar = () => {
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: 'flex' }}>
             <IconButton
-              size="large"
+              // size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
 
             >
-              <MenuIcon />
+              <MenuIcon
+                sx={{ fontSize: 30 }} />
             </IconButton>
             <Menu
               id="menu-appbar"
